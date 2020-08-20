@@ -31,7 +31,33 @@ export class Language_Selector {
     #Current_Lang;
     #Language_Files = [];
 
-    Lang_CURRENT_SET = (New_Lang) => this.Current_Lang = New_Lang;
+    Lang_CURRENT_SET = (New_Lang) => {
+        New_Lang = GL.IsNull(New_Lang, "").trim();
+        New_Lang = (New_Lang == '') ? this.Lang_DEFAULT_GET() : New_Lang;
+
+        if (!this.Lang_IsSupported(New_Lang)) {
+            console.error(`Language not supported. (Language: ${New_Lang})`)
+            return;
+        }
+        this.Current_Lang = New_Lang;
+        if (this.FPc_Language_Selector) {
+            this.FPc_Language_Selector.value = this.Current_Lang;
+        }
+
+
+        for (let c of this.Language_Files) {
+            if (c["Data"]["element-group"]["header"]["type"] == "form-items") {
+                let Items = c["Data"]["element-group"]["items"];
+                for (let k of Object.keys(Items)) {
+                    let Doc_Item = document.getElementById(k)
+                    let Translation = Items[k][this.Current_Lang];
+                    if (Doc_Item && Translation) {
+                        Doc_Item.innerHTML = Translation;
+                    }
+                }
+            }
+        }
+    }
 
     Lang_CURRENT_GET = () => this.Current_Lang;
 
@@ -91,6 +117,7 @@ export class Language_Selector {
         }
     }
 
+
     constructor(CP_App, Params) {
         /*
         Params felepitese:
@@ -126,7 +153,7 @@ export class Language_Selector {
                 for (let i = 0; i < this.Language_Files.length; i++) {
                     this.Language_Files[i].Data = jsonData[i]
                 }
-                console.log("+++ A003", this.Language_Files)
+                this.Lang_CURRENT_SET(this.Current_Lang);
             })
             .catch(err => { console.error(err) })
 
