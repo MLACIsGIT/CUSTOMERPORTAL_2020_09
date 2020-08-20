@@ -1,0 +1,22 @@
+{
+    "element-group":  {
+        "header": {
+            "type": "elements",
+            "last-modified": "2020-08-19"
+        },
+
+        "items": {
+            "Yes": {
+                "hu": "Igen",
+                "de": "Ja",
+                "en": "Yes"
+            },
+
+            "No": {
+                "hu": "Nem",
+                "de": "Nein",
+                "en": "No"
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+{
+    "element-group": {
+        "header": {
+            "type": "form-items",
+            "last-modified": "2020-08-19"
+        },
+
+        "items": {
+            "Header_Title": {
+                "hu": "ÜGYFÉLKAPU",
+                "de": "CUSTOMER PORTAL",
+                "en": "CUSTOMER PORTAL"
+            },
+            "Greeting_header": {
+                "hu": "Üdvözöljük!",
+                "de": "Herzlich wilkommen!",
+                "en": "Welcome!"
+            },
+            "Greeting_p_01": {
+                "type": "Form_Element",
+                "hu": "Ezen az oldalon információkat kaphat számláiról, raktári készleteiről és fuvarmegbízásai állapotáról.",
+                "de": "Auf dieser Website erhalten Sie Informationen zu Ihren Rechnungen, Lagerbeständen und dem Status Ihrer Frachtaufträge.",
+                "en": "On this website you can get information about your invoices, stock levels and the status of your freight orders."
+            },
+            "Greeting_p_02": {
+                "type": "Form_Element",
+                "hu": "Ha még nincs belépőkódja, kattintson ide: ",
+                "de": "Wenn Sie noch kein Login haben, klicken Sie hier:",
+                "en": "If you don't have a login yet, click here:"
+            },
+            "Greeting_p_03": {
+                "type": "Form_Element",
+                "hu": "Útmutató letöltéséhez (pdf), kattintson ide: ",
+                "de": "Klicken Sie hier, um die Kurzanlaitung (pdf) herunterzuladen:",
+                "en": "To download the user manual (pdf), click here:"
+            },
+            "FPc_Email": {
+                "type": "Form_Element",
+                "hu": "Az ön e-mail címe:",
+                "de": "Ihre E-Mail-Adresse:",
+                "en": "Your email adress:"
+            },
+            "FPc_Password": {
+                "type": "Form_Element",
+                "hu": "Jelszó:",
+                "de": "Passwort:",
+                "en": "Password"
+            },
+            "FPc_Password_forgotten": {
+                "type": "Form_Element",
+                "hu": "Ha elfelejtette a jelszavát, kattintson ide.",
+                "de": "Wenn Sie Ihr Passwort vergessen haben, klicken Sie hier.",
+                "en": "If you have forgotten your password, click here."
+            },
+            "FPc_Chk_SavePassword": {
+                "type": "Form_Element",
+                "hu": "Jegyezze meg a belépési adatokat",
+                "de": "Login Angaben abspeichern",
+                "en": "Save login and password"
+            },
+            "FPc_btn_SUBMIT": {
+                "type": "Form_Element",
+                "hu": "Belépés",
+                "de": "Login",
+                "en": "Login"
+            }
+        }
+    }
+}
