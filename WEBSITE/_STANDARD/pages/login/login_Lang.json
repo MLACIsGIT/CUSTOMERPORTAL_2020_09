@@ -1,61 +1,75 @@
 {
-    "element-group": {
-        "header": {
-            "type": "form-items",
-            "last-modified": "2020-08-19"
+    "header": {
+        "Description": "Language settings for page login",
+        "last-modified": "2020-08-19"
+    },
+
+    "form-items": {
+        "Header_Title": {
+            "hu": "ÜGYFÉLKAPU",
+            "de": "CUSTOMER PORTAL",
+            "en": "CUSTOMER PORTAL"
+        },
+        "Greeting_header": {
+            "hu": "Üdvözöljük!",
+            "de": "Herzlich wilkommen!",
+            "en": "Welcome!"
+        },
+        "Greeting_p_01": {
+            "hu": "Ezen az oldalon információkat kaphat számláiról, raktári készleteiről és fuvarmegbízásai állapotáról.",
+            "de": "Auf dieser Website erhalten Sie Informationen zu Ihren Rechnungen, Lagerbeständen und dem Status Ihrer Frachtaufträge.",
+            "en": "On this website you can get information about your invoices, stock levels and the status of your freight orders."
+        },
+        "Greeting_p_02": {
+            "hu": "Ha még nincs belépőkódja, kattintson ide:  ",
+            "de": "Wenn Sie noch kein Login haben, klicken Sie hier:  ",
+            "en": "If you don't have a login yet, click here:  "
+        },
+        "Greeting_p_03": {
+            "hu": "Útmutató letöltéséhez (pdf), kattintson ide:  ",
+            "de": "Klicken Sie hier, um die Kurzanlaitung (pdf) herunterzuladen:  ",
+            "en": "To download the user manual (pdf), click here:  "
+        },
+        "FPc_Email_Label": {
+            "hu": "Az ön e-mail címe:",
+            "de": "Ihre E-Mail-Adresse:",
+            "en": "Your email adress:"
+        },
+        "FPc_Password_Label": {
+            "hu": "Jelszó:",
+            "de": "Passwort:",
+            "en": "Password"
+        },
+        "FPc_Password_forgotten": {
+            "hu": "Ha elfelejtette a jelszavát, kattintson ide.",
+            "de": "Wenn Sie Ihr Passwort vergessen haben, klicken Sie hier.",
+            "en": "If you have forgotten your password, click here."
+        },
+        "FPc_Chk_SavePassword_Label": {
+            "hu": "Jegyezze meg a belépési adatokat",
+            "de": "Login Angaben abspeichern",
+            "en": "Save login and password"
+        },
+        "FPc_btn_SUBMIT": {
+            "hu": "Belépés",
+            "de": "Login",
+            "en": "Login"
+        }
+    },
+
+    "text-elements": {},
+    
+    "dialogs": {
+        "Credential_data_missing_email_or_password": {
+            "hu": "Adja meg e-mail címét és jelszavát!",
+            "de": "Geben Sie Ihre E-Mail-Adresse und Ihr Passwort ein.",
+            "en": "Enter your email address and password."
         },
 
-        "items": {
-            "Header_Title": {
-                "hu": "ÜGYFÉLKAPU",
-                "de": "CUSTOMER PORTAL",
-                "en": "CUSTOMER PORTAL"
-            },
-            "Greeting_header": {
-                "hu": "Üdvözöljük!",
-                "de": "Herzlich wilkommen!",
-                "en": "Welcome!"
-            },
-            "Greeting_p_01": {
-                "hu": "Ezen az oldalon információkat kaphat számláiról, raktári készleteiről és fuvarmegbízásai állapotáról.",
-                "de": "Auf dieser Website erhalten Sie Informationen zu Ihren Rechnungen, Lagerbeständen und dem Status Ihrer Frachtaufträge.",
-                "en": "On this website you can get information about your invoices, stock levels and the status of your freight orders."
-            },
-            "Greeting_p_02": {
-                "hu": "Ha még nincs belépőkódja, kattintson ide: ",
-                "de": "Wenn Sie noch kein Login haben, klicken Sie hier:",
-                "en": "If you don't have a login yet, click here:"
-            },
-            "Greeting_p_03": {
-                "hu": "Útmutató letöltéséhez (pdf), kattintson ide: ",
-                "de": "Klicken Sie hier, um die Kurzanlaitung (pdf) herunterzuladen:",
-                "en": "To download the user manual (pdf), click here:"
-            },
-            "FPc_Email_Label": {
-                "hu": "Az ön e-mail címe:",
-                "de": "Ihre E-Mail-Adresse:",
-                "en": "Your email adress:"
-            },
-            "FPc_Password_Label": {
-                "hu": "Jelszó:",
-                "de": "Passwort:",
-                "en": "Password"
-            },
-            "FPc_Password_forgotten": {
-                "hu": "Ha elfelejtette a jelszavát, kattintson ide.",
-                "de": "Wenn Sie Ihr Passwort vergessen haben, klicken Sie hier.",
-                "en": "If you have forgotten your password, click here."
-            },
-            "FPc_Chk_SavePassword_Label": {
-                "hu": "Jegyezze meg a belépési adatokat",
-                "de": "Login Angaben abspeichern",
-                "en": "Save login and password"
-            },
-            "FPc_btn_SUBMIT": {
-                "hu": "Belépés",
-                "de": "Login",
-                "en": "Login"
-            }
+        "Credential_data_Incorrect": {
+            "hu": "Hibás bejelentkezési adatok.",
+            "de": "Falsche angaben.",
+            "en": "Incorrect login data."
         }
     }
 }

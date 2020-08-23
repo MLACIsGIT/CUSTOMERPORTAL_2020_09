@@ -1,3 +1,5 @@
+export function version() {return 'v001.01.01';}
+
 export function Settings_GET() {
     let OUT = '';
     let Settings_url = `${location.protocol}//${location.host}/_EASYSETUP/settings.json`;
@@ -52,21 +54,21 @@ export function COOKIES_GET () {
     return OUT;
 }
 
-export function COOKIES_ADD ( key, value ) {
-    key = IsNull(key, '').trim;
-    value = IsNull(value, '').trim;
+export function COOKIES_SET ( key, value ) {
+    key = IsNull(key, '').trim();
+    value = IsNull(value, '').trim();
 
     if (key == '') {
         return
     }
 
-    document.cookie = `${key}=${value}; expires=` + new Date(9999, 0, 1).toUTCString;
+    document.cookie = `${key}=${value}; expires=` + new Date(2050, 0, 1).toUTCString();
 }
 
 export function COOKIES_REMOVE ( key ) {
     key = IsNull(key, '').trim;
 
     if (key > '') {
-        document.cookie = `${key}=${value}; expires=` + new Date(2001, 0, 1).toUTCString;
+        document.cookie = `${key}=${value}; expires=` + new Date(2001, 0, 1).toUTCString();
     }
 }

@@ -1,25 +1,156 @@
 import * as GL from '../../_base/js/GL.js';
 
 export class CP_App {
+    #DebugMode;
     #Settings;
     #Session;
+    #Credential_data = {
+        login: null,
+        Session: null
+    };
     Lang_Selector;
+    GATEWAY;
+
+    Settings_GET = () => { return this.Settings }
+    Text_GET = (type, textcode) => {
+        let OUT = this.Lang_Selector.Text_GET(type, textcode);
+        return OUT;
+    }
+
+    IsDEBUG = () => { return DebugMode; }
 
     constructor(Params) {
+        //Settings
         this.Settings = JSON.parse(sessionStorage.getItem('CP_SETTINGS'));
-        console.log(this.Settings)
+        console.log('SETTINGS: ', this.Settings)
 
+        //DebugMode
+        this.DebugMode = (this.Settings["DEBUG"] && document.location.origin.indexOf("127.0.0.1") > 0) ? true : false;
+        console.log("DebugMode: ", this.DebugMode);
+
+        //Lang_Selector
         let Lang_Selector_Params = {
             "Language_Selector_ID": GL.IsNull(Params["Language_Selector_ID"], ""),
             "Language_Files": GL.IsNull(Params["Language_Files"])
         }
         this.Lang_Selector = new Language_Selector(this, Lang_Selector_Params);
 
+        //GATEWAY
+        this.GATEWAY = new GATEWAY(this)
     }
-
-    Settings_GET = () => { return this.Settings }
 }
 
+//-------------------------------------------------------------------------------------------------
+// GATEWAY
+//-------------------------------------------------------------------------------------------------
+export class GATEWAY {
+    #CP_App;
+    #GATEWAY_Http;
+
+    constructor(CP_App) {
+        this.CP_App = CP_App;
+
+        //GATEWAY_Http
+        this.GATEWAY_Http = (this.CP_App.Settings_GET())["Database_Gateway"][(this.CP_App.IsDEBUG) ? 1 : 0];
+        console.log("GATEWAY_Http: ", this.GATEWAY_Http)
+    }
+
+    _POST = (request_for_post, callback) => {
+        let fetch_Params = {
+            'method': 'POST',
+            'mode': 'cors',
+            'cache': 'no-cache',
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            'body': JSON.stringify(request_for_post)
+        }
+
+        fetch(this.GATEWAY_Http, fetch_Params)
+            .then(data => {
+                return data.json()
+            })
+            .then(jsonData => {
+                callback(jsonData);
+            })
+            .catch(err => {
+                console.error(err)
+            })
+    }
+
+    _Request_for_post_GET = (Func, Func_Params) => {
+        return {
+            "header": {
+                CP_version: GL.version(),
+                Portal_owner_id: (this.CP_App.Settings_GET()).Portal_owner_id,
+                request_id: "#",           //<egyedi azonosito adhato meg, amely alapjan kesobb lekerdezheto a kommunikacio. Ha "#", akkor automatikusan generalodik es visszajon a Result-ban>
+                function: Func
+            },
+
+            "body": Func_Params
+        }
+    }
+
+    WAT_INTERFACE_SESSION_GET_NEW = (login, callback) => {
+        /*
+        Result: "header": {
+                            version: ,
+                            request_id: ,
+                            result: <"OK" || dialogs.code>,
+                },
+                "body": {
+                            Session_ID: <Session_ID encrypted>
+                }
+        */
+
+        let Request = this._Request_for_post_GET('WAT_INTERFACE_SESSION_GET_NEW',
+            {
+                "login": login
+            })
+        this._POST(Request, callback)
+    }
+
+    SHA512_encrypt = (Plain_Text, callback) => {
+        /*
+        Result: "header": {
+                            version: ,
+                            request_id: ,
+                            result: <"OK" || dialogs.code>,
+                },
+                "body": {
+                            Encrypted_Text:
+                }
+        */
+
+       let Request = this._Request_for_post_GET('SHA512_encrypt',
+       {
+           "Text": Plain_Text
+       })
+
+       this._POST(Request, callback)
+    }
+
+    AES_decrypt = (Encrypted_Text, Key, callback) => {
+        /*
+        Result: "header": {
+                            version: ,
+                            request_id: ,
+                            result: <"OK" || dialogs.code>,
+                },
+                "body": {
+                            Encrypted_Text:
+                }
+        */
+
+       let Request = this._Request_for_post_GET('AES_decrypt',
+       {
+           "Encrypted_Text": Encrypted_Text,
+           "Key": Key
+       })
+
+       this._POST(Request, callback)
+    }
+}
 
 //-------------------------------------------------------------------------------------------------
 // Language_Selector
@@ -34,20 +165,19 @@ export class Language_Selector {
     Lang_CURRENT_SET = (New_Lang) => {
         New_Lang = GL.IsNull(New_Lang, "").trim();
         New_Lang = (New_Lang == '') ? this.Lang_DEFAULT_GET() : New_Lang;
-
         if (!this.Lang_IsSupported(New_Lang)) {
             console.error(`Language not supported. (Language: ${New_Lang})`)
             return;
         }
         this.Current_Lang = New_Lang;
+
         if (this.FPc_Language_Selector) {
             this.FPc_Language_Selector.value = this.Current_Lang;
         }
 
-
         for (let c of this.Language_Files) {
-            if (c["Data"]["element-group"]["header"]["type"] == "form-items") {
-                let Items = c["Data"]["element-group"]["items"];
+            let Items = c["Data"]["form-items"];
+            if (Items != null) {
                 for (let k of Object.keys(Items)) {
                     let Doc_Item = document.getElementById(k)
                     let Translation = Items[k][this.Current_Lang];
@@ -57,6 +187,22 @@ export class Language_Selector {
                 }
             }
         }
+
+        GL.COOKIES_SET("Lang", New_Lang);
+    }
+
+    Text_GET = (type, textcode) => {
+        let OUT = '';
+
+        for (let c of this.Language_Files) {
+            let textelement = c["Data"][type][textcode];
+            if (textelement != null) {
+                OUT = GL.IsNull(GL.IsNull(textelement[this.Current_Lang], textelement['en']), '')
+                return OUT;
+            }
+        }
+
+        return '';
     }
 
     Lang_CURRENT_GET = () => this.Current_Lang;
@@ -73,7 +219,8 @@ export class Language_Selector {
         // from browser language
         if (OUT == '') {
             OUT = GL.IsNull(navigator.language || navigator.userLanguage).trim();
-            OUT = (this.Lang_IsSupported(OUT) ? OUT : '')
+            if (!this.Lang_IsSupported(OUT)) { OUT = OUT.substring(0, 2); }
+            OUT = (this.Lang_IsSupported(OUT) ? OUT : '');
         }
 
         // Settings.default_language
@@ -102,6 +249,10 @@ export class Language_Selector {
         }
     }
 
+    _FPc_Language_Selector_onchange = () => {
+        this.Lang_CURRENT_SET(this.FPc_Language_Selector.value)
+    }
+
     _Language_Selector_INIT = () => {
         if (this.FPc_Language_Selector) {
             this.FPc_Language_Selector.innerHTML = '';
@@ -114,6 +265,8 @@ export class Language_Selector {
                 this.FPc_Language_Selector.appendChild(c);
             }
             this.FPc_Language_Selector.value = this.Current_Lang;
+
+            this.FPc_Language_Selector.onchange = this._FPc_Language_Selector_onchange
         }
     }
 
@@ -149,7 +302,6 @@ export class Language_Selector {
         Promise.all(Promise_All_FileLoads)
             .then(files => { return Promise.all(files.map(file => file.json())); })
             .then(jsonData => {
-                console.log(jsonData)
                 for (let i = 0; i < this.Language_Files.length; i++) {
                     this.Language_Files[i].Data = jsonData[i]
                 }
