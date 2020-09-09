@@ -5,6 +5,11 @@
     },
 
     "form-items": {
+        "Page_Title": {
+            "hu": "ÜGYFÉLKAPU - Belépés",
+            "de": "CUSTOMER PORTAL - Login",
+            "en": "CUSTOMER PORTAL - Login"
+        },
         "Header_Title": {
             "hu": "ÜGYFÉLKAPU",
             "de": "CUSTOMER PORTAL",

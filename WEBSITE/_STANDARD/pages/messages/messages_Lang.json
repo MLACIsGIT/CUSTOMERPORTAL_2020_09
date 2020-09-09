@@ -1,0 +1,23 @@
+{
+    "header": {
+        "Description": "Language settings for page login",
+        "last-modified": "2020-08-19"
+    },
+
+    "form-items": {
+        "Page_Title": {
+            "hu": "ÜGYFÉLKAPU - Hírek, üzenetek",
+            "de": "CUSTOMER PORTAL - Infos und Meldungen",
+            "en": "CUSTOMER PORTAL - News, messages"
+        },
+        "Header_Title": {
+            "hu": "HÍREK, ÜZENETEK",
+            "de": "INFOS UND MELDUNGEN",
+            "en": "NEWS AND MESSAGES"
+        }
+    },
+
+    "text-elements": {},
+
+    "dialogs": {}
+}

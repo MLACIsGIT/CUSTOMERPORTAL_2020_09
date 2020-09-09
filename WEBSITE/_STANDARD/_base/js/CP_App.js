@@ -10,6 +10,9 @@ export class CP_App {
     };
     Lang_Selector;
     GATEWAY;
+    PROCESS_HANDLER;
+
+    Host_Location_url = () => `${location.protocol}//${location.host}`;
 
     Settings_GET = () => { return this.Settings }
     Text_GET = (type, textcode) => {
@@ -37,6 +40,48 @@ export class CP_App {
 
         //GATEWAY
         this.GATEWAY = new GATEWAY(this)
+
+        //PROCESS_HANDLER
+        this.PROCESS_HANDLER = new PROCESS_HANDLER(this);
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+// PROCESS_HANDLER
+//-------------------------------------------------------------------------------------------------
+class PROCESS_HANDLER {
+    #CP_App;
+    #Stack;
+
+    _SAVE_STACK = () => sessionStorage.setItem('Stack', Stack);
+    _SAVE_CurrentPage_Params = (CurrentPage_Params) => { sessionStorage.setItem('CurrentPage_Params', CurrentPage_Params) }
+
+    GOTO_Page = (NextPage_id, Params) => {
+        let NextPage_url = `${ this.CP_App.Host_Location_url()}/${this.CP_App.Settings_GET()["page_map"][NextPage_id]}`
+        this._SAVE_CurrentPage_Params(Params);
+
+        window.location.href = NextPage_url;
+    }
+
+    CALL_Page = (ThisPage_id, ThisPage_Params, NextPage_id, NextPage_Params) => {
+        this.Stack.push({ "Page_id": ThisPage_id, "Params": ThisPage_Params })
+        this._SAVE_STACK()
+        this.GOTO_Page(NextPage_id, NextPage_Params)
+    }
+
+    RETURN_to_PreviousPage(Default_Page_id, Default_Page_Params) {
+        if (this.Stack.length == 0) {
+             this.GOTO_Page( Default_Page_id, Default_Page_Params )
+             return;
+            }
+        let { PrevPage_id, PrevPage_Params } = Stack.Pull();
+        this._SAVE_STACK();
+        this.GOTO_Page(PrevPage_id, PrevPage_Params)
+    }
+
+    constructor(CP_App) {
+        this.CP_App = CP_App;
+        this.Stack = GL.IsNull(JSON.parse(sessionStorage.getItem('Stack')), []);
     }
 }
 
@@ -99,56 +144,29 @@ export class GATEWAY {
                             result: <"OK" || dialogs.code>,
                 },
                 "body": {
-                            Session_ID: <Session_ID encrypted>
+                         "Session_ID": DB_Results.output.OUT_WAT_Session_ID,
+                         "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
                 }
         */
 
         let Request = this._Request_for_post_GET('WAT_INTERFACE_SESSION_GET_NEW',
             {
-                "login": login
+                "Login": login
             })
         this._POST(Request, callback)
     }
 
-    SHA512_encrypt = (Plain_Text, callback) => {
-        /*
-        Result: "header": {
-                            version: ,
-                            request_id: ,
-                            result: <"OK" || dialogs.code>,
-                },
-                "body": {
-                            Encrypted_Text:
-                }
-        */
-
-       let Request = this._Request_for_post_GET('SHA512_encrypt',
-       {
-           "Text": Plain_Text
-       })
-
-       this._POST(Request, callback)
-    }
-
-    AES_decrypt = (Encrypted_Text, Key, callback) => {
-        /*
-        Result: "header": {
-                            version: ,
-                            request_id: ,
-                            result: <"OK" || dialogs.code>,
-                },
-                "body": {
-                            Encrypted_Text:
-                }
-        */
-
-       let Request = this._Request_for_post_GET('AES_decrypt',
-       {
-           "Encrypted_Text": Encrypted_Text,
-           "Key": Key
-       })
-
-       this._POST(Request, callback)
+    WAT_INTERFACE_SESSION_ENABLE = (Login, Session_ID, Code_And_Pass_hash, callback) => {
+        let Request = this._Request_for_post_GET("WAT_INTERFACE_SESSION_ENABLE",
+            {
+                "Login": Login,
+                "Session_ID": Session_ID,
+                "Code_And_Pass_hash": Code_And_Pass_hash
+            })
+        this._POST(Request, callback)
     }
 }
 
@@ -182,7 +200,7 @@ export class Language_Selector {
                     let Doc_Item = document.getElementById(k)
                     let Translation = Items[k][this.Current_Lang];
                     if (Doc_Item && Translation) {
-                        Doc_Item.innerHTML = Translation;
+                        Doc_Item.innerText = Translation;
                     }
                 }
             }
@@ -255,13 +273,13 @@ export class Language_Selector {
 
     _Language_Selector_INIT = () => {
         if (this.FPc_Language_Selector) {
-            this.FPc_Language_Selector.innerHTML = '';
+            this.FPc_Language_Selector.innerText = '';
             let supported_languages = (this.CP_App.Settings_GET()).supported_languages;
             for (let i = 0; i < supported_languages.length; i++) {
                 let c_Lang = supported_languages[i];
                 let c = document.createElement("option");
                 c.value = c_Lang;
-                c.innerHTML = c_Lang;
+                c.innerText = c_Lang;
                 this.FPc_Language_Selector.appendChild(c);
             }
             this.FPc_Language_Selector.value = this.Current_Lang;

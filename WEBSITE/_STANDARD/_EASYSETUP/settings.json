@@ -8,12 +8,13 @@
     "Portal_owner_id":  1038482,
 
     "page_map":     {
-        "login":    "/pages/login/login.html"
+        "login":    "/pages/login/login.html",
+        "messages": "/pages/messages/messages.html"
     },
 
     "supported_languages":  ["hu", "en", "de"],
 
-    "default_language": "hu",
+    "default_language": "gb",
 
     "base_language_files": ["${origin}/_base/js/GL_Lang.json"]
 }

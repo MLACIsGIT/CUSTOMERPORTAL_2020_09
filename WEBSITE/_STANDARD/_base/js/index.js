@@ -18,7 +18,7 @@ p_CP_SETTINGS_GET
     window.location.href = page_login_url;
 })
 .catch( function (message) {
-    document.body.innerHTML=`${Settings_url} not found. Error message: ${message}`;
+    document.body.innerText=`${Settings_url} not found. Error message: ${message}`;
     console.error(`${Settings_url} not found. Error message: ${message}`)
 });
 

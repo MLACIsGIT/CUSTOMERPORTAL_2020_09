@@ -7,7 +7,6 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "crypto-js": "^4.0.0",
     "mssql": "^6.2.1"
   },
   "devDependencies": {}

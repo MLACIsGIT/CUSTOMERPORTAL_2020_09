@@ -1,4 +1,4 @@
-export function version() {return 'v001.01.01';}
+export function version() { return 'v001.01.01'; }
 
 export function Settings_GET() {
     let OUT = '';
@@ -15,7 +15,7 @@ export function Settings_GET() {
     return OUT;
 }
 
-export function IsNull (MyText, ValueWhenNull = "") {
+export function IsNull(MyText, ValueWhenNull = "") {
     if (MyText === null || MyText === undefined) {
         return ValueWhenNull;
     }
@@ -23,11 +23,11 @@ export function IsNull (MyText, ValueWhenNull = "") {
     return MyText;
 }
 
-export function REPLACE_ALL (str, toFind, ReplaceWith) {
+export function REPLACE_ALL(str, toFind, ReplaceWith) {
     return str.split(toFind).join(ReplaceWith);
 }
 
-export function REPLACE_Params_In_FileNames (FileName) {
+export function REPLACE_Params_In_FileNames(FileName) {
     let OUT = FileName;
 
     OUT = REPLACE_ALL(OUT, "${origin}", document.location.origin);
@@ -35,7 +35,7 @@ export function REPLACE_Params_In_FileNames (FileName) {
     return OUT;
 }
 
-export function COOKIES_GET () {
+export function COOKIES_GET() {
     let OUT = IsNull(document.cookie, '');
 
     if (OUT == '') {
@@ -54,7 +54,7 @@ export function COOKIES_GET () {
     return OUT;
 }
 
-export function COOKIES_SET ( key, value ) {
+export function COOKIES_SET(key, value) {
     key = IsNull(key, '').trim();
     value = IsNull(value, '').trim();
 
@@ -65,10 +65,16 @@ export function COOKIES_SET ( key, value ) {
     document.cookie = `${key}=${value}; expires=` + new Date(2050, 0, 1).toUTCString();
 }
 
-export function COOKIES_REMOVE ( key ) {
+export function COOKIES_REMOVE(key) {
     key = IsNull(key, '').trim;
 
     if (key > '') {
         document.cookie = `${key}=${value}; expires=` + new Date(2001, 0, 1).toUTCString();
     }
 }
+
+export function CRYPTO_SHA512( Str ) {
+    return crypto.subtle.digest("SHA-512", new TextEncoder("utf-8").encode(Str)).then(buf => {
+        return (Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('')).toUpperCase();
+      });
+    }
