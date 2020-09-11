@@ -1,5 +1,5 @@
 {
-    "DEBUG": 1,
+    "DEBUG": 0,
     "Database_Gateway": [
         "https://selester-trial-ml-001.azurewebsites.net/api/trial",
         "http://localhost:7071/api/trial"

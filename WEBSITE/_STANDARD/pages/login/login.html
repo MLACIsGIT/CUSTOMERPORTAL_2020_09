@@ -22,69 +22,56 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-1"></div>
-            <!-- head logo and language selector -->
-            <div class="col-10 Logo_And_Header">
-                <!-- head logo -->
-                <div class="Logo_And_Header_Logo">
-                    <img id="header_logo" src="" alt="logo">
-                </div>
+    <div class="SEL-LAYOUT-CONTAINER">
+        <!-- head logo -->
+        <div class="SEL-LAYOUT-2-COLUMNS">
+            <img id="header_logo" src="" alt="logo">
+        </div>
 
-                <!-- Language selector -->
-                <div class="Logo_And_Header_LanguagePicker">
-                    <select class="SEL-DROPDOWN" id="FPc_Language_Selector">
-                    </select>
-                    
-                </div>
-            </div>
-            <div class="col-1"></div>
+        <!-- Language selector -->
+        <div class="Logo_And_Header_LanguagePicker">
+            <select class="SEL-DROPDOWN" id="FPc_Language_Selector">
+            </select>
         </div>
     </div>
+
     <h1 id="Header_Title">###Header_Title</h1>
 
-    <div class="container">
-        <!-- Greeting with green background and login form -->
-        <div class="row">
-            <div class="col-1"></div>
-            <!-- Greeting with green background -->
-            <div class="col-5">
-                <div class="alert alert-success" role="alert">
-                    <h4 class="alert-heading" id="Greeting_header">###Greeting_header</h4>
-                    <p id="Greeting_p_01">###Greeting_p_01</p>
-                    <hr>
-                    <p class="mb-0"><span id="Greeting_p_02">###Greeting_p_02</span><button type="button"
-                            class="btn btn-info btn-sm"><span class="material-icons">how_to_reg</span></button></p>
-                    <hr>
-                    <p class="mb-0"><span id="Greeting_p_03">###Greeting_p_03</span><button type="button"
-                            class="btn btn-info btn-sm"><span class="material-icons">menu_book</span></button></p>
-                </div>
+    <div class="SEL-LAYOUT-CONTAINER SEL-LAYOUT-BLOCK-600px">
+        <!-- Greeting with green background -->
+        <div class="SEL-LAYOUT-2-COLUMNS SEL-NO-SHOW-320px">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading" id="Greeting_header">###Greeting_header</h4>
+                <p id="Greeting_p_01">###Greeting_p_01</p>
+                <hr>
+                <p class="mb-0"><span id="Greeting_p_02">###Greeting_p_02</span><button type="button"
+                        class="btn btn-info btn-sm"><span class="material-icons">how_to_reg</span></button></p>
+                <hr>
+                <p class="mb-0"><span id="Greeting_p_03">###Greeting_p_03</span><button type="button"
+                        class="btn btn-info btn-sm"><span class="material-icons">menu_book</span></button></p>
             </div>
-            <!-- LOGIN FORM -->
-            <div class="col-5">
-                <div id="FPf_LOGIN_ALERT" class="alert alert-danger" role="alert">
-                    A simple danger alert—check it out!
-                </div>
-                <form id="FPf_LOGIN">
-                    <div class="form-group">
-                        <label id="FPc_Email_Label" for="FPc_Email">###FPc_Email</label>
-                        <input type="email" class="form-control" id="FPc_Email" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group">
-                        <label id="FPc_Password_Label" for="FPc_Password">###FPc_Password</label>
-                        <input type="password" class="form-control" id="FPc_Password">
-                        <small class="form-text text-muted"> <a id="FPc_Password_forgotten" href="#">###FPc_Password_forgotten</a></small>
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="FPc_Chk_SavePassword">
-                        <label class="form-check-label" id="FPc_Chk_SavePassword_Label" for="FPc_Chk_SavePassword">###FPc_Chk_SavePassword_Label</label>
-                    </div>
-                    <button id="FPc_btn_SUBMIT" type="submit" class="btn btn-primary">###FPc_btn_SUBMIT</button>
-                </form>
-            </div>
-            <div class="col-1"></div>
         </div>
+
+        <!-- LOGIN FORM -->
+        <div class="SEL-LAYOUT-2-COLUMNS">
+            <div id="FPf_LOGIN_ALERT" class="alert alert-danger" role="alert">
+                A simple danger alert—check it out!
+            </div>
+            <form id="FPf_LOGIN">
+                <div class="form-group">
+                    <label id="FPc_Email_Label" for="FPc_Email">###FPc_Email</label>
+                    <input type="email" class="form-control" id="FPc_Email" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label id="FPc_Password_Label" for="FPc_Password">###FPc_Password</label>
+                    <input type="password" class="form-control" id="FPc_Password">
+                    <small class="form-text text-muted"> <a id="FPc_Password_forgotten"
+                            href="#">###FPc_Password_forgotten</a></small>
+                </div>
+                <button id="FPc_btn_SUBMIT" type="submit" class="btn btn-primary">###FPc_btn_SUBMIT</button>
+            </form>
+        </div>
+        <div id="frame_right" class="col-1"></div>
     </div>
 
     <script type="module" src="login.js"></script>

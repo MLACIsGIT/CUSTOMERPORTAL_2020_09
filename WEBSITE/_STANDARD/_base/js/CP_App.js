@@ -8,6 +8,7 @@ export class CP_App {
         login: null,
         Session: null
     };
+    #Redirected;
     Lang_Selector;
     GATEWAY;
     PROCESS_HANDLER;
@@ -15,16 +16,35 @@ export class CP_App {
     Host_Location_url = () => `${location.protocol}//${location.host}`;
 
     Settings_GET = () => { return this.Settings }
+
     Text_GET = (type, textcode) => {
         let OUT = this.Lang_Selector.Text_GET(type, textcode);
         return OUT;
     }
 
-    IsDEBUG = () => { return DebugMode; }
+    IsDEBUG = () => { return this.DebugMode; }
+
+
+    _REDIRECT_to_index_html_If_Settings_NULL = () => {
+        if (this.Settings == null) {
+            console.log("Settings not found. Redirect to index.html.")
+
+            let page_index_url = `${this.Host_Location_url()}/index.html`
+            window.location.href = page_index_url
+        };
+    };
+
+    Login_If_Not = () => {
+        if (this.Redirected == false) { this._REDIRECT_to_index_html_If_Settings_NULL() }
+    }
 
     constructor(Params) {
         //Settings
+        this.Redirected = false;
         this.Settings = JSON.parse(sessionStorage.getItem('CP_SETTINGS'));
+        if (this.Redirected == false) { this._REDIRECT_to_index_html_If_Settings_NULL() }
+        if (this.Redirected == true) { return }
+
         console.log('SETTINGS: ', this.Settings)
 
         //DebugMode
@@ -57,7 +77,7 @@ class PROCESS_HANDLER {
     _SAVE_CurrentPage_Params = (CurrentPage_Params) => { sessionStorage.setItem('CurrentPage_Params', CurrentPage_Params) }
 
     GOTO_Page = (NextPage_id, Params) => {
-        let NextPage_url = `${ this.CP_App.Host_Location_url()}/${this.CP_App.Settings_GET()["page_map"][NextPage_id]}`
+        let NextPage_url = `${this.CP_App.Host_Location_url()}/${this.CP_App.Settings_GET()["page_map"][NextPage_id]}`
         this._SAVE_CurrentPage_Params(Params);
 
         window.location.href = NextPage_url;
@@ -71,9 +91,9 @@ class PROCESS_HANDLER {
 
     RETURN_to_PreviousPage(Default_Page_id, Default_Page_Params) {
         if (this.Stack.length == 0) {
-             this.GOTO_Page( Default_Page_id, Default_Page_Params )
-             return;
-            }
+            this.GOTO_Page(Default_Page_id, Default_Page_Params)
+            return;
+        }
         let { PrevPage_id, PrevPage_Params } = Stack.Pull();
         this._SAVE_STACK();
         this.GOTO_Page(PrevPage_id, PrevPage_Params)
@@ -96,7 +116,7 @@ export class GATEWAY {
         this.CP_App = CP_App;
 
         //GATEWAY_Http
-        this.GATEWAY_Http = (this.CP_App.Settings_GET())["Database_Gateway"][(this.CP_App.IsDEBUG) ? 1 : 0];
+        this.GATEWAY_Http = (this.CP_App.Settings_GET())["Database_Gateway"][(this.CP_App.IsDEBUG()) ? 1 : 0];
         console.log("GATEWAY_Http: ", this.GATEWAY_Http)
     }
 

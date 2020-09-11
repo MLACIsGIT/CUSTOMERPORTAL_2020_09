@@ -1,6 +1,9 @@
 import * as GL from '../../_base/js/GL.js';
 import * as CP_GL from '../../_base/js/CP_App.js';
 
+//-------------------------------------------------------------------------------
+// GLOBAL VARIABLES
+//-------------------------------------------------------------------------------
 let CP_App = new CP_GL.CP_App(
     {
         "Language_Selector_ID": "FPc_Language_Selector",
@@ -22,6 +25,9 @@ FPf_LOGIN.addEventListener("submit", submit_click);
 let FPc_Email = document.querySelector("#FPc_Email");
 let FPc_Password = document.querySelector("#FPc_Password");
 
+//-------------------------------------------------------------------------------
+// FUNCTIONS
+//-------------------------------------------------------------------------------
 function ALERT_display_shortly(MyText) {
     FPf_LOGIN_ALERT.innerText = MyText;
     FPf_LOGIN_ALERT.style.display = 'block';
@@ -119,3 +125,4 @@ function WAT_CRYPTO_Session_ID_DECRYPT(Code_And_Pass_hash, Encrypted_Session_ID)
 
     return OUT
 }
+

@@ -5,6 +5,18 @@
     padding: 12px 0 14px 0;
 }
 
+@media screen and (min-width: 320px) and (max-width: 799px) {
+    #header_logo {
+        width: 121px;
+    }
+}
+
+@media screen and (max-width: 319px) {
+    #header_logo {
+        width: 70px;
+    }
+}
+
 #Header_Title {
     font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     padding: 12px 0px 12px 0px;

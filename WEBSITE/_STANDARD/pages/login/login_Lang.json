@@ -50,11 +50,6 @@
             "de": "Wenn Sie Ihr Passwort vergessen haben, klicken Sie hier.",
             "en": "If you have forgotten your password, click here."
         },
-        "FPc_Chk_SavePassword_Label": {
-            "hu": "Jegyezze meg a belépési adatokat",
-            "de": "Login Angaben abspeichern",
-            "en": "Save login and password"
-        },
         "FPc_btn_SUBMIT": {
             "hu": "Belépés",
             "de": "Login",

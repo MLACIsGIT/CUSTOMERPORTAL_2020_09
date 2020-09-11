@@ -27,7 +27,7 @@ Result_ERR = (errcode, err) => {
                 "result": errcode
             },
             'body': {
-                "err": err
+                "err": JSON.stringify(err)
             }
         }
     }
@@ -86,6 +86,13 @@ function WAT_SP_EXECUTE(DB_Request, Name_of_Procedure) {
 }
 
 module.exports = async function (context, req) {
+    if (req.body == undefined) {
+        context.res = {
+            status: 200,
+            body: `SELEXPED CUSTOMER PORTAL SERVERLESS AZURE FUNCTION VERSION ${version} is ready to go.`
+        };
+        return;
+    }
     let WAT_Request = req.body;
     let WAT_function = WAT_Request.header.function ? WAT_Request.header.function : '';
 
@@ -117,7 +124,7 @@ module.exports = async function (context, req) {
                 DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_SESSION_GET_NEW')
 
                 if (DB_Results.output.OUT_ErrCode != "") {
-                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, { 
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": DB_Results.returnValue,
                             "ErrCode": DB_Results.output.OUT_ErrCode,
@@ -126,7 +133,7 @@ module.exports = async function (context, req) {
                     })
                 } else {
                     context.res = Result_OK({
-                        "Session_ID": JSON.parse( DB_Results.output.OUT_WAT_Session_ID )
+                        "Session_ID": JSON.parse(DB_Results.output.OUT_WAT_Session_ID)
                     })
                 }
                 break;
