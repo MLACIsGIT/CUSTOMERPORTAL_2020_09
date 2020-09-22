@@ -62,7 +62,7 @@ export function COOKIES_SET(key, value) {
         return
     }
 
-    document.cookie = `${key}=${value}; expires=` + new Date(2050, 0, 1).toUTCString();
+    document.cookie = `${key}=${value}; expires=${new Date(2050, 0, 1).toUTCString()};path=/`;
 }
 
 export function COOKIES_REMOVE(key) {
