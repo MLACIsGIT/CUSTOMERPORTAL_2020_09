@@ -1,0 +1,37 @@
+{
+    "header": {
+        "Description": "Global language settings for all pages.",
+        "last-modified": "2020-08-19"
+    },
+
+    "text-elements": {
+        "Yes": {
+            "hu": "Igen",
+            "de": "Ja",
+            "en": "Yes"
+        },
+        "No": {
+            "hu": "Nem",
+            "de": "Nein",
+            "en": "No"
+        }
+    },
+
+    "dialogs": {
+        "GATEWAY_ERROR_Internal": {
+            "en": "DB-Access internal error."
+        },
+
+        "GATEWAY_ERROR_DB-Connect": {
+            "en": "DB-Connnect error."
+        },
+
+        "GATEWAY_ERROR_SQL-Statement failure": {
+            "en": "SQL-Statement failure"
+        },
+
+        "GATEWAY_ERROR_unknown_function_call": {
+            "en": "DB returned an error: unknown function."
+        }
+    }
+}

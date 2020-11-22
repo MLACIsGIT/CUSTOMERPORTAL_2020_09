@@ -1,0 +1,59 @@
+.SEL_HAM_MENU {
+    background-color: #fff;
+}
+
+.SEL_HAM_MENU_ITEM {
+    border-style: none;
+    background-color:var(--UPS_BROWN_LIGHT_TONE_50);
+    color: var(--UPS_BROWN_DARK_TONE);
+}
+
+.SEL_HAM_MENU_ITEM_TEXT_AREA {
+margin: 12px 12px 40px 12px;
+}
+
+.SEL_HAM_MENU_ITEM_TITLE {
+    padding-bottom: 3px;
+    border-bottom: solid var(--UPS_BROWN_DARK_TONE);
+    border-bottom-width: 1px;
+    margin-bottom: 12px;
+}
+
+.SEL_HAM_MENU_ITEM h4 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.0rem;
+    text-transform: uppercase;
+    margin: 0px;
+}
+
+.SEL_HAM_MENU_ITEM h6 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 100;
+    margin: 0px;
+}
+
+.SEL_HAM_MENU_ITEM.SEL_SELECTED {
+    background-color: var(--UPS_BROWN_DARK_TONE);
+    color: var(--UPS_BROWN_LIGHT_TONE_50);
+}
+
+.SEL_HAM_MENU_ITEM.SEL_SELECTED [class="SEL_HAM_MENU_ITEM_TITLE"] {
+    border-bottom: solid var(--UPS_BROWN_LIGHT_TONE_50);
+    border-bottom-width: 1px;
+}
+
+
+.SEL_HAM_MENU_ITEM.SEL_SELECTED h4 {
+    color: var(--UPS_WHITE);
+}
+
+.SEL_HAM_MENU_ITEM.SEL_NOT_SELECTED:hover {
+    opacity: 0.8;
+    /*transition: opacity 0.2s;*/
+     /*color: #11364b;*/
+}
+
+.SEL_HAM_MENU_ITEM.SEL_SELECTED:hover h6 {
+    color: #fbfeff;
+}

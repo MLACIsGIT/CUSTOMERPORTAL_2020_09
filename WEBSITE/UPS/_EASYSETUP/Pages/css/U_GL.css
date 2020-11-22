@@ -1,0 +1,17 @@
+@media screen and (min-width: 1200px) {
+    .SEL-LAYOUT-CONTAINER {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1199px) {
+    .SEL-LAYOUT-CONTAINER {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 999px) {
+    .SEL-LAYOUT-CONTAINER {
+        width: 100%;
+    }
+}

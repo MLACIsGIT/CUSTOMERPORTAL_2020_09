@@ -1,0 +1,38 @@
+.NAVBAR_MAIN {
+    --NAVBAR_COUNT_OF_MENUITEMS: 5; /* SEL_NAVBAR.js sets this variable automaticaly */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 4px 0px;
+ }
+
+.NAVBAR_MAIN_ITEM {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: calc( 100% / var(--NAVBAR_COUNT_OF_MENUITEMS) - 4px );
+    max-height: 320px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.NAVBAR_MAIN_ITEM_PICTURE {
+    width: 80%;
+    max-width: 128px;
+}
+
+.NAVBAR_MAIN_ITEM_TEXT {
+    margin: 5px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 720px) {
+    .NAVBAR_MAIN_ITEM_TEXT {
+        display: none;
+    }
+}
+
+.NAVBAR_MAIN_ITEM:hover {
+    opacity: 1;
+}

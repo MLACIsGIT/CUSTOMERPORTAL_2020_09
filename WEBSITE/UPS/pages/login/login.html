@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="../../_EASYSETUP/pictures/favicon.ico">
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+        integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <!-- BOOTSTRAP - END -->
+
+    <!-- GOOGLE ICONS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../_EASYSETUP/Pages/css/CSS_VARIABLES.css">
+    <link rel="stylesheet" href="../../_EASYSETUP/FONTS/FONTS.css">
+    <link rel="stylesheet" href="../../_base/css/GL.css">
+    <link rel="stylesheet" href="../../_EASYSETUP/Pages/css/U_GL.css">
+    <link rel="stylesheet" href="../../_base/css/SEL_HEADER.css">
+    <link rel="stylesheet" href="../../_EASYSETUP/Pages/css/U_HEADER.css">
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="../../_EASYSETUP/Pages/css/login.css">
+
+    <title id="Page_Title">###Page_Title</title>
+</head>
+
+<body>
+    <div class="SEL-LAYOUT-CONTAINER">
+        <!-- head logo -->
+        <div class="SEL-LAYOUT-2-COLUMNS">
+            <img id="header_logo" src="" alt="logo">
+        </div>
+
+        <!-- Language selector -->
+        <div class="Logo_And_Header_LanguagePicker">
+            <select class="SEL-DROPDOWN" id="FPc_Language_Selector">
+            </select>
+        </div>
+    </div>
+
+    <h1 class="HEADER_LINE HEADER_LINE_NO_HAM" id="Header_Title">###Header_Title</h1>
+
+    <div class="SEL-LAYOUT-CONTAINER SEL-LAYOUT-BLOCK-600px">
+        <!-- Greeting with green background -->
+        <div class="SEL-LAYOUT-2-COLUMNS SEL-NO-SHOW-320px">
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading" id="Greeting_header">###Greeting_header</h4>
+                <p id="Greeting_p_01">###Greeting_p_01</p>
+                <hr>
+                <p class="mb-0"><span id="Greeting_p_02">###Greeting_p_02</span><button type="button"
+                        class="btn btn-info btn-sm"><span class="material-icons">how_to_reg</span></button></p>
+                <hr>
+                <p class="mb-0"><span id="Greeting_p_03">###Greeting_p_03</span><button type="button"
+                        class="btn btn-info btn-sm"><span class="material-icons">menu_book</span></button></p>
+            </div>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="SEL-LAYOUT-2-COLUMNS">
+            <div id="FPf_LOGIN_ALERT" class="alert alert-danger" role="alert">
+                A simple danger alert—check it out!
+            </div>
+            <form id="FPf_LOGIN">
+                <div class="form-group">
+                    <label id="FPc_Email_Label" for="FPc_Email">###FPc_Email</label>
+                    <input type="email" class="form-control" id="FPc_Email">
+                </div>
+                <div class="form-group">
+                    <label id="FPc_Password_Label" for="FPc_Password">###FPc_Password</label>
+                    <input type="password" class="form-control" id="FPc_Password">
+                    <small class="form-text text-muted"> <a id="FPc_Password_forgotten"
+                            href="#">###FPc_Password_forgotten</a></small>
+                </div>
+                <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu"></div>
+                <button id="FPc_btn_SUBMIT" type="submit" class="btn btn-primary">###FPc_btn_SUBMIT</button>
+            </form>
+        </div>
+        <div id="frame_right" class="col-1"></div>
+    </div>
+    <div id="LOGIN_BACKGROUND">
+        <div class="SEL-LAYOUT-CONTAINER">
+
+            <img src="../../_EASYSETUP/pictures/login_world.png" alt="login-world">
+        </div>
+    </div>
+
+    <script type="module" src="login.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</body>
+
+</html>

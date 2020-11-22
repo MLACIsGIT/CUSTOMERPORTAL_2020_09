@@ -148,12 +148,15 @@ module.exports = async function (context, req) {
                 DB_Request.input('WAT_Session_ID', npm_mssql.VarChar(255), WAT_Request.body.Session_ID)
                 DB_Request.input('Code_And_Pass_hash', npm_mssql.VarChar(255), WAT_Request.body.Code_And_Pass_hash)
                 DB_Request.output('OUT_IsEnabled', npm_mssql.Bit)
+                DB_Request.output('OUT_UserLevel_Params', npm_mssql.NVarChar(npm_mssql.MAX))
                 DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_SESSION_ENABLE')
 
                 if (!DB_Results.output.OUT_IsEnabled) {
                     context.res = Result_ERR('Credential_data_Incorrect', { ReturnValue: DB_Results.returnValue, ErrParams: "" })
                 } else {
-                    context.res = Result_OK({})
+                    context.res = Result_OK({
+                        "Session_Params": DB_Results.output.OUT_UserLevel_Params
+                    })
                 }
                 break;
 

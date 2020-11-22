@@ -1,0 +1,52 @@
+body {
+background-color: var(--UPS_WHITE);
+}
+
+.form-group label {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--UPS_BLUE);
+}
+
+.form-group input {
+    font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+#FPc_btn_SUBMIT {
+    margin-top: 20px;
+    background-color: var(--UPS_TEAL);
+    color: var(--UPS_WHITE);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+}
+
+.alert-success {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--UPS_DARK_BLUE);
+    color: var(--UPS_WHITE);
+}
+
+.alert-heading {
+    color: var(--UPS_BLUE);
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.material-icons {
+    background-color: var(--UPS_TEAL);
+}
+
+.btn-info {
+    background-color: var(--UPS_TEAL);
+}
+
+.form-group a {
+    color: var(--UPS_DARK_BLUE);
+}
+
+#LOGIN_BACKGROUND img {
+    width: 100%;
+    opacity: 1.0;
+}

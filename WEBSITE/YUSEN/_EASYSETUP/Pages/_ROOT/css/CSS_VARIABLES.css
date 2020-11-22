@@ -1,0 +1,19 @@
+:root {
+    /* YUSEN colors */
+    --YUSEN_DarkBlue: #00263d;
+    --YUSEN_LightBlue: #00b9f2;
+    --YUSEN_LightBlue_40: #9ed8f8;
+    --YUSEN_LightBlue_20: #d4edfc;
+    --YUSEN_Orange: #ff6d10;
+    --YUSEN_Black: #000;
+    --YUSEN_Black_80: #575757;
+    --YUSEN_Black_40: #b2b2b2;
+    --YUSEN_Black_20: #dadada;
+    --YUSEN_Black_10: #ededed;
+    --YUSEN_White: #fff;
+
+    /* YUSEN secondary colors */
+    --YUSEN_Green: #45bd8c;
+    --YUSEN_Purple: #615eaf;
+    --YUSEN_Yellow: #ffc933;
+}

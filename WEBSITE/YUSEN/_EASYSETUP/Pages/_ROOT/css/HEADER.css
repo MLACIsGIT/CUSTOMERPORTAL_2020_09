@@ -1,0 +1,16 @@
+.HEADER_LINE {
+    background-color: var(--YUSEN_DarkBlue);
+    color: var(--YUSEN_Orange);
+    font-family: "GTPressuraMono";
+    padding: 8px 0px;
+    text-align: center;
+    letter-spacing: 2px;
+    font-weight: 100;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+#FPc_Language_Selector {
+    font-family: "Akkurat-Light";
+    font-size: 0.8rem;
+}

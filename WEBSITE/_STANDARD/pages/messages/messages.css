@@ -5,12 +5,10 @@
     padding: 12px 0 14px 0;
 }
 
-#Header_Title {
+.PAGE_HEADER_TITLE {
     font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
-    padding: 12px 0px 12px 0px;
+    padding: 8px 0px;
     text-align: center;
-    background-color: #06183D;
-    color: #E5E7EA;
     letter-spacing: 2px;
     font-weight: 800;
     text-transform: uppercase;
@@ -21,3 +19,42 @@
     display: flex;
     justify-content: space-between;
 }
+
+.HEADER_LINE {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.HEADER_LINE_C1, .HEADER_LINE_C3 {
+    display: flex;
+    width: 10%;
+}
+
+.HEADER_LINE_C2 {
+    width: 76%;
+    display: flex;
+    justify-content: center;
+}
+
+.PAGE_DETAILS_AREA {
+    display: flex;
+}
+
+.PAGE_DATA_AREA {
+    width: 100%;
+}
+
+#filter_demo {
+    display: none;
+}
+
+#grid_demo {
+    display: none;
+}
+
+#myGrid {
+    height: 800px;
+    width: 100%;
+}
+

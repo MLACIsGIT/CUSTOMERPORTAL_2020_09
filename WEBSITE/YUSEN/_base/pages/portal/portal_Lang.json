@@ -1,0 +1,114 @@
+{
+    "header": {
+        "Description": "Language settings for page login",
+        "last-modified": "2020-08-19"
+    },
+
+    "form-items": {
+        "Page_Title": {
+            "hu": "ÜGYFÉLKAPU - Hírek, üzenetek",
+            "de": "CUSTOMER PORTAL - Infos und Meldungen",
+            "en": "CUSTOMER PORTAL - News, messages"
+        },
+
+        "NAVBAR_MAIN_ITEM_NEWS_TEXT": {
+            "hu": "Hírek, üzenetek",
+            "de": "Infos und Nachrichten",
+            "en": "News and messages"
+        },
+
+        "NAVBAR_MAIN_ITEM_INVOICES_TEXT": {
+            "hu": "Számláim",
+            "de": "Abrechnungen",
+            "en": "Invoices"
+        },
+
+        "NAVBAR_MAIN_ITEM_STOCKS_TEXT": {
+            "hu": "Raktárkészletem",
+            "de": "Warenbestände",
+            "en": "Stocks of goods"
+        },
+
+        "NAVBAR_MAIN_ITEM_DELIVERIES_TEXT": {
+            "hu": "Fuvarjaim",
+            "de": "Frächte",
+            "en": "Freight"
+        },
+
+        "NAVBAR_MAIN_ITEM_SETTINGS_TEXT": {
+            "hu": "Beállítások",
+            "de": "Einstellungen",
+            "en": "Settings"
+        },
+
+        "NAVBAR_MAIN_ITEM_CONTACT_TEXT": {
+            "hu": "Kapcsolat",
+            "de": "Kontakt",
+            "en": "Contact"
+        },
+
+        "NAVBAR_MAIN_ITEM_NEWS_HEADER_TITLE": {
+            "hu": "HÍREK, ÜZENETEK",
+            "de": "INFOS UND MELDUNGEN",
+            "en": "NEWS AND MESSAGES"
+        },
+
+        "NAVBAR_MAIN_ITEM_INVOICES_HEADER_TITLE": {
+            "hu": "SZÁMLÁIM",
+            "de": "ABRECHNUNGEN",
+            "en": "INVOICES"
+        },
+
+        "NAVBAR_MAIN_ITEM_STOCKS_HEADER_TITLE": {
+            "hu": "RAKTÁRKÉSZLETEM",
+            "de": "WARENBESTÄNDE",
+            "en": "STOCKS OF GOODS"
+        },
+
+        "NAVBAR_MAIN_ITEM_DELIVERIES_HEADER_TITLE": {
+            "hu": "FUVARJAIM",
+            "de": "FRÄCHTE",
+            "en": "FREIGHT"
+        },
+
+        "NAVBAR_MAIN_ITEM_SETTINGS_HEADER_TITLE": {
+            "hu": "BEÁLLÍTÁSOK",
+            "de": "EINSTELLUNGEN",
+            "en": "SETTINGS"
+        },
+
+        "NAVBAR_MAIN_ITEM_CONTACT_HEADER_TITLE": {
+            "hu": "KAPCSOLAT",
+            "de": "KONTAKT",
+            "en": "CONTACT"
+        },
+
+        "HAM_ITEM_FREIGHTS_1_TITLE": {
+            "hu": "ÁRU NYOMKÖVETÉS",
+            "de": "Tracking System",
+            "en": "Tracking System"
+        },
+
+        "HAM_ITEM_FREIGHTS_1_TEXT": {
+            "hu": "Légi és tengeri fuvarok nyomonkövetése",
+            "de": "Sendungsverfolgung zur AFF/OFF Lieferungen",
+            "en": "Track & Trace of AFF/OFF shipments"
+        },
+
+        "HAM_ITEM_FREIGHTS_2_TITLE": {
+            "hu": "Yusen Vantage",
+            "de": "Yusen Vantage",
+            "en": "Yusen Vantage"
+        },
+
+        "HAM_ITEM_FREIGHTS_2_TEXT": {
+            "hu": "Yusen Logistics új, egységesített IT platformja",
+            "de": "Neue einheitliche IT-Plattform von Yusen Logistics",
+            "en": "Yusen Logistics' New Unified IT Platform"
+        }
+    },
+
+    "text-elements": {},
+
+    "dialogs": {}
+}

@@ -1,0 +1,33 @@
+.HAM_ITEM_REPORTS_1_Search_Area {
+    margin: 0px 0px;
+    padding: 40px 10px 10px 10px;
+    background-color: var(--UPS_BROWN_DARK_TONE);
+}
+
+.form-group label {
+    color: var(--UPS_BROWN_LIGHT_TONE_50);
+};
+
+
+
+#FPc_HAM_ITEM_REPORTS_1_SUBMIT {
+    margin-top: 20px;
+    background-color: var(--UPS_TEAL);
+    color: var(--UPS_WHITE);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+}
+
+#FPc_HAM_ITEM_REPORTS_1_SUBMIT {
+    margin-top: 20px;
+    background-color: var(--UPS_TEAL);
+    color: var(--UPS_WHITE);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+}

@@ -1,0 +1,43 @@
+body {
+background-color: var(--YUSEN_White);
+}
+
+.form-group label {
+    font-family: "Akkurat-Light";
+    color: var(--YUSEN_Black);
+}
+
+.form-group input {
+    font-family: "Akkurat-Italic";
+}
+
+#FPc_btn_SUBMIT {
+    margin-top: 20px;
+    background-color: var(--YUSEN_Orange);
+    color: var(--YUSEN_White);
+    font-family: "GTPressuraMono";
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: none;
+}
+
+.alert-success {
+    background-color: var(--YUSEN_Black_10);
+}
+
+.alert-heading {
+    color: var(--YUSEN_DarkBlue);
+}
+
+.material-icons {
+    background-color: var(--YUSEN_DarkBlue);
+}
+
+.btn-info {
+    background-color: var(--YUSEN_DarkBlue);
+}
+
+.form-group a {
+    color: var(--YUSEN_DarkBlue);
+}

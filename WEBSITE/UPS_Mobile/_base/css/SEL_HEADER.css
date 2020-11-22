@@ -1,0 +1,45 @@
+#header_logo {
+    content: url("../../_EASYSETUP/pictures/logo_01.png");
+    display: inline-block;
+    width: 161px;
+    padding: 12px 0 14px 0;
+}
+
+@media screen and (min-width: 320px) and (max-width: 799px) {
+    #header_logo {
+        width: 121px;
+    }
+}
+
+@media screen and (max-width: 319px) {
+    #header_logo {
+        width: 70px;
+    }
+}
+
+.Logo_And_Header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.HEADER_LINE {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.HEADER_LINE_NO_HAM {
+    display: flex;
+    justify-content: center;
+}
+
+.HEADER_LINE_C1, .HEADER_LINE_C3 {
+    display: flex;
+    width: 10%;
+}
+
+.HEADER_LINE_C2 {
+    width: 76%;
+    display: flex;
+    justify-content: center;
+}

@@ -14,6 +14,36 @@
             "hu": "HÍREK, ÜZENETEK",
             "de": "INFOS UND MELDUNGEN",
             "en": "NEWS AND MESSAGES"
+        },
+
+        "NAVBAR_MAIN_ITEM_NEWS_TEXT": {
+            "hu": "Hírek, üzenetek",
+            "de": "Infos und Nachrichten",
+            "en": "News and messages"
+        },
+
+        "NAVBAR_MAIN_ITEM_INVOICES_TEXT": {
+            "hu": "Számláim",
+            "de": "Abrechnungen",
+            "en": "Invoices"
+        },
+
+        "NAVBAR_MAIN_ITEM_STOCKS_TEXT": {
+            "hu": "Raktárkészletem",
+            "de": "Warenbestände",
+            "en": "Stocks of goods"
+        },
+
+        "NAVBAR_MAIN_ITEM_DELIVERIES_TEXT": {
+            "hu": "Fuvarjaim",
+            "de": "Frächte",
+            "en": "Freight"
+        },
+
+        "NAVBAR_MAIN_ITEM_SETTINGS_TEXT": {
+            "hu": "Beállítások",
+            "de": "Einstellungen",
+            "en": "Settings"
         }
     },
 

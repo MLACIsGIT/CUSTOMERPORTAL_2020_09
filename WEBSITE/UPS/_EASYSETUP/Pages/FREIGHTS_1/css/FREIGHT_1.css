@@ -1,0 +1,111 @@
+.PAGE_FREIGHTS_1 {
+    background-color: var(--UPS_BROWN_LIGHT_TONE_50);
+}
+
+.HAM_ITEM_FREIGHTS_1_CONTAINER {
+    display: flex;
+    justify-content: space-between;
+}
+
+.HAM_ITEM_FREIGHTS_1_COLUMN_1 {
+    background-color: var(--UPS_DARK_BLUE);
+    width: 50%;
+}
+
+.HAM_ITEM_FREIGHTS_1_COLUMN_2 {
+    width: 50%;
+}
+
+#PAGE_FREIGHTS_1_img {
+    display: block;
+    background: url("../pictures/background_1.png");
+    width: 100%;
+    height: auto;
+    background-repeat: no-repeat;
+}
+
+.UPS_search-panel {
+    border: none;
+    padding: 14px;
+    color: var(--UPS_WHITE);
+    background-color: var(--UPS_DARK_BLUE);
+}
+
+@media only screen and (max-width: 240px) {
+    .UPS_search-panel {
+        width: 100%;
+        min-width: 180px;
+    }
+}
+
+.UPS_search-title-area h3 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 800;
+    color: var(--UPS_WHITE);
+    margin: 40px 0px 10px 0px;
+    padding: 0px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+    font-size: 1.5rem;
+}
+
+.UPS_search-text-area {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.UPS_search-sub-title {
+    font-size: 0.9rem;
+    margin: 0px;
+    padding-bottom: 7px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #fff;
+}
+
+.UPS_search-input {
+    display: flex;
+    width: 100%;
+    height: 42px;
+}
+
+.UPS_search-input input {
+    width: 100%;
+    border: none;
+    padding: 12px;
+}
+
+.UPS_search-tracking-radio ul {
+    padding: 20px 0px 0px 16px;
+}
+
+.UPS_search-tracking-radio li {
+    margin-bottom: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    list-style-type: none;
+    line-height: 1.6;
+}
+
+.UPS_search-tracking-submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#UPS_search-tracking-submit {
+    background-color: var(--UPS_TEAL);
+    color: var(--UPS_WHITE);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    border-radius: 0;
+    letter-spacing: 2px;
+    border: none;
+    width: 95px;
+    height: 34px;
+}
