@@ -1,15 +1,15 @@
 {
-    "DEBUG": 0,
+    "DEBUG": 1,
     "Database_Gateway": [
         "https://selester-trial-ml-001.azurewebsites.net/api/trial",
         "http://localhost:7071/api/trial"
     ],
 
-    "Portal_owner_id":  1038482,
+    "Portal_owner_id":  1038470,
 
-    "supported_languages":  ["hu", "en", "de"],
+    "supported_languages":  ["hu", "en"],
 
-    "default_language": "gb",
+    "default_language": "hu",
 
     "base_language_files": ["${origin}/_base/js/GL_Lang.json"]
 }

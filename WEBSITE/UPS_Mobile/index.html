@@ -16,16 +16,21 @@
       <div class="forms-container">
         <div class="signin-signup">
           <form action="#" class="sign-in-form">
-            <h2 class="title">Sign in</h2>
+            <h2 id="SIGNIN_Title" class="title">###SIGNIN_Title</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Phone number" />
+              <input id="LOGIN_PhoneNumber" type="text" placeholder="###LOGIN_PhoneNumber" />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input id="LOGIN_password" type="password" placeholder="Password" />
             </div>
-            <input id="btn-login" type="submit" value="Login" class="btn solid" />
+            <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu"></div>
+            <input id="btn-login" type="submit" value="Belépés" class="btn solid" />
+
+            <div id="PAGE_LOGIN_Sign_in_ALERT" class="alert alert-danger">
+              Error message
+            </div>
           </form>
           <form action="#" class="sign-up-form">
             <h2 class="title">Sign up</h2>
@@ -33,14 +38,17 @@
               <i class="fas fa-user"></i>
               <input type="text" placeholder="Phone number" />
             </div>
-            <div class="input-field">
-              <i class="fas fa-envelope"></i>
-              <input type="text" placeholder="Your name" />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="email" placeholder="Your email" />
-            </div>
+            <!--
+              <div class="input-field">
+                <i class="fas fa-envelope"></i>
+                <input type="text" placeholder="Your name" />
+              </div>
+              <div class="input-field">
+                <input class="fas fa-lock"></input>
+                <input type="email" placeholder="Your email" />
+              </div>
+            -->
+            <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu"></div>
             <input type="submit" class="btn" value="Sign up" />
           </form>
         </div>
@@ -50,9 +58,9 @@
         <div class="panel left-panel">
           <div class="content">
             <img src="./_EASYSETUP/pictures/logo_01.png" class="image" alt="" />
-            <h3>New here ?</h3>
-            <p>
-              Please register your phone number!
+            <h3 id="SIGNUP_NewHere">###SIGNUP_NewHere</h3>
+            <p id="SIGNUP_Register">
+              ###SIGNUP_Register
             </p>
             <button class="btn transparent" id="sign-up-btn">
               Sign up
@@ -195,6 +203,7 @@
     </div>
 
     <script type="module" src="main.js"></script>
-</body>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </body>
 
 </html>

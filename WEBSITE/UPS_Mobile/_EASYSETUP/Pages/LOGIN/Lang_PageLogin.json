@@ -1,0 +1,72 @@
+{
+    "header": {
+        "Description": "Language settings for Web&Trace mobile",
+        "last-modified": "2020-011-22"
+    },
+    "form-items": {
+        "SIGNUP_NewHere": {
+            "hu": "Még nem regisztrált? \n Vagy elfelejtette jelszavát?",
+            "de": "Noch nicht registriert? Passwort vergessen?",
+            "en": "New here? Forgot your password?"
+        },
+
+        "SIGNUP_Register": {
+            "hu": "Akkor kérjük regisztráljon (újra)!",
+            "de": "Bitte registrieren (nochmals)!",
+            "en": "Then please register your phone number (again)!"
+        },
+
+        "sign-up-btn": {
+            "hu": "Regisztrálok",
+            "de": "Register",
+            "en": "Register"
+        },
+
+        "SIGNIN_Title": {
+            "hu": "Bejelentkezés",
+            "de": "Einloggen",
+            "en": "Sign in"
+        },
+
+        "LOGIN_PhoneNumber": {
+            "hu": "Telefonszám",
+            "de": "Telefonnummer",
+            "en": "Phone number"
+        },
+
+        "LOGIN_password": {
+            "hu": "Jelszó",
+            "de": "Passwort",
+            "en": "Password"
+        },
+
+        "btn-login": {
+            "hu": "Bejelentkezés",
+            "de": "LOGIN",
+            "en": "LOGIN"
+        }
+    },
+    "text-elements": {},
+    "dialogs": {
+        "ReCaptcha_empty": {
+            "hu": "Nem hagyhatja üresen a Captcha kódot",
+            "de": "Sie können den Captcha-Code nicht leer lassen",
+            "en": "You can't leave Captcha Code empty"
+        },
+        "Credential_data_missing_phone_number_or_password": {
+            "hu": "Adja meg telefonszámát és jelszavát!",
+            "de": "Geben Sie Ihre Telefonnummer und Ihr Passwort ein.",
+            "en": "Enter your phone number and password."
+        },
+        "Credential_data_phone_number_incorrect_format": {
+            "hu": "A telefonszám megadásánál kérem csak számokat használjon, kezdődjön 00-val és az országkóddal (Magyarország esetében 0036-al).",
+            "de": "Bei der Telefonnummer bitte nur Ziffern verwenden und es muss mit 0036 beginnen.",
+            "en": "Please enter your phone number without any hyphen. It has to start with 0036."
+        },
+        "Credential_data_Incorrect": {
+            "hu": "Hibás bejelentkezési adatok.",
+            "de": "Falsche angaben.",
+            "en": "Incorrect login data."
+        }
+    }
+}

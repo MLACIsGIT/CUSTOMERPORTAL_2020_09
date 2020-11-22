@@ -234,7 +234,11 @@ export class Language_Selector {
                     let Doc_Item = document.getElementById(k)
                     let Translation = Items[k][this.Current_Lang];
                     if (Doc_Item && Translation) {
-                        Doc_Item.innerText = Translation;
+                        if (Doc_Item.placeholder !== undefined) {
+                            Doc_Item.placeholder = Translation;
+                        } else {
+                            Doc_Item.innerText = Translation;
+                        }
                     }
                 }
             }

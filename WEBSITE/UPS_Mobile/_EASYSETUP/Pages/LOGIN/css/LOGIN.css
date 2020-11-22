@@ -55,6 +55,15 @@ input {
   fill: var(--UPS_BROWN_LIGHT_TONE_50);
 }
 
+.alert-danger {
+  display: none;
+  width: 90%;
+  text-align: center;
+  padding: 10px;
+  background-color: var(--UPS_BLUE);
+  color:var(--UPS_WHITE);
+}
+
 /*
 ----------------------------------------------------------------
   P A G E - login
