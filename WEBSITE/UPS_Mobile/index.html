@@ -5,7 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <link rel="icon" type="image/png" href="./_EASYSETUP/pictures/favicon.ico">
+
   <link rel="stylesheet" href="./_EASYSETUP/Pages/css/CSS_VARIABLES.css">
+  <link rel="stylesheet" href="./_base/css/GL.css">
   <link rel="stylesheet" href="./_EASYSETUP/Pages/LOGIN/css/LOGIN.css" />
   <title>Web&Trace</title>
 </head>
@@ -25,19 +28,26 @@
               <i class="fas fa-lock"></i>
               <input id="LOGIN_password" type="password" placeholder="Password" />
             </div>
-            <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu"></div>
-            <input id="btn-login" type="submit" value="Belépés" class="btn solid" />
-
+            <div class="g-recaptcha" id="login-g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu">
+            </div>
+            <input id="btn-login" type="submit" value="###btn-login" class="btn solid" />
+            <select class="SEL-DROPDOWN" id="Language_Selector"></select>
             <div id="PAGE_LOGIN_Sign_in_ALERT" class="alert alert-danger">
               Error message
             </div>
           </form>
           <form action="#" class="sign-up-form">
-            <h2 class="title">Sign up</h2>
+            <h2 id="SIGNUP_Title" class="title">###SIGNUP_Title</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Phone number" />
+              <input id="SIGNUP_PhoneNumber" type="text" placeholder="###SIGNUP_PhoneNumber" />
             </div>
+            <div class="input-field SEL-CHECKBOX-CONTAINER">
+              <input id="SIGNUP_TermsOfUse_checkbox" type="checkbox">
+              <a id="SIGNUP_TermsOfUse_checkbox_link" href="./_EASYSETUP/DocsForDownload/GDPR_hu.pdf"
+                target="_blank">###SIGNUP_TermsOfUse_checkbox_link</a>
+            </div>
+
             <!--
               <div class="input-field">
                 <i class="fas fa-envelope"></i>
@@ -48,8 +58,9 @@
                 <input type="email" placeholder="Your email" />
               </div>
             -->
-            <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu"></div>
-            <input type="submit" class="btn" value="Sign up" />
+            <div class="g-recaptcha" id="signup-g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu">
+            </div>
+            <input id="btn-signup" type="submit" class="btn" value="###btn-signup" />
           </form>
         </div>
       </div>
@@ -70,12 +81,10 @@
         <div class="panel right-panel">
           <div class="content">
             <img src="./_EASYSETUP/pictures/logo_01.png" class="image" alt="" />
-            <h3>One of us ?</h3>
-            <p>
-              Please enter your phone number, name and e-mail address!
-            </p>
-            <button class="btn transparent" id="sign-in-btn">
-              Sign in
+            <h3 id="SIGNUP_OneOfUs">###SIGNUP_OneOfUs</h3>
+            <p id="SIGNUP_LetSignIn">###SIGNUP_LetSignIn</p>
+            <button id="sign-in-btn" class="btn transparent">
+              ###sign-in-btn
             </button>
           </div>
         </div>
@@ -204,6 +213,6 @@
 
     <script type="module" src="main.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  </body>
+</body>
 
 </html>

@@ -5,13 +5,13 @@
     },
     "form-items": {
         "SIGNUP_NewHere": {
-            "hu": "Még nem regisztrált? \n Vagy elfelejtette jelszavát?",
+            "hu": "Még nem regisztrált?",
             "de": "Noch nicht registriert? Passwort vergessen?",
             "en": "New here? Forgot your password?"
         },
 
         "SIGNUP_Register": {
-            "hu": "Akkor kérjük regisztráljon (újra)!",
+            "hu": "(Vagy elfelejtette a jelszót?)",
             "de": "Bitte registrieren (nochmals)!",
             "en": "Then please register your phone number (again)!"
         },
@@ -23,7 +23,7 @@
         },
 
         "SIGNIN_Title": {
-            "hu": "Bejelentkezés",
+            "hu": "Belépés",
             "de": "Einloggen",
             "en": "Sign in"
         },
@@ -41,11 +41,54 @@
         },
 
         "btn-login": {
-            "hu": "Bejelentkezés",
+            "hu": "Belépés",
             "de": "LOGIN",
             "en": "LOGIN"
+        },
+
+        "btn-signup": {
+            "hu": "Regisztrálok",
+            "de": "Registrieren",
+            "en": "Register"
+        },
+
+        "SIGNUP_Title": {
+            "hu": "Regisztráció",
+            "de": "Registrierung",
+            "en": "Registration"
+        },
+
+        "SIGNUP_PhoneNumber": {
+            "hu": "Telefonszám",
+            "de": "Telefonnummer",
+            "en": "Phone number"
+        },
+
+        "sign-in-btn": {
+            "hu": "Belépés",
+            "de": "LOGIN",
+            "en": "LOGIN"
+        },
+
+        "SIGNUP_OneOfUs": {
+            "hu": "Már regisztrálta a telefonszámát?",
+            "de": "Schon registriert?",
+            "en": "One of us ?"
+        },
+
+        "SIGNUP_LetSignIn": {
+            "hu": "Kérem jelentkezzen be!",
+            "de": "Bitte einloggen!",
+            "en": "Please enter your phone number, name and e-mail address!"
+        },
+
+        "SIGNUP_TermsOfUse_checkbox_link": {
+            "hu": "A felhasználási feltételeket elfogadom",
+            "de": "Ich habe die Nutzungsbedingungen gelesen und hiermit akzeptiere sie",
+            "en": "I have read and accept the terms of use"
         }
     },
+
     "text-elements": {},
     "dialogs": {
         "ReCaptcha_empty": {
@@ -64,7 +107,7 @@
             "en": "Please enter your phone number without any hyphen. It has to start with 0036."
         },
         "Credential_data_Incorrect": {
-            "hu": "Hibás bejelentkezési adatok.",
+            "hu": "Hibás belépési adatok.",
             "de": "Falsche angaben.",
             "en": "Incorrect login data."
         }

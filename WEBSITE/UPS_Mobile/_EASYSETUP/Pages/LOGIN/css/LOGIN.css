@@ -410,6 +410,18 @@ form.sign-in-form {
   }
 }
 
+.SEL-CHECKBOX-CONTAINER {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.SEL-CHECKBOX-CONTAINER input {
+width: 20px;
+margin: 0px 20px 0px 0px;
+}
+
 /*
 ----------------------------------------------------------------
   P A G E - routes

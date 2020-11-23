@@ -202,14 +202,16 @@ export class Language_Selector {
 
     _RECAPTCHA_Lang_SET = () => {
         //set Google recaptcha language
-        let g_recaptcha = document.getElementById("g-recaptcha")
-        if (g_recaptcha != null) {
-            let g_recaptcha_iframe = g_recaptcha.querySelector("iframe")
-            if (g_recaptcha_iframe == null) {
-                setTimeout(this._RECAPTCHA_Lang_SET, 300)
-            } else {
-                g_recaptcha_iframe.setAttribute("src", g_recaptcha_iframe.getAttribute("src").replace(/hl=(.*?)&/, 'hl=' + this.Current_Lang + '&'));
-                g_recaptcha_iframe.style.visibility = "visible";
+        let All_Recaptchas = document.querySelectorAll(".g-recaptcha");
+        for (let g_recaptcha of All_Recaptchas) {
+            if (g_recaptcha != null) {
+                let g_recaptcha_iframe = g_recaptcha.querySelector("iframe")
+                if (g_recaptcha_iframe == null) {
+                    setTimeout(this._RECAPTCHA_Lang_SET, 300)
+                } else {
+                    g_recaptcha_iframe.setAttribute("src", g_recaptcha_iframe.getAttribute("src").replace(/hl=(.*?)&/, 'hl=' + this.Current_Lang + '&'));
+                    g_recaptcha_iframe.style.visibility = "visible";
+                }
             }
         }
     }
@@ -234,8 +236,10 @@ export class Language_Selector {
                     let Doc_Item = document.getElementById(k)
                     let Translation = Items[k][this.Current_Lang];
                     if (Doc_Item && Translation) {
-                        if (Doc_Item.placeholder !== undefined) {
+                        if ( GL.IsNull(Doc_Item.placeholder, "").trim() > "" ) {
                             Doc_Item.placeholder = Translation;
+                        } else if (Doc_Item.tagName === "INPUT" && Doc_Item.value !== undefined) {
+                            Doc_Item.value = Translation;
                         } else {
                             Doc_Item.innerText = Translation;
                         }

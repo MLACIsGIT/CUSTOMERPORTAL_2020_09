@@ -32,7 +32,7 @@ p_CP_SETTINGS_GET
 
     CP_App = new CP_GL.CP_App(
       {
-        "Language_Selector_ID": undefined,
+        "Language_Selector_ID": "Language_Selector",
         "Language_Files": ["${origin}/_EASYSETUP/Pages/LOGIN/Lang_PageLogin.json"]
       }
     );
