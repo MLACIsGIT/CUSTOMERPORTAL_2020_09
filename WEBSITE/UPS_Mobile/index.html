@@ -32,9 +32,7 @@
             </div>
             <input id="btn-login" type="submit" value="###btn-login" class="btn solid" />
             <select class="SEL-DROPDOWN" id="Language_Selector"></select>
-            <div id="PAGE_LOGIN_Sign_in_ALERT" class="alert alert-danger">
-              Error message
-            </div>
+            <div id="PAGE_LOGIN_Sign_in_ALERT" class="alert alert-danger"></div>
           </form>
           <form action="#" class="sign-up-form">
             <h2 id="SIGNUP_Title" class="title">###SIGNUP_Title</h2>
@@ -42,25 +40,23 @@
               <i class="fas fa-user"></i>
               <input id="SIGNUP_PhoneNumber" type="text" placeholder="###SIGNUP_PhoneNumber" />
             </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input id="SIGNUP_Password" type="password" placeholder="###SIGNUP_Password" />
+            </div>
+            <div class="input-field">
+              <input class="fas fa-lock"></input>
+              <input id="SIGNUP_PasswordAgain" type="password" placeholder="###SIGNUP_PasswordAgain" />
+            </div>
             <div class="input-field SEL-CHECKBOX-CONTAINER">
               <input id="SIGNUP_TermsOfUse_checkbox" type="checkbox">
               <a id="SIGNUP_TermsOfUse_checkbox_link" href="./_EASYSETUP/DocsForDownload/GDPR_hu.pdf"
                 target="_blank">###SIGNUP_TermsOfUse_checkbox_link</a>
             </div>
-
-            <!--
-              <div class="input-field">
-                <i class="fas fa-envelope"></i>
-                <input type="text" placeholder="Your name" />
-              </div>
-              <div class="input-field">
-                <input class="fas fa-lock"></input>
-                <input type="email" placeholder="Your email" />
-              </div>
-            -->
             <div class="g-recaptcha" id="signup-g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu">
             </div>
             <input id="btn-signup" type="submit" class="btn" value="###btn-signup" />
+            <div id="PAGE_LOGIN_Sign_up_ALERT" class="alert alert-danger">Error message</div>
           </form>
         </div>
       </div>

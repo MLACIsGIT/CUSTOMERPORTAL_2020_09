@@ -9,86 +9,82 @@
             "de": "Noch nicht registriert? Passwort vergessen?",
             "en": "New here? Forgot your password?"
         },
-
         "SIGNUP_Register": {
             "hu": "(Vagy elfelejtette a jelszót?)",
             "de": "Bitte registrieren (nochmals)!",
             "en": "Then please register your phone number (again)!"
         },
-
         "sign-up-btn": {
             "hu": "Regisztrálok",
             "de": "Register",
             "en": "Register"
         },
-
         "SIGNIN_Title": {
             "hu": "Belépés",
             "de": "Einloggen",
             "en": "Sign in"
         },
-
         "LOGIN_PhoneNumber": {
             "hu": "Telefonszám",
             "de": "Telefonnummer",
             "en": "Phone number"
         },
-
         "LOGIN_password": {
             "hu": "Jelszó",
             "de": "Passwort",
             "en": "Password"
         },
-
         "btn-login": {
             "hu": "Belépés",
             "de": "LOGIN",
             "en": "LOGIN"
         },
-
         "btn-signup": {
             "hu": "Regisztrálok",
             "de": "Registrieren",
             "en": "Register"
         },
-
         "SIGNUP_Title": {
             "hu": "Regisztráció",
             "de": "Registrierung",
             "en": "Registration"
         },
-
         "SIGNUP_PhoneNumber": {
             "hu": "Telefonszám",
             "de": "Telefonnummer",
             "en": "Phone number"
         },
-
+        "SIGNUP_Password": {
+            "hu": "Jelszó",
+            "de": "Passwort",
+            "en": "Password"
+        },
+        "SIGNUP_PasswordAgain": {
+            "hu": "Jelszó ismét",
+            "de": "Wiederholen",
+            "en": "Password again"
+        },
         "sign-in-btn": {
             "hu": "Belépés",
             "de": "LOGIN",
             "en": "LOGIN"
         },
-
         "SIGNUP_OneOfUs": {
             "hu": "Már regisztrálta a telefonszámát?",
             "de": "Schon registriert?",
             "en": "One of us ?"
         },
-
         "SIGNUP_LetSignIn": {
             "hu": "Kérem jelentkezzen be!",
             "de": "Bitte einloggen!",
             "en": "Please enter your phone number, name and e-mail address!"
         },
-
         "SIGNUP_TermsOfUse_checkbox_link": {
             "hu": "A felhasználási feltételeket elfogadom",
             "de": "Ich habe die Nutzungsbedingungen gelesen und hiermit akzeptiere sie",
             "en": "I have read and accept the terms of use"
         }
     },
-
     "text-elements": {},
     "dialogs": {
         "ReCaptcha_empty": {
@@ -110,6 +106,16 @@
             "hu": "Hibás belépési adatok.",
             "de": "Falsche angaben.",
             "en": "Incorrect login data."
+        },
+        "Credential_data_password_not_eq_with_password_again": {
+            "hu": "A jelszó és a jelszó ismét nem egyezik!",
+            "de": "Passwort und wiederholte Passwort stimmt nicht überein!",
+            "en": "Password not equals with password again!"
+        },
+        "Credential_password_not_complex_enough": {
+            "hu": "A jelszó nem elég komplex.",
+            "de": "Passwort ist nicht komplex genug.",
+            "en": "Password is not complex enough."
         }
     }
 }

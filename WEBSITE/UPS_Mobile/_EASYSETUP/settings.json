@@ -11,5 +11,7 @@
 
     "default_language": "hu",
 
-    "base_language_files": ["${origin}/_base/js/GL_Lang.json"]
+    "base_language_files": ["${origin}/_base/js/GL_Lang.json"],
+
+    "password_format": "/^(?=.*[A-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@!])(?!.*[iIoO])\\S{8,16}$/"
 }
