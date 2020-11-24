@@ -28,7 +28,9 @@
               <i class="fas fa-lock"></i>
               <input id="LOGIN_password" type="password" placeholder="Password" />
             </div>
-            <div class="g-recaptcha" id="login-g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu">
+            <div id="SIGNIN_recaptcha">
+              <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu">
+              </div>
             </div>
             <input id="btn-login" type="submit" value="###btn-login" class="btn solid" />
             <select class="SEL-DROPDOWN" id="Language_Selector"></select>
@@ -45,7 +47,7 @@
               <input id="SIGNUP_Password" type="password" placeholder="###SIGNUP_Password" />
             </div>
             <div class="input-field">
-              <input class="fas fa-lock"></input>
+              <i class="fas fa-lock"></i>
               <input id="SIGNUP_PasswordAgain" type="password" placeholder="###SIGNUP_PasswordAgain" />
             </div>
             <div class="input-field SEL-CHECKBOX-CONTAINER">
@@ -53,7 +55,7 @@
               <a id="SIGNUP_TermsOfUse_checkbox_link" href="./_EASYSETUP/DocsForDownload/GDPR_hu.pdf"
                 target="_blank">###SIGNUP_TermsOfUse_checkbox_link</a>
             </div>
-            <div class="g-recaptcha" id="signup-g-recaptcha" data-sitekey="6Lc5T9EZAAAAAKZmjTQxkl1ifTa5r85yQqwgowfu">
+            <div id="SIGNUP_recaptcha">
             </div>
             <input id="btn-signup" type="submit" class="btn" value="###btn-signup" />
             <div id="PAGE_LOGIN_Sign_up_ALERT" class="alert alert-danger">Error message</div>
@@ -206,9 +208,42 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <script type="module" src="main.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <div id="page-sign-up-completed">
+    <div class="page-sign-up-completed-article">
+      <img src="./_EASYSETUP/pictures/logo_01.png" class="image" alt="" />
+      <h2 id="page-sign-up-completed-header">###page-sign-up-completed-header</h2>
+      <h4 id="page-sign-up-completed-text-1">###page-sign-up-completed-text-1</h4>
+      <div class="page-sign-up-completed-sms-text-div">
+        <input id="page-sing-up-completed-sms-text" type="text" value="###page-sing-up-completed-sms-text" readonly>
+        <button id="page-sign-up-completed-btn-copy-text">
+          <svg height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z" />
+            </svg>
+        </button>
+      </div>
+      <h4 id="page-sign-up-completed-phone-number-text">###page-sign-up-completed-phone-number-text</h4>
+      <div class="page-sign-up-completed-phone-number-div">
+        <input id="page-sign-up-completed-phone-number" type="text" value="###page-sign-up-completed-phone-number" readonly>
+        <button id="page-sign-up-completed-btn-copy-phonenumber">
+          <svg height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z" />
+            </svg>
+        </button>
+      </div>
+    
+      <input id="btn-reload" type="submit" value="###btn-reload" class="btn solid" />
+
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 
 </html>

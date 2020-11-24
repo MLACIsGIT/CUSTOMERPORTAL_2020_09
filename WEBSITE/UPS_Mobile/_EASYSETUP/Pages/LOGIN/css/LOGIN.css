@@ -61,7 +61,7 @@ input {
   text-align: center;
   padding: 10px;
   background-color: var(--UPS_BLUE);
-  color:var(--UPS_WHITE);
+  color: var(--UPS_WHITE);
 }
 
 /*
@@ -418,8 +418,84 @@ form.sign-in-form {
 }
 
 .SEL-CHECKBOX-CONTAINER input {
-width: 20px;
-margin: 0px 20px 0px 0px;
+  width: 20px;
+  margin: 0px 20px 0px 0px;
+}
+
+/*
+----------------------------------------------------------------
+  P A G E - sign-up-completed
+----------------------------------------------------------------
+*/
+
+.page-sign-up-completed-article {
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--UPS_BROWN_LIGHT_TONE_50);
+}
+
+.page-sign-up-completed-article img {
+  margin: 00px 0px 30px 0px;
+}
+
+.page-sign-up-completed-article h2 {
+  margin: 20px;
+  color: var(--UPS_DARK_BLUE);
+}
+
+.page-sign-up-completed-article h3 {
+  margin: 20px;
+  color: var(--UPS_TEAL);
+}
+
+.page-sign-up-completed-article h4 {
+  color: var(--UPS_BLUE);
+  margin: 20px 0px 10px 0px;
+}
+
+.page-sign-up-completed-sms-text-div {
+  display: flex;
+}
+
+.page-sign-up-completed-phone-number-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.page-sign-up-completed-article input {
+  border-style: none;
+  width: 400px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.page-sign-up-completed-article input[type=text] {
+  background-color: var(--UPS_TEAL);
+  color: var(--UPS_WHITE);
+}
+
+.page-sign-up-completed-article button {
+  background-color: var(--UPS_TEAL);
+  width: 50px;
+  height: 50px;
+}
+
+.page-sign-up-completed-article button svg {
+  fill: var(--UPS_WHITE);
+}
+
+#btn-reload {
+  margin: 30px 0px;
+  background-color: var(--UPS_BROWN_LIGHT_TONE_50);
+  color: var(--UPS_BLUE);
+}
+
+#btn-reload:hover {
+  background-color: var(--UPS_BLUE);
+  color: var(--UPS_WHITE)
 }
 
 /*

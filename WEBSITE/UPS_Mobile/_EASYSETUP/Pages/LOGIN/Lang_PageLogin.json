@@ -83,6 +83,26 @@
             "hu": "A felhasználási feltételeket elfogadom",
             "de": "Ich habe die Nutzungsbedingungen gelesen und hiermit akzeptiere sie",
             "en": "I have read and accept the terms of use"
+        },
+        "page-sign-up-completed-header": {
+            "hu": "Még 1 lépés!",
+            "de": "Noch ein Schritt!",
+            "en": "One more step!"
+        },
+        "page-sign-up-completed-text-1": {
+            "hu": "Küldje el a következő szöveget:",
+            "de": "Bitte schicken Sie ein SMS mit volgendem Text:",
+            "en": "Please send an sms with this text:"
+        },
+        "page-sign-up-completed-phone-number-text": {
+            "hu": "erre a telefonszámra:",
+            "de": "auf diese Nummer:",
+            "en": "to this phone number:"
+        },
+        "btn-reload": {
+            "hu": "Bejelentkezés",
+            "de": "Login",
+            "en": "Login"
         }
     },
     "text-elements": {},
@@ -116,6 +136,11 @@
             "hu": "A jelszó nem elég komplex.",
             "de": "Passwort ist nicht komplex genug.",
             "en": "Password is not complex enough."
+        },
+        "Credential_terms_not_accepted": {
+            "hu": "Kérem fogadja el a felhasználási feltételeket.",
+            "de": "Bitte akzeptieren Sie die Nutznungsbedingungen.",
+            "en": "Please accept the terms of use."
         }
     }
 }

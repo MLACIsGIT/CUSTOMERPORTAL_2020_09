@@ -11,11 +11,15 @@ const sign_in_btn = document.querySelector("#sign-in-btn");
 const sign_up_btn = document.querySelector("#sign-up-btn");
 const page_login_id = "#page-login";
 const page_routes_id = "#page-routes";
+const page_sign_up_completed_id = "#page-sign-up-completed";
 const container = document.querySelector(".container");
 const btn_login = document.querySelector("#btn-login");
 const btn_signup = document.querySelector('#btn-signup');
 const Host_Location_url = `${location.protocol}//${location.host}`;
 const Settings_url = `${Host_Location_url}/_EASYSETUP/settings.json`;
+const SIGNIN_recaptcha_div = document.querySelector("#SIGNIN_recaptcha");
+const SIGNUP_recaptcha_div = document.querySelector("#SIGNUP_recaptcha");
+const Recaptcha = document.querySelector("#g-recaptcha");
 
 let CP_App;
 let PAGES;
@@ -42,17 +46,24 @@ p_CP_SETTINGS_GET
     PAGES = new SEL_PAGER.SEL_PAGE({
       Pages: {
         "#page-login": {},
-        "#page-routes": {}
+        "#page-routes": {},
+        "#page-sign-up-completed": {}
       }
     })
 
     PAGES.PAGE_SELECT(page_login_id);
 
+    let Recaptcha_Move = (ParentDiv) => {
+      ParentDiv.appendChild(Recaptcha);
+    }
+
     sign_up_btn.addEventListener("click", () => {
+      Recaptcha_Move(SIGNUP_recaptcha_div);
       container.classList.add("sign-up-mode");
     });
 
     sign_in_btn.addEventListener("click", () => {
+      Recaptcha_Move(SIGNIN_recaptcha_div);
       container.classList.remove("sign-up-mode");
     });
   })
@@ -205,11 +216,14 @@ function PAGE_LOGIN_Sign_up_ALERT_display_shortly(MyText) {
 let DoSignup = (ev) => {
   ev.preventDefault();
 
+  PAGES.PAGE_SELECT(page_sign_up_completed_id);
+  return
+
   let Current_PhoneNumber = GL.IsNull(SIGNUP_PhoneNumber.value, '').trim();
   let Current_Password = GL.IsNull(SIGNUP_Password.value, '');
-  let Current_PasswordAgain = GL.IsNull(SIGNUP_PasswordAgain, '');
+  let Current_PasswordAgain = GL.IsNull(SIGNUP_PasswordAgain.value, '');
 
-  let rec = grecaptcha.getResponse("signup-g-recaptcha");
+  let rec = grecaptcha.getResponse();
   if (rec.length == 0) {
     PAGE_LOGIN_Sign_up_ALERT_display_shortly(CP_App.Text_GET('dialogs', 'ReCaptcha_empty'))
     return;
@@ -218,7 +232,7 @@ let DoSignup = (ev) => {
     PAGE_LOGIN_Sign_up_ALERT_display_shortly(CP_App.Text_GET('dialogs', 'Credential_data_missing_phone_number_or_password'))
     return;
   }
-  if (Current_PhoneNumber.match(REGEX_FORMATS.Regex_PhoneNumber())) {
+  if (!(Current_PhoneNumber.match(REGEX_FORMATS.Regex_PhoneNumber()))) {
     PAGE_LOGIN_Sign_up_ALERT_display_shortly(CP_App.Text_GET('dialogs', 'Credential_data_phone_number_incorrect_format'))
     return;
   }
@@ -229,12 +243,32 @@ let DoSignup = (ev) => {
   }
 
   if (!(Current_Password).match(REGEX_FORMATS.Regex_Password())) {
-    PAGE_LOGIN_Sign_up_ALERT_display_shortly(CP_App.Text_GET('dialogs', 'Credential_data_password_not_eq_with_password_again'))
+    PAGE_LOGIN_Sign_up_ALERT_display_shortly(CP_App.Text_GET('dialogs', 'Credential_password_not_complex_enough'))
+    return;
+  }
+
+  if ( !(SIGNUP_TermsOfUse_checkbox.checked) ) {
+    PAGE_LOGIN_Sign_up_ALERT_display_shortly(CP_App.Text_GET('dialogs', 'Credential_terms_not_accepted'))
     return;
   }
   //CP_App.GATEWAY.WAT_INTERFACE_SESSION_GET_NEW(Temp_Credentials.Current_PhoneNumber, DoLogin_Step_02);
 }
 
+//-------------------------------------------------------------------------------
+// PAGE SIGNUP_COMPLETED
+//-------------------------------------------------------------------------------
+
+let page_sign_up_completed_btn_copy_text = document.querySelector("#page-sign-up-completed-btn-copy-text");
+let page_sign_up_completed_btn_copy_phonenumber = document.querySelector("#page-sign-up-completed-btn-copy-phonenumber");
+let page_sign_up_completed_btn_reload = document.querySelector("#btn-reload");
+
+page_sign_up_completed_btn_copy_text.addEventListener("click", () => GL.CLIPBOARD_COPY("page-sing-up-completed-sms-text") );
+page_sign_up_completed_btn_copy_phonenumber.addEventListener("click", () => GL.CLIPBOARD_COPY("page-sign-up-completed-phone-number") );
+
+page_sign_up_completed_btn_reload.addEventListener("click", () => { 
+  PAGES.PAGE_SELECT(page_login_id);
+  container.classList.remove("sign-up-mode");
+ } )
 
 btn_login.addEventListener("click", DoLogin);
 btn_signup.addEventListener("click", DoSignup);
