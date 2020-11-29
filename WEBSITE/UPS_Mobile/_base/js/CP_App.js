@@ -188,6 +188,13 @@ export class GATEWAY {
             })
         this._POST(Request, callback)
     }
+
+    WAT_INTERFACE_PHONENUMBER_ADD = (Params, callback) => {
+        let Request = this._Request_for_post_GET("WAT_INTERFACE_PHONENUMBER_ADD",
+            Params);
+
+        this._POST(Request, callback);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------

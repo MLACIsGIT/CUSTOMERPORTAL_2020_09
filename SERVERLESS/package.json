@@ -7,7 +7,8 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "mssql": "^6.2.1"
+    "mssql": "^6.2.1",
+    "seeme-js": "^1.0.0"
   },
   "devDependencies": {}
 }

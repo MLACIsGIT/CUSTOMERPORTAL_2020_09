@@ -130,7 +130,7 @@
         "Credential_data_password_not_eq_with_password_again": {
             "hu": "A jelszó és a jelszó ismét nem egyezik!",
             "de": "Passwort und wiederholte Passwort stimmt nicht überein!",
-            "en": "Password not equals with password again!"
+            "en": "Password and password again are not the same!"
         },
         "Credential_password_not_complex_enough": {
             "hu": "A jelszó nem elég komplex.",

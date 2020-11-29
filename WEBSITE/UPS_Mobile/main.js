@@ -19,6 +19,8 @@ const Host_Location_url = `${location.protocol}//${location.host}`;
 const Settings_url = `${Host_Location_url}/_EASYSETUP/settings.json`;
 const SIGNIN_recaptcha_div = document.querySelector("#SIGNIN_recaptcha");
 const SIGNUP_recaptcha_div = document.querySelector("#SIGNUP_recaptcha");
+const page_sign_up_completed_sms_text = document.querySelector("#page-sign-up-completed-sms-text");
+const page_sign_up_completed_phone_number = document.querySelector("#page-sign-up-completed-phone-number");
 const Recaptcha = document.querySelector("#g-recaptcha");
 
 let CP_App;
@@ -122,12 +124,14 @@ function DoLogin_Step_02(DoLogin_Step_01_Result) {
 
   Temp_Credentials.Session_ID_Encrypted = DoLogin_Step_01_Result.body.Session_ID.Session_ID_Encrypted;
   let WAT_CRYPTO_Code = DoLogin_Step_01_Result.body.Session_ID.Code;
-  GL.CRYPTO_SHA512(WAT_CRYPTO_Code + GL.IsNull(FPc_Password.value).trim()).then(
+  GL.CRYPTO_SHA512(WAT_CRYPTO_Code + GL.IsNull(LOGIN_PhoneNumber.value).trim()).then(
     Code_And_Pass_hash => {
       Temp_Credentials.Code_And_Pass_hash = Code_And_Pass_hash
       Temp_Credentials.Session_ID = WAT_CRYPTO_Session_ID_DECRYPT(Code_And_Pass_hash, Temp_Credentials.Session_ID_Encrypted)
 
-      CP_App.GATEWAY.WAT_INTERFACE_SESSION_ENABLE(Temp_Credentials.Current_PhoneNumber, Temp_Credentials.Session_ID, Code_And_Pass_hash, DoLogin_Step_03)
+      let pass= (document.querySelector("#LOGIN_password")).value
+      //CP_App.GATEWAY.WAT_INTERFACE_SESSION_ENABLE(Temp_Credentials.Current_PhoneNumber, Temp_Credentials.Session_ID, Code_And_Pass_hash, DoLogin_Step_03)
+      CP_App.GATEWAY.WAT_INTERFACE_SESSION_ENABLE(Temp_Credentials.Current_PhoneNumber, Temp_Credentials.Session_ID, pass, DoLogin_Step_03)
     })
 }
 
@@ -216,9 +220,6 @@ function PAGE_LOGIN_Sign_up_ALERT_display_shortly(MyText) {
 let DoSignup = (ev) => {
   ev.preventDefault();
 
-  PAGES.PAGE_SELECT(page_sign_up_completed_id);
-  return
-
   let Current_PhoneNumber = GL.IsNull(SIGNUP_PhoneNumber.value, '').trim();
   let Current_Password = GL.IsNull(SIGNUP_Password.value, '');
   let Current_PasswordAgain = GL.IsNull(SIGNUP_PasswordAgain.value, '');
@@ -251,8 +252,35 @@ let DoSignup = (ev) => {
     PAGE_LOGIN_Sign_up_ALERT_display_shortly(CP_App.Text_GET('dialogs', 'Credential_terms_not_accepted'))
     return;
   }
-  //CP_App.GATEWAY.WAT_INTERFACE_SESSION_GET_NEW(Temp_Credentials.Current_PhoneNumber, DoLogin_Step_02);
+  CP_App.GATEWAY.WAT_INTERFACE_PHONENUMBER_ADD(
+    {
+      "PhoneNumber": Current_PhoneNumber,
+      "Pass": Current_PasswordAgain,
+      "Lang": "hu",
+      "GDPR_Agreement_Vers": "1.01"
+  }, SIGNUP_Step_02);
 }
+
+function SIGNUP_Step_02(SIGNUP_Step_02_Result) {
+  let Step_Result = GL.IsNull(SIGNUP_Step_02_Result.header.result, '')
+  if (Step_Result != 'OK') {
+    PAGE_LOGIN_Sign_up_ALERT_display_shortly(CP_App.Text_GET('dialogs', Step_Result));
+    return;
+  }
+/*
+  let Session_Params = {
+    Login: Temp_Credentials.Current_PhoneNumber,
+    Session_ID: Temp_Credentials.Session_ID,
+    Session_Params: DoLogin_Step_02_Result.body.Session_Params
+  }
+*/
+  PAGES.PAGE_SELECT(page_sign_up_completed_id);
+
+  page_sign_up_completed_sms_text.value = GL.IsNull(SIGNUP_Step_02_Result.body.SMS_Text, "");
+  page_sign_up_completed_phone_number.value = GL.IsNull(SIGNUP_Step_02_Result.body.SMS_PhoneNumber, "");
+
+}
+
 
 //-------------------------------------------------------------------------------
 // PAGE SIGNUP_COMPLETED
@@ -262,13 +290,12 @@ let page_sign_up_completed_btn_copy_text = document.querySelector("#page-sign-up
 let page_sign_up_completed_btn_copy_phonenumber = document.querySelector("#page-sign-up-completed-btn-copy-phonenumber");
 let page_sign_up_completed_btn_reload = document.querySelector("#btn-reload");
 
-page_sign_up_completed_btn_copy_text.addEventListener("click", () => GL.CLIPBOARD_COPY("page-sing-up-completed-sms-text") );
+page_sign_up_completed_btn_copy_text.addEventListener("click", () => GL.CLIPBOARD_COPY("page-sign-up-completed-sms-text") );
 page_sign_up_completed_btn_copy_phonenumber.addEventListener("click", () => GL.CLIPBOARD_COPY("page-sign-up-completed-phone-number") );
 
 page_sign_up_completed_btn_reload.addEventListener("click", () => { 
-  PAGES.PAGE_SELECT(page_login_id);
-  container.classList.remove("sign-up-mode");
- } )
+  location.reload();
+} )
 
 btn_login.addEventListener("click", DoLogin);
 btn_signup.addEventListener("click", DoSignup);

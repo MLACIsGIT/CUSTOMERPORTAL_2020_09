@@ -209,7 +209,7 @@ form.sign-in-form {
 
 .image {
   width: 100%;
-  max-width: 150px;
+  max-width: 120px;
   transition: transform 1.1s ease-in-out;
   transition-delay: 0.4s;
 }
@@ -324,7 +324,7 @@ form.sign-in-form {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    padding: 2.5rem 8%;
+    padding: 1rem 8%;
     grid-column: 1 / 2;
   }
   .right-panel {
@@ -467,8 +467,8 @@ form.sign-in-form {
 
 .page-sign-up-completed-article input {
   border-style: none;
-  width: 400px;
-  font-size: 1.5rem;
+  width: 80%;
+  font-size: 1.2rem;
   text-align: center;
 }
 
