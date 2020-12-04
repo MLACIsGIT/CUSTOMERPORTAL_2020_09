@@ -1,14 +1,7 @@
 import * as M_SEL_SVG from './SEL_SVG.js'
 
 export class SEL_NAVBAR {
-    #NAVBAR_ID;
-    #NAVBAR_SVGs;
-    #NAVBAR_ITEMS = {};
-    #NAVBAR;
-    #COLOR_PALETTES = {};
-    #SELECTED_ITEM_ID;
-
-    _SVG_COLORS_FROM_Params_GET = (Params) => {
+    _SVG_COLORS_FROM_Params_GET (Params) {
         let SVG_COLORS = {};
 
         for (let k of Object.keys(Params.COLORS)) {
@@ -18,7 +11,7 @@ export class SEL_NAVBAR {
         return SVG_COLORS;
     }
 
-    _COLORING_ITEM = (item_id, COLOR_PALETTE) => {
+    _COLORING_ITEM (item_id, COLOR_PALETTE) {
         if (item_id == undefined) {
             return;
         }
@@ -49,9 +42,9 @@ export class SEL_NAVBAR {
         }
     }
 
-    SELECTED_ITEM_ID_GET = () => this.SELECTED_ITEM_ID;
+    SELECTED_ITEM_ID_GET () {return this.SELECTED_ITEM_ID;}
 
-    SELECTED_ITEM_SET = (Item_id) => {
+    SELECTED_ITEM_SET (Item_id) {
         if (this.SELECTED_ITEM_ID != undefined) {
             this._COLORING_ITEM(this.SELECTED_ITEM_ID, "NORMAL");
             this.SELECTED_ITEM_ID = undefined;
@@ -61,7 +54,7 @@ export class SEL_NAVBAR {
         this._COLORING_ITEM(this.SELECTED_ITEM_ID, "SELECTED");
     }
 
-    EVENT_NAVBAR_ITEM_CLICKED = (e) => {
+    EVENT_NAVBAR_ITEM_CLICKED (e) {
         let Path_items_with_id = e.path.filter(p => p.id > "")
         for (let i of Path_items_with_id) {
             if (this.NAVBAR_ITEMS[i.id] != undefined) {
@@ -77,7 +70,7 @@ export class SEL_NAVBAR {
         }
     }
 
-    _NAVBAR_CSS_VARIABLES_SET = () => {
+    _NAVBAR_CSS_VARIABLES_SET () {
         this.NAVBAR.style.setProperty('--NAVBAR_COUNT_OF_MENUITEMS', Object.keys( this.NAVBAR_ITEMS ).length)
     }
 
@@ -88,18 +81,28 @@ export class SEL_NAVBAR {
     }
 
     constructor(Params) {
-        this.NAVBAR_ID = Params.NAVBAR_ID;
+        //#SELECTED_ITEM_ID;
+        this.SELECTED_ITEM_ID = undefinied;
 
+        //#NAVBAR_ID;
+        this.NAVBAR_ID = Params.NAVBAR_ID;
+        
         let SVG_DEF = {
             "SVG": Params.SVG,
             "SVG_COLORS": this._SVG_COLORS_FROM_Params_GET(Params)
         }
-
+        
+        //#COLOR_PALETTES = {};
         this.COLOR_PALETTES = Params.COLORS;
+        
+        //#NAVBAR_SVGs;
         this.NAVBAR_SVGs = new M_SEL_SVG.SEL_SVG(SVG_DEF);
         this.NAVBAR_SVGs.SVG_PICTURES_SET_ALL(".NAVBAR_ITEM_SVG");
-
+        
+        //#NAVBAR_ITEMS = {};
         this.NAVBAR_ITEMS = {};
+        
+        //#NAVBAR;
         this.NAVBAR = document.getElementById(this.NAVBAR_ID)
         if (this.NAVBAR != undefined) {
             for (let i of this.NAVBAR.querySelectorAll(".SEL_NAVBAR_ITEM")) {

@@ -1,10 +1,7 @@
 export class SEL_PAGE {
-    #Pages = {};
-    #Selected_Page_ID;
+    _isID (selector) { return (selector.substr(0, 1) === "#") }
 
-    _isID = (selector) => { return (selector.substr(0, 1) === "#") }
-
-    _PAGE_HIDE = (Page_ID) => {
+    _PAGE_HIDE (Page_ID) {
         if (this._isID(Page_ID)) {
             document.querySelector(Page_ID).style.display = "none";
         } else {
@@ -14,7 +11,7 @@ export class SEL_PAGE {
         }
     }
 
-    _PAGE_SHOW = (Page_ID, DisplayType = "block") => {
+    _PAGE_SHOW (Page_ID, DisplayType = "block") {
         if (this._isID(Page_ID)) {
             document.querySelector(Page_ID).style.display = DisplayType;
         } else {
@@ -24,15 +21,15 @@ export class SEL_PAGE {
         }
     }
 
-    PAGE_ADD = (Page_ID, Params = {}) => {
+    PAGE_ADD (Page_ID, Params = {}) {
         this.Pages[Page_ID] = Params;
     }
 
-    PAGE_REMOVE = (Page_ID) => {
+    PAGE_REMOVE (Page_ID) {
         delete this.Pages[Page_ID]
     }
 
-    PAGE_SELECT = (Page_ID, DisplayType = "block") => {
+    PAGE_SELECT (Page_ID, DisplayType = "block") {
         this.Selected_Page_ID = Page_ID;
 
         for (let C_Page_ID of Object.keys(this.Pages)) {
@@ -47,7 +44,7 @@ export class SEL_PAGE {
         }
     }
 
-    PAGE_SELECT_FIRST_DISPLAYED = () => {
+    PAGE_SELECT_FIRST_DISPLAYED () {
         for (let C_Page_ID of Object.keys(this.Pages)) {
             let C_i = document.getElementById(C_Page_ID);
             if (C_i != undefined) {
@@ -60,9 +57,13 @@ export class SEL_PAGE {
         return undefinied;
     }
 
-    HIDE_ALL_PAGES = () => this.PAGE_SELECT("");
+    HIDE_ALL_PAGES () {this.PAGE_SELECT("");}
 
     constructor(Params) {
+        //#Pages = {};
         this.Pages = Params.Pages;
+
+        //#Selected_Page_ID;
+        this.Selected_Page_ID = '';
     }
 }
