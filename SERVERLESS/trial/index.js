@@ -151,22 +151,22 @@ module.exports = async function (context, req) {
         // nothing to do
     }
 
-        if (SMS_Params.SMS_Type === "NOT_VALID") {
-            if (req.body == undefined) {
-                context.res = {
-                    status: 200,
-                    body: `SELEXPED CUSTOMER PORTAL SERVERLESS AZURE FUNCTION VERSION ${version} is ready to go.`
-                };
-                return;
-            }
+    if (SMS_Params.SMS_Type === "NOT_VALID") {
+        if (req.body == undefined) {
+            context.res = {
+                status: 200,
+                body: `SELEXPED CUSTOMER PORTAL SERVERLESS AZURE FUNCTION VERSION ${version} is ready to go.`
+            };
+            return;
         }
-    
-        try {
-            WAT_Request = req.body;
-            WAT_function = (WAT_Request.header.function) ? WAT_Request.header.function : '';
-        } catch (error) {
-            // nothing to do    
-        }
+    }
+
+    try {
+        WAT_Request = req.body;
+        WAT_function = (WAT_Request.header.function) ? WAT_Request.header.function : '';
+    } catch (error) {
+        // nothing to do    
+    }
 
     try {
         //Step 1: connection
@@ -229,12 +229,91 @@ module.exports = async function (context, req) {
                         context.res = Result_OK({
                             "IsValidated": true
                         })
-
-                        return;
                     }
                 }
                 break;
 
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_SEND_MESSAGE
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_SEND_MESSAGE':
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(WAT_Request.header.Portal_owner_id));
+                DB_Request.input('WAT_Session_ID', npm_mssql.NVarChar(255), WAT_Request.header.Session_ID);
+                DB_Request.input('Message_FROM_WAT_User', npm_mssql.NVarChar(128), WAT_Request.body.Message_FROM);
+                DB_Request.input('Message_TO_WAT_User', npm_mssql.NVarChar(128), WAT_Request.body.Message_TO);
+                DB_Request.input('Message_Type', npm_mssql.Int, WAT_Request.body.Message_Type);
+                DB_Request.input('WAT_Message', npm_mssql.NVarChar('max'), WAT_Request.body.Message);
+                DB_Request.output('OUT_WAT_Messages_ID', npm_mssql.Int);
+                DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255));
+                DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'));
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_SEND_MESSAGE');
+                if (DB_Results.output.OUT_ErrCode != "") {
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
+                        "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
+                        }
+                    })
+                } else {
+                    context.res = Result_OK({
+                        "Message_ID": DB_Results.output.OUT_WAT_Messages_ID
+                    });
+                }
+                break;
+
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_RECEIVE_MESSAGE
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_RECEIVE_MESSAGE':
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(WAT_Request.header.Portal_owner_id));
+                DB_Request.input('WAT_Session_ID', npm_mssql.NVarChar(255), WAT_Request.header.Session_ID);
+                DB_Request.input('WAT_User', npm_mssql.NVarChar(128), WAT_Request.body.WAT_User);
+                DB_Request.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
+                DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255))
+                DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_RECEIVE_MESSAGE');
+                if (DB_Results.output.OUT_ErrCode != "") {
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
+                        "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
+                        }
+                    })
+                } else {
+                    context.res = Result_OK({
+                        "Message": DB_Results.output.OUT_WAT_Message
+                    });
+                }
+                break;
+
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_MESSAGE_ACCEPT
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_MESSAGE_ACCEPT':
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(WAT_Request.header.Portal_owner_id));
+                DB_Request.input('WAT_Session_ID', npm_mssql.NVarChar(255), WAT_Request.header.Session_ID);
+                DB_Request.input('WAT_User', npm_mssql.NVarChar(128), WAT_Request.body.WAT_User);
+                DB_Request.input('Array_of_Accepted_Message_IDs', npm_mssql.NVarChar('max'), WAT_Request.body.Array_of_Accepted_Message_IDs);
+                DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255))
+                DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_MESSAGE_ACCEPT');
+                if (DB_Results.output.OUT_ErrCode != "") {
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
+                        "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
+                        }
+                    })
+                } else {
+                    context.res = Result_OK({});
+                }
+                break;
 
             //-------------------------------------------------------------------------------------------------------------------------------
             // WAT_INTERFACE_SESSION_GET_NEW
