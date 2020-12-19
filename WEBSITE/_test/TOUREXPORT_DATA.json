@@ -1,0 +1,362 @@
+{
+  "head": {
+    "Portal_owner_id": 1038470,
+    "Session_ID": "",
+    "function": "WAT_INTERFACE_SEND_MESSAGE"
+  },
+  "body": {
+    "Message_FROM": "CUST_MA@upshealthcare.com",
+    "Message_TO": "+36 30 310 2211",
+    "Message_Type": 50001,
+    "message": {
+      "transport": [
+        {
+          "transportId": 20058460,
+          "line1": "T202012040027",
+          "line2": "20201204-20201204",
+          "line3": "SFE-172",
+          "line4": "Wallner Éva",
+          "line5": "Egyéb 0001",
+          "address": [
+            {
+              "groupId": 1,
+              "transportId": 20058460,
+              "parentIds": "[20056789,20056795,20056815]",
+              "line1": "Felrakóhely",
+              "line2": "HU 2040 Budaors Vasut utca 13.",
+              "line3": "BUDAÖRS SHARK PARK (TEVA/R TEVA)",
+              "line4": "20201204",
+              "line5": "Paletta darab: 0; Colli darab: 3",
+              "statusTemplate": [
+                {
+                  "statusId": 8161,
+                  "hu": "Fuvarfeladat rögzítve",
+                  "de": "Fuvarfeladat rögzítve",
+                  "en": "Fuvarfeladat rögzítve",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 20064098,
+                  "hu": "Rakodásra kiállás",
+                  "de": "Rakodásra kiállás",
+                  "en": "Rakodásra kiállás",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 20064100,
+                  "hu": "Rakodás befejezése",
+                  "de": "Rakodás befejezése",
+                  "en": "Rakodás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 2,
+              "transportId": 20058460,
+              "parentIds": "[20056795]",
+              "line1": "Lerakóhely",
+              "line2": "HU 4032 DEBRECEN NAGYERDEI KRT 98.",
+              "line3": "DEBRECENI EGYETEM KLINIKAI KÖZPONT (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 1",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 3,
+              "transportId": 20058460,
+              "parentIds": "[20056789]",
+              "line1": "Lerakóhely",
+              "line2": "HU 5100 JÁSZBERÉNY SZELEI ÚT 2.",
+              "line3": "JÁSZBERÉNYI SZENT ERZSÉBET KÓRHÁZ (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 1",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 4,
+              "transportId": 20058460,
+              "parentIds": "[20056815]",
+              "line1": "Lerakóhely",
+              "line2": "HU 3300 EGER SZÉCHENYI U. 27-29.",
+              "line3": "MARKHOT FERENC   OKTATÓKÓRHÁZ ÉS RENDELŐ (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 1",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "transportId": 20058463,
+          "line1": "T202012040028",
+          "line2": "20201204-20201204",
+          "line3": "SFE-175",
+          "line4": "Wallner Éva",
+          "line5": "Egyéb 0002",
+          "address": [
+            {
+              "groupId": 5,
+              "transportId": 20058463,
+              "parentIds": "[20056804,20056811,20056812,20056813,20056814,20056816,20057033,20057037,20057041,20057043,20057089,20056965,20056991,20057002,20057010,20057020,20057031,20056827,20056912,20056914,20056921,20056929,20056959,20056817,20056818,20056819,20056824,20056825,20056826]",
+              "line1": "Felrakóhely",
+              "line2": "HU 2040 Budaors Vasut utca 13.",
+              "line3": "BUDAÖRS SHARK PARK (TEVA/R TEVA)",
+              "line4": "20201204",
+              "line5": "Paletta darab: 1; Colli darab: 28",
+              "statusTemplate": [
+                {
+                  "statusId": 8161,
+                  "hu": "Fuvarfeladat rögzítve",
+                  "de": "Fuvarfeladat rögzítve",
+                  "en": "Fuvarfeladat rögzítve",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 20064098,
+                  "hu": "Rakodásra kiállás",
+                  "de": "Rakodásra kiállás",
+                  "en": "Rakodásra kiállás",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 20064100,
+                  "hu": "Rakodás befejezése",
+                  "de": "Rakodás befejezése",
+                  "en": "Rakodás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 6,
+              "transportId": 20058463,
+              "parentIds": "[20057043,20056914,20056929]",
+              "line1": "Lerakóhely",
+              "line2": "HU 1106 BUDAPEST MAGLÓDI ÚT 89-91.",
+              "line3": "BAJCSY-ZSILINSZKY KÓRHÁZ ÉS RENDELŐINTÉZ (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 3",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 7,
+              "transportId": 20058463,
+              "parentIds": "[20057089]",
+              "line1": "Lerakóhely",
+              "line2": "HU 1106 BUDAPEST TÜNDÉRFÜRT U. 13-15.",
+              "line3": "HUNGAROPHARMA GYÓGYSZERKERESKEDELMI ZRT (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 1; Colli darab: 0",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 8,
+              "transportId": 20058463,
+              "parentIds": "[20057037,20057041,20056991,20057002]",
+              "line1": "Lerakóhely",
+              "line2": "HU 1204 BUDAPEST KÖVES ÚT 1.",
+              "line3": "JAHN FERENC DÉL-PESTI KÓRHÁZ ÉS RENDELŐI (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 4",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 9,
+              "transportId": 20058463,
+              "parentIds": "[20056965]",
+              "line1": "Lerakóhely",
+              "line2": "HU 1146 BUDAPEST BETHESDA U. 3.",
+              "line3": "M.R.E. BETHESDA GYERMEKKÓRHÁZ (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 1",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 10,
+              "transportId": 20058463,
+              "parentIds": "[20056811,20056812,20056813,20056814,20056816,20057033,20057010,20057031,20056827,20056912,20056921,20056817,20056818,20056819,20056824,20056825,20056826]",
+              "line1": "Lerakóhely",
+              "line2": "HU 1134 BUDAPEST ROBERT KÁROLY KRT 44",
+              "line3": "MAGYAR HONVÉDSÉG EGÉSZSÉGÜGYI KÖZPONT (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 17",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 11,
+              "transportId": 20058463,
+              "parentIds": "[20056804,20057020]",
+              "line1": "Lerakóhely",
+              "line2": "HU 1145 BUDAPEST UZSOKI UTCA 29-41.",
+              "line3": "UZSOKI  UTCAI KÓRHÁZ (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 2",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            },
+            {
+              "groupId": 12,
+              "transportId": 20058463,
+              "parentIds": "[20056959]",
+              "line1": "Lerakóhely",
+              "line2": "HU 1145 BUDAPEST UZSOKI U. 29.",
+              "line3": "UZSOKI UTCAI KÓRHÁZ (TEVA)",
+              "line4": "2020120412:00",
+              "line5": "Paletta darab: 0; Colli darab: 1",
+              "statusTemplate": [
+                {
+                  "statusId": 20064102,
+                  "hu": "Átadás megkezdése",
+                  "de": "Átadás megkezdése",
+                  "en": "Átadás megkezdése",
+                  "pictureId": ""
+                },
+                {
+                  "statusId": 8182,
+                  "hu": "Átadás befejezése",
+                  "de": "Átadás befejezése",
+                  "en": "Átadás befejezése",
+                  "pictureId": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
