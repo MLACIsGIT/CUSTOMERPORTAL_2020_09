@@ -59,10 +59,8 @@ export class SEL_SVG {
         //#SVGs = {};
         this.SVGs = {};
 
-
         //SVG_COLORS;
         this.SVG_COLORS = Params.SVG_COLORS;
-
         this.ADD_SVGs(Params.SVG)
     }
 }

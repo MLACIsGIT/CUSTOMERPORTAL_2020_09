@@ -1,16 +1,13 @@
 export class SEL_SVG {
-    #SVGs = {};
-    SVG_COLORS;
-
-    ADD_SVGs = (SVGs) => {
+    ADD_SVGs (SVGs) {
         this.SVGs = Object.assign({}, SVGs);
     }
 
-    SVG_GET = (SVG_CODE) => {
+    SVG_GET (SVG_CODE) {
         return this.SVGs[SVG_CODE]
     }
 
-    ELEMENT_GET_SVG_CODE = (e) => {
+    ELEMENT_GET_SVG_CODE (e) {
         let OUT = "";
 
         if (e != undefined) {
@@ -26,7 +23,7 @@ export class SEL_SVG {
         return OUT;
     }
 
-    SVG_PICTURES_SET_ALL = (Filter = '.SEL_SVG') => {
+    SVG_PICTURES_SET_ALL (Filter = '.SEL_SVG') {
         let Items = document.querySelectorAll(Filter);
         for (let i of Items) {
             let Current_PICTURE_ID = this.ELEMENT_GET_SVG_CODE(i);
@@ -40,7 +37,7 @@ export class SEL_SVG {
         }
     }
 
-    SVG_FILL = (e, COLOR_PALETTE) => {
+    SVG_FILL (e, COLOR_PALETTE) {
         let NEW_PALETTE = this.SVG_COLORS[COLOR_PALETTE];
 
         for (let c = 0; c < NEW_PALETTE.length; c++) {
@@ -59,6 +56,10 @@ export class SEL_SVG {
     };
 
     constructor(Params) {
+        //#SVGs = {};
+        this.SVGs = {};
+
+        //SVG_COLORS;
         this.SVG_COLORS = Params.SVG_COLORS;
         this.ADD_SVGs(Params.SVG)
     }

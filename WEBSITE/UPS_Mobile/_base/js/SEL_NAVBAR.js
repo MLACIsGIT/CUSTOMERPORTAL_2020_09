@@ -86,7 +86,7 @@ export class SEL_NAVBAR {
 
         //#NAVBAR_ID;
         this.NAVBAR_ID = Params.NAVBAR_ID;
-        
+
         let SVG_DEF = {
             "SVG": Params.SVG,
             "SVG_COLORS": this._SVG_COLORS_FROM_Params_GET(Params)

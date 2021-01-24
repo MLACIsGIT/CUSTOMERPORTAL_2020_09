@@ -78,3 +78,14 @@ export function CRYPTO_SHA512( Str ) {
         return (Array.prototype.map.call(new Uint8Array(buf), x=>(('00'+x.toString(16)).slice(-2))).join('')).toUpperCase();
       });
     }
+
+export function CLIPBOARD_COPY( Text_from_ElementID ) {
+    let copyText = document.getElementById(Text_from_ElementID);
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+  
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+}

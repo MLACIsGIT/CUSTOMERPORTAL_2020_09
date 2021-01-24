@@ -1,30 +1,18 @@
 import * as GL from '../../_base/js/GL.js';
 
 export class CP_App {
-    #DebugMode;
-    #Settings;
-    #Session;
-    #Credential_data = {
-        login: null,
-        Session: null
-    };
-    #Redirected;
-    Lang_Selector;
-    GATEWAY;
-    PROCESS_HANDLER;
+    Host_Location_url() { return `${location.protocol}//${location.host}` };
 
-    Host_Location_url = () => `${location.protocol}//${location.host}`;
+    Settings_GET() { return this.Settings };
 
-    Settings_GET = () => { return this.Settings }
-
-    Text_GET = (type, textcode) => {
+    Text_GET(type, textcode) {
         let OUT = this.Lang_Selector.Text_GET(type, textcode);
         return OUT;
-    }
+    };
 
-    IsDEBUG = () => { return this.DebugMode; }
+    IsDEBUG() { return this.DebugMode; }
 
-    _REDIRECT_to_index_html_If_Settings_NULL = () => {
+    _REDIRECT_to_index_html_If_Settings_NULL() {
         if (this.Settings == null) {
             console.log("Settings not found. Redirect to index.html.")
 
@@ -33,8 +21,8 @@ export class CP_App {
         };
     };
 
-    Login_If_Not = () => {
-        if (this.Redirected == false) { this._REDIRECT_to_index_html_If_Settings_NULL() }
+    Login_If_Not() {
+        if (this.Redirected == false) { return this._REDIRECT_to_index_html_If_Settings_NULL() }
     }
 
     _HTML_Insert_from_file = () => {
@@ -67,17 +55,25 @@ export class CP_App {
     }
 
     constructor(Params) {
-        //Settings
+        //#Credential_data
+        this.Credential_data = {
+            login: null,
+            Session: null
+        };
+
+        //#Redirected;
         this.Redirected = false;
+
+        //#Settings
         this.Settings = JSON.parse(sessionStorage.getItem('CP_SETTINGS'));
         if (this.Redirected == false) { this._REDIRECT_to_index_html_If_Settings_NULL() }
         if (this.Redirected == true) { return }
 
-        //Session
+        //#Session
         let Session_STR = GL.IsNull(sessionStorage.getItem('Session'), "{}");
         this.Session = JSON.parse(Session_STR);
 
-        //DebugMode
+        //#DebugMode;
         this.DebugMode = (this.Settings["DEBUG"] && document.location.origin.indexOf("127.0.0.1") > 0) ? true : false;
 
         //Html_Insert_from_file
@@ -96,30 +92,27 @@ export class CP_App {
         //PROCESS_HANDLER
         this.PROCESS_HANDLER = new PROCESS_HANDLER(this);
     }
-}
+};
 
 //-------------------------------------------------------------------------------------------------
 // PROCESS_HANDLER
 //-------------------------------------------------------------------------------------------------
 class PROCESS_HANDLER {
-    #CP_App;
-    #Stack;
+    _SAVE_STACK() { sessionStorage.setItem('Stack', Stack) };
+    _SAVE_CurrentPage_Params(CurrentPage_Params) { sessionStorage.setItem('CurrentPage_Params', CurrentPage_Params) };
 
-    _SAVE_STACK = () => sessionStorage.setItem('Stack', Stack);
-    _SAVE_CurrentPage_Params = (CurrentPage_Params) => { sessionStorage.setItem('CurrentPage_Params', CurrentPage_Params) }
-
-    GOTO_Page = (NextPage_id, Params) => {
+    GOTO_Page(NextPage_id, Params) {
         let NextPage_url = `${this.CP_App.Host_Location_url()}/${this.CP_App.Settings_GET()["page_map"][NextPage_id]}`
         this._SAVE_CurrentPage_Params(Params);
 
         window.location.href = NextPage_url;
-    }
+    };
 
-    CALL_Page = (ThisPage_id, ThisPage_Params, NextPage_id, NextPage_Params) => {
+    CALL_Page(ThisPage_id, ThisPage_Params, NextPage_id, NextPage_Params) {
         this.Stack.push({ "Page_id": ThisPage_id, "Params": ThisPage_Params })
         this._SAVE_STACK()
         this.GOTO_Page(NextPage_id, NextPage_Params)
-    }
+    };
 
     RETURN_to_PreviousPage(Default_Page_id, Default_Page_Params) {
         if (this.Stack.length == 0) {
@@ -129,10 +122,13 @@ class PROCESS_HANDLER {
         let { PrevPage_id, PrevPage_Params } = Stack.Pull();
         this._SAVE_STACK();
         this.GOTO_Page(PrevPage_id, PrevPage_Params)
-    }
+    };
 
     constructor(CP_App) {
+        //#CP_App
         this.CP_App = CP_App;
+
+        //#Stack
         this.Stack = GL.IsNull(JSON.parse(sessionStorage.getItem('Stack')), []);
     }
 }
@@ -141,18 +137,16 @@ class PROCESS_HANDLER {
 // GATEWAY
 //-------------------------------------------------------------------------------------------------
 export class GATEWAY {
-    #CP_App;
-    #GATEWAY_Http;
-
     constructor(CP_App) {
+        //#CP_App;
         this.CP_App = CP_App;
 
-        //GATEWAY_Http
+        //#GATEWAY_Http
         this.GATEWAY_Http = (this.CP_App.Settings_GET())["Database_Gateway"][(this.CP_App.IsDEBUG()) ? 1 : 0];
         console.log("GATEWAY_Http: ", this.GATEWAY_Http)
-    }
+    };
 
-    _POST = (request_for_post, callback) => {
+    _POST(request_for_post, callback) {
         let fetch_Params = {
             'method': 'POST',
             'mode': 'cors',
@@ -161,7 +155,7 @@ export class GATEWAY {
                 'Content-Type': 'application/json'
             },
             'body': JSON.stringify(request_for_post)
-        }
+        };
 
         fetch(this.GATEWAY_Http, fetch_Params)
             .then(data => {
@@ -175,7 +169,7 @@ export class GATEWAY {
             })
     }
 
-    _Request_for_post_GET = (Func, Func_Params) => {
+    _Request_for_post_GET(Func, Func_Params) {
         return {
             "header": {
                 CP_version: GL.version(),
@@ -188,7 +182,7 @@ export class GATEWAY {
         }
     }
 
-    WAT_INTERFACE_SESSION_GET_NEW = (login, callback) => {
+    WAT_INTERFACE_SESSION_GET_NEW(login, callback) {
         /*
         Result: "header": {
                             version: ,
@@ -211,7 +205,7 @@ export class GATEWAY {
         this._POST(Request, callback)
     }
 
-    WAT_INTERFACE_SESSION_ENABLE = (Login, Session_ID, Code_And_Pass_hash, callback) => {
+    WAT_INTERFACE_SESSION_ENABLE(Login, Session_ID, Code_And_Pass_hash, callback) {
         let Request = this._Request_for_post_GET("WAT_INTERFACE_SESSION_ENABLE",
             {
                 "Login": Login,
@@ -220,28 +214,31 @@ export class GATEWAY {
             })
         this._POST(Request, callback)
     }
+
+    WAT_INTERFACE_PHONENUMBER_ADD(Params, callback) {
+        let Request = this._Request_for_post_GET("WAT_INTERFACE_PHONENUMBER_ADD",
+            Params);
+
+        this._POST(Request, callback);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
 // Language_Selector
 //-------------------------------------------------------------------------------------------------
 export class Language_Selector {
-    #CP_App;
-    #FPc_Language_Selector;
-    #Doc_HTML;
-    #Current_Lang;
-    #Language_Files = [];
-
-    _RECAPTCHA_Lang_SET = () => {
+    _RECAPTCHA_Lang_SET () {
         //set Google recaptcha language
-        let g_recaptcha = document.getElementById("g-recaptcha")
-        if (g_recaptcha != null) {
-            let g_recaptcha_iframe = g_recaptcha.querySelector("iframe")
-            if (g_recaptcha_iframe == null) {
-                setTimeout(this._RECAPTCHA_Lang_SET, 300)
-            } else {
-                g_recaptcha_iframe.setAttribute("src", g_recaptcha_iframe.getAttribute("src").replace(/hl=(.*?)&/, 'hl=' + this.Current_Lang + '&'));
-                g_recaptcha_iframe.style.visibility = "visible";
+        let All_Recaptchas = document.querySelectorAll(".g-recaptcha");
+        for (let g_recaptcha of All_Recaptchas) {
+            if (g_recaptcha != null) {
+                let g_recaptcha_iframe = g_recaptcha.querySelector("iframe")
+                if (g_recaptcha_iframe == null) {
+                    setTimeout(this._RECAPTCHA_Lang_SET, 300)
+                } else {
+                    g_recaptcha_iframe.setAttribute("src", g_recaptcha_iframe.getAttribute("src").replace(/hl=(.*?)&/, 'hl=' + this.Current_Lang + '&'));
+                    g_recaptcha_iframe.style.visibility = "visible";
+                }
             }
         }
     }
@@ -266,7 +263,13 @@ export class Language_Selector {
                     let Doc_Item = document.getElementById(k)
                     let Translation = Items[k][this.Current_Lang];
                     if (Doc_Item && Translation) {
-                        Doc_Item.innerText = Translation;
+                        if (GL.IsNull(Doc_Item.placeholder, "").trim() > "") {
+                            Doc_Item.placeholder = Translation;
+                        } else if (Doc_Item.tagName === "INPUT" && Doc_Item.value !== undefined) {
+                            Doc_Item.value = Translation;
+                        } else {
+                            Doc_Item.innerText = Translation;
+                        }
                     }
                 }
             }
@@ -371,11 +374,18 @@ export class Language_Selector {
         }
         */
 
+
+        //#CP_App;
         this.CP_App = CP_App;
+
+        //#FPc_Language_Selector;
         this.FPc_Language_Selector = document.getElementById(Params["Language_Selector_ID"]);
+
+        //#Current_Lang;
         this.Current_Lang = this.Lang_DEFAULT_GET();
 
         //Load language files
+        //#Language_Files = [];
         this.Language_Files = [];
         this._Language_Files_ADD(Params["Language_Files"]);
         this._Language_Files_ADD((this.CP_App.Settings_GET()).base_language_files)

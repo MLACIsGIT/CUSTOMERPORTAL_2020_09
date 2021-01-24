@@ -25,6 +25,35 @@ export class CP_App {
         if (this.Redirected == false) { return this._REDIRECT_to_index_html_If_Settings_NULL() }
     }
 
+    _HTML_Insert_from_file = () => {
+        let z;
+        let i;
+        let elmnt;
+        let file;
+        let xhttp;
+
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            file = elmnt.getAttribute("from-file");
+            if (file) {
+                file = GL.REPLACE_Params_In_FileNames(file);
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+                        if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+                        elmnt.removeAttribute("from-file");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                return;
+            }
+        }
+    }
+
     constructor(Params) {
         //#Credential_data
         this.Credential_data = {
@@ -46,6 +75,9 @@ export class CP_App {
 
         //#DebugMode;
         this.DebugMode = (this.Settings["DEBUG"] && document.location.origin.indexOf("127.0.0.1") > 0) ? true : false;
+
+        //Html_Insert_from_file
+        this._HTML_Insert_from_file();
 
         //Lang_Selector
         let Lang_Selector_Params = {
@@ -195,7 +227,7 @@ export class GATEWAY {
 // Language_Selector
 //-------------------------------------------------------------------------------------------------
 export class Language_Selector {
-    _RECAPTCHA_Lang_SET = () => {
+    _RECAPTCHA_Lang_SET () {
         //set Google recaptcha language
         let All_Recaptchas = document.querySelectorAll(".g-recaptcha");
         for (let g_recaptcha of All_Recaptchas) {
