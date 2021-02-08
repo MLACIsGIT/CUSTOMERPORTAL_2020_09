@@ -113,24 +113,14 @@ function WAT_CRYPTO_Session_ID_DECRYPT(Code_And_Pass_hash, Encrypted_Session_ID)
     }
 
     for (let Item of T) {
-        if (Item.ASCII_Encoded == 45) {
-            Item.delta1 = 1;
-            Item.delta2 = 1;
-            Item.delta3 = 1;
-            Item.ASCII_Session_ID = 45;
-        } else if (Item.ASCII_Encrypted < 33 || Item.ASCII_Encrypted > 125) {
-            Item.delta1 = 2;
-            Item.delta2 = 2;
-            Item.delta3 = 2;
-            Item.ASCII_Session_ID = Item.ASCII_Encrypted;
+        if (Item.ASCII_Encoded === 45 || Item.ASCII_Encoded < 33 || Item.ASCII_Encoded > 126) {
+            Item.ASCII_Session_ID = Item.ASCII_Encoded;
         } else {
-            if (Item.ASCII_Encrypted >= 33 && Item.ASCII_Encrypted <= 44) { Item.delta2 = Item.ASCII_Encrypted - 30 }
-            if (Item.ASCII_Encrypted >= 46 && Item.ASCII_Encrypted <= 125) { Item.delta2 = Item.ASCII_Encrypted - 31 }
+            Item.delta2 = Item.ASCII_Encrypted - (( Item.ASCII_Encrypted <= 44 ) ? 30 : 31);
+            Item.delta3 = Item.ASCII_Encoded -   (( Item.ASCII_Encoded   <= 44 ) ? 33 : 34);
+            Item.delta1 = (Item.delta3 - Item.delta2 + 94) % 94;
 
-            Item.delta3 = Item.ASCII_Encoded - 33;
-            Item.delta1 = (delta2 + delta3) % 94;
-
-            Item.ASCII_Session_ID = (Item.delta1 < 15) ? delta1 + 30 : delta1 + 31;
+            Item.ASCII_Session_ID = Item.delta1 + ((Item.delta1 < 15) ? 30 : 31);
         }
 
         OUT += String.fromCharCode(Item.ASCII_Session_ID)
