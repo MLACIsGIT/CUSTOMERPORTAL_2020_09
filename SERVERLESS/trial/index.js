@@ -49,6 +49,9 @@ Result_OK = (result) => {
                 "result": "OK"
             },
             'body': result
+        },
+        headers: {
+            'Content-Type': 'application/json'
         }
     }
 }
@@ -243,7 +246,7 @@ module.exports = async function (context, req) {
                 DB_Request.input('Message_FROM_WAT_User', npm_mssql.NVarChar(128), WAT_Request.body.Message_FROM);
                 DB_Request.input('Message_TO_WAT_User', npm_mssql.NVarChar(128), WAT_Request.body.Message_TO);
                 DB_Request.input('Message_Type', npm_mssql.Int, WAT_Request.body.Message_Type);
-                DB_Request.input('WAT_Message', npm_mssql.NVarChar('max'), JSON.stringify(WAT_Request));
+                DB_Request.input('WAT_Message', npm_mssql.NVarChar('max'), JSON.stringify(WAT_Request.body.message));
                 DB_Request.output('OUT_WAT_Messages_ID', npm_mssql.Int);
                 DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255));
                 DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'));
@@ -271,6 +274,7 @@ module.exports = async function (context, req) {
                 DB_Request.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(WAT_Request.header.Portal_owner_id));
                 DB_Request.input('WAT_Session_ID', npm_mssql.NVarChar(255), WAT_Request.header.Session_ID);
                 DB_Request.input('WAT_User', npm_mssql.NVarChar(128), WAT_Request.body.WAT_User);
+                DB_Request.input('Filter', npm_mssql.NVarChar(128), WAT_Request.body.filter);
                 DB_Request.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
                 DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
@@ -285,7 +289,7 @@ module.exports = async function (context, req) {
                     })
                 } else {
                     context.res = Result_OK({
-                        "Message": DB_Results.output.OUT_WAT_Message
+                        "Messages": JSON.parse(DB_Results.output.OUT_WAT_Message)
                     });
                 }
                 break;
@@ -311,7 +315,9 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = Result_OK({});
+                    context.res = Result_OK({
+                        "Result":"OK"
+                    });
                 }
                 break;
 
