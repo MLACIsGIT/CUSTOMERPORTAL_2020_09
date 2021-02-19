@@ -114,7 +114,7 @@ module.exports = async function (context, req) {
     let messageArray = [];
 
     for (let iParts = 0; iParts < parts.length; iParts++) {
-        if (parts[iParts].type === 'image/jpeg') {
+        if (parts[iParts].type !== false) {
             filesArray.push(parts[iParts])
         }
 
@@ -122,6 +122,12 @@ module.exports = async function (context, req) {
             messageArray.push(parts[iParts])
         }
     }
+
+    if (messageArray.length !== 1){
+        context.res = resultErr('BLOB_ERROR', 'Invalid or missing validation data')
+        return;
+    }
+
     let watRequest = JSON.parse(messageArray[0].field);
     
     try {
@@ -144,8 +150,12 @@ module.exports = async function (context, req) {
             // WAT_INTERFACE_UPLOAD_FILE
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'WAT_INTERFACE_UPLOAD_FILE':
+                if (filesArray.length == 0){
+                    context.res = resultErr('BLOB_ERROR', 'No files selected')
+                    break;
+                }
+
                 let folderName = (new Date()).toISOString().slice(0,10).replace(/-/g,"")
-                let fileName = Math.random().toString(36);
                 
                 let blobServiceClient;
                 let containerClient;
@@ -156,48 +166,54 @@ module.exports = async function (context, req) {
             
                 } catch (err) {
                     if (err.code !== 'ContainerAlreadyExists'){
-                        context.res = resultErr('BLOB_ERROR-Create container failure', err)
+                        context.res = resultErr('BLOB_ERROR - Create container failure', err)
                     }
                 }
-                let blockBlobClient = containerClient.getBlockBlobClient(folderName.concat('/',fileName));
+
+                let fileName ='';
+                let outputFileIds = [];
+                for (let iFiles = 0; iFiles < filesArray.length; iFiles++) {
+                    fileName = Math.random().toString(36);
+
+                    let blockBlobClient = containerClient.getBlockBlobClient(folderName.concat('/',fileName));
     
-                let result;
-                try
-                {
-                  result = await blockBlobClient.uploadStream(npm_streamifier.createReadStream(Buffer.from(filesArray[0].data)), filesArray[0].data.length);
+                    let result;
+                    try
+                    {
+                      result = await blockBlobClient.uploadStream(npm_streamifier.createReadStream(Buffer.from(filesArray[iFiles].data)), filesArray[iFiles].data.length);
+                    }
+                    catch(err)
+                    {
+                        context.res = resultErr('BLOB_ERROR - Stream file failure', err)
+                    }
+    
+                    dbRequest = new npm_mssql.Request(dbConn)
+                    dbRequest.input('BLOB_Account', npm_mssql.NVarChar(50), blobServiceClient.accountName);
+                    dbRequest.input('BLOB_Container', npm_mssql.NVarChar(50), watRequest.portalOwnerId.toString());
+                    dbRequest.input('BLOB_Folder_Name', npm_mssql.NVarChar(50), folderName);
+                    dbRequest.input('BLOB_File_Name', npm_mssql.NVarChar(255), fileName);
+                    dbRequest.input('BLOB_Orig_File_Name', npm_mssql.NVarChar(255), filesArray[iFiles].filename);
+                    dbRequest.output('OUT_WAT_File_ID', npm_mssql.Int);
+                    dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255));
+                    dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'));
+                    dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_UPLOAD_FILE');
+                    if (dbResults.output.OUT_ErrCode != "") {
+                        context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                            "ReturnValues": {
+                                "ReturnValue": dbResults.returnValue,
+                                "ErrCode": dbResults.output.OUT_ErrCode,
+                                "ErrParams": dbResults.output.OUT_ErrParams
+                            }
+                        })
+                    } else {
+                        outputFileIds.push(dbResults.output.OUT_WAT_File_ID);
+                    }
+    
                 }
-                catch(err)
-                {
-                    context.res = resultErr('BLOB_ERROR-Stream file failure', err)
-                }
 
-
-                dbRequest = new npm_mssql.Request(dbConn)
-                dbRequest.input('BLOB_Account', npm_mssql.NVarChar(50), blobServiceClient.accountName);
-                dbRequest.input('BLOB_Container', npm_mssql.NVarChar(50), watRequest.portalOwnerId.toString());
-                dbRequest.input('BLOB_Folder_Name', npm_mssql.NVarChar(50), folderName);
-                dbRequest.input('BLOB_File_Name', npm_mssql.NVarChar(255), fileName);
-                dbRequest.input('BLOB_Orig_File_Name', npm_mssql.NVarChar(255), filesArray[0].filename);
-                dbRequest.output('OUT_WAT_File_ID', npm_mssql.Int);
-                dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255));
-                dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'));
-                dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_UPLOAD_FILE');
-                if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
-                        "ReturnValues": {
-                            "ReturnValue": dbResults.returnValue,
-                            "ErrCode": dbResults.output.OUT_ErrCode,
-                            "ErrParams": dbResults.output.OUT_ErrParams
-                        }
-                    })
-                } else {
-                    context.res = resultOk({
-                        "File_ID": dbResults.output.OUT_WAT_File_ID
-                    });
-                }
-
-
-
+                context.res = resultOk({
+                    "outputIds": JSON.stringify(outputFileIds)
+                })
 
                 break;
 
@@ -211,17 +227,5 @@ module.exports = async function (context, req) {
     
         // Disconnect
         if (connected) { dbConn.close() }
-        
-
-
-
-
-
-
-
-
-
-
-
 
 }
