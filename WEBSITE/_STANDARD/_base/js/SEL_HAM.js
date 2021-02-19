@@ -1,4 +1,26 @@
 export class SEL_HAM_MENU {
+    constructor(Params) {
+        //#SELECTED_ITEM_ID;
+        this.SELECTED_ITEM_ID = '';
+        
+        //#HAM_ITEMS;
+        this.HAM_ITEMS = {};
+        
+        //#HAM;
+        this.HAM = document.getElementById(Params.HAM_ID);
+        
+        //#HAM_display_mode = "flex"; // a menu normal allapotban display = none; amikor lathatova akarom tenni, akkor az itt megadott parameter szerint allitja be a display-t.
+        this.HAM_display_mode = Params.HAM_display_mode;
+        
+        //#HAM_BUTTON;
+        this.HAM_BUTTON = document.getElementById(Params.HAM_BUTTON_ID);
+        this.HAM_BUTTON.addEventListener("click", this.HAM_BUTTON_CLICK.bind(this))
+
+        for (let i of this.HAM.querySelectorAll(".SEL_HAM_MENU_ITEM")) {
+            this.HAM_ITEMS_ADD(i);
+        }
+    }
+
     HAM_HIDE () {
         this.HAM.style.display = 'none';
     }
@@ -10,7 +32,8 @@ export class SEL_HAM_MENU {
     SELECTED_ITEM_ID_GET () {return this.SELECTED_ITEM_ID;}
 
     SELECTED_ITEM_SET (Item_id) {
-        this.#SELECTED_ITEM_ID = Item_id;
+        //#SELECTED_ITEM_ID
+        this.SELECTED_ITEM_ID = Item_id;
         for (let i of Object.keys(this.HAM_ITEMS)) {
             let i_element = document.getElementById(i)
             if (i_element != null) {
@@ -28,7 +51,7 @@ export class SEL_HAM_MENU {
     DESELECT_ALL () {this.SELECTED_ITEM_SET("");}
 
     EVENT_HAM_ITEM_CLICKED (e) {
-        let Path_items_with_id = e.path.filter(p => p.id > "")
+        let Path_items_with_id = e.composedPath().filter(p => p.id > "")
         for (let i of Path_items_with_id) {
             if (this.HAM_ITEMS[i.id] != undefined) {
                 let Event_detail = {
@@ -44,7 +67,7 @@ export class SEL_HAM_MENU {
     }
 
     HAM_ITEMS_ADD (Item) {
-        Item.addEventListener('click', this.EVENT_HAM_ITEM_CLICKED)
+        Item.addEventListener('click', this.EVENT_HAM_ITEM_CLICKED.bind(this))
         this.HAM_ITEMS[Item.id] = Item
     }
 
@@ -57,26 +80,4 @@ export class SEL_HAM_MENU {
     HAM_BUTTON_CLICK () {
         this.HAM.style.display = (['', 'none'].includes(this.HAM.style.display)) ? this.HAM_display_mode : 'none';
     };
-
-    constructor(Params) {
-        //#SELECTED_ITEM_ID;
-        this.SELECTED_ITEM_ID = '';
-        
-        //#HAM_ITEMS;
-        this.HAM_ITEMS = {};
-        
-        //#HAM;
-        this.HAM = document.getElementById(Params.HAM_ID);
-        
-        //#HAM_display_mode = "flex"; // a menu normal allapotban display = none; amikor lathatova akarom tenni, akkor az itt megadott parameter szerint allitja be a display-t.
-        this.HAM_display_mode = Params.HAM_display_mode;
-        
-        //#HAM_BUTTON;
-        this.HAM_BUTTON = document.getElementById(Params.HAM_BUTTON_ID);
-        this.HAM_BUTTON.addEventListener("click", this.HAM_BUTTON_CLICK)
-
-        for (let i of this.HAM.querySelectorAll(".SEL_HAM_MENU_ITEM")) {
-            this.HAM_ITEMS_ADD(i);
-        }
-    }
 }
