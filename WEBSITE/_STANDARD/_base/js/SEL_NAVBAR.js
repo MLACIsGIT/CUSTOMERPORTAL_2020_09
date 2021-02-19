@@ -55,7 +55,7 @@ export class SEL_NAVBAR {
     }
 
     EVENT_NAVBAR_ITEM_CLICKED (e) {
-        let Path_items_with_id = e.path.filter(p => p.id > "")
+        let Path_items_with_id = e.composedPath().filter(p => p.id > "")
         for (let i of Path_items_with_id) {
             if (this.NAVBAR_ITEMS[i.id] != undefined) {
                 let Event_detail = {
@@ -76,13 +76,13 @@ export class SEL_NAVBAR {
 
     NAVBAR_ITEMS_ADD = (Item) => {
         this.NAVBAR_ITEMS[Item.id] = Item;
-        Item.addEventListener('click', this.EVENT_NAVBAR_ITEM_CLICKED);
+        Item.addEventListener('click', this.EVENT_NAVBAR_ITEM_CLICKED.bind(this));
         this._NAVBAR_CSS_VARIABLES_SET();
     }
 
     constructor(Params) {
         //#SELECTED_ITEM_ID;
-        this.SELECTED_ITEM_ID = undefinied;
+        this.SELECTED_ITEM_ID = undefined;
 
         //#NAVBAR_ID;
         this.NAVBAR_ID = Params.NAVBAR_ID;

@@ -44,7 +44,7 @@ export class CP_App {
                         if (this.status == 200) { elmnt.innerHTML = this.responseText; }
                         if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
                         elmnt.removeAttribute("from-file");
-                        includeHTML();
+                        this._HTML_Insert_from_file  //includeHTML();
                     }
                 }
                 xhttp.open("GET", file, true);

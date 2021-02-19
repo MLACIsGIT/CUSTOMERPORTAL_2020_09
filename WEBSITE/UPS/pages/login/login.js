@@ -95,7 +95,7 @@ function WAT_CRYPTO_Session_ID_DECRYPT(Code_And_Pass_hash, Encrypted_Session_ID)
     let OUT = '';
     let T = [];
 
-    if (GL.IsNull(Code_And_Pass_hash, '').trim() == '' || GL.IsNull(Encrypted_Session_ID, '').trim() == '') { return '' }
+    if (Code_And_Pass_hash == '' || Encrypted_Session_ID == '') { return '' }
 
     for (let i = 0; i < Encrypted_Session_ID.length; i++) {
         T.push({
@@ -110,24 +110,18 @@ function WAT_CRYPTO_Session_ID_DECRYPT(Code_And_Pass_hash, Encrypted_Session_ID)
     }
 
     for (let Item of T) {
-        if (Item.ASCII_Encoded == 45) {
-            Item.delta3 = 45;
-            Item.delta2 = 45;
-            Item.delta1 = 45;
-            Item.ASCII_Session_ID = 45;
+        if (Item.ASCII_Encoded == 45 || Item.ASCII_Encoded < 33 || Item.ASCII_Encoded > 126) {
+            Item.delta3 = Item.ASCII_Encoded;
+            Item.delta2 = Item.ASCII_Encoded;
+            Item.delta1 = Item.ASCII_Encoded;
+            Item.ASCII_Session_ID = Item.ASCII_Encoded;
         } else {
-            if (Item.ASCII_Encoded >= 48 && Item.ASCII_Encoded <= 57) { Item.delta3 = Item.ASCII_Encoded - 48 }
-            if (Item.ASCII_Encoded >= 65 && Item.ASCII_Encoded <= 90) { Item.delta3 = Item.ASCII_Encoded - 55 }
-
-            if (Item.ASCII_Encrypted >= 48 && Item.ASCII_Encrypted <= 57) { Item.delta2 = Item.ASCII_Encrypted - 48 }
-            if (Item.ASCII_Encrypted >= 65 && Item.ASCII_Encrypted <= 90) { Item.delta2 = Item.ASCII_Encrypted - 55 }
-
-            Item.delta1 = (Item.delta2 + Item.delta3 - Item.SeqNum + 36) % 36;
-
-            if (Item.delta1 >= 0 && Item.delta1 <= 9) { Item.ASCII_Session_ID = Item.delta1 + 48 }
-            if (Item.delta1 >= 10 && Item.delta1 <= 35) { Item.ASCII_Session_ID = Item.delta1 + 55 }
+            Item.delta2 = Item.ASCII_Encrypted - ( (Item.ASCII_Encrypted >= 33 && Item.ASCII_Encrypted <= 44) ? 30 : 31);
+            Item.delta3 = Item.ASCII_Encoded - ( ( Item.ASCII_Encoded < 45 ) ? 33 : 34 );
+            Item.delta1 = ( Item.delta3 - Item.delta2 + 94 ) % 94;
+            Item.ASCII_Session_ID = Item.delta1 + (( Item.delta1 < 15 ) ? 30 : 31);
         }
-
+        
         OUT += String.fromCharCode(Item.ASCII_Session_ID)
     }
 

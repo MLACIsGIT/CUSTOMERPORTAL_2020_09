@@ -13,7 +13,8 @@ const DB_config = {
     port: parseInt(process.env.DB_port),
     options: {
         encrypt: true
-    }
+    },
+    parseJSON: true
 };
 
 const SEEME_config = {
@@ -178,6 +179,19 @@ module.exports = async function (context, req) {
         On_Error_ErrCode = 'GATEWAY_ERROR_SQL-Statement failure'
 
         switch (WAT_function) {
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_TEST
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_TEST':
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.output('OUT_Data', npm_mssql.NVarChar('max'));
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_TEST')
+console.log(DB_Results.output.OUT_Data)
+                context.res = Result_OK({
+                    "Results": JSON.parse(DB_Results.output.OUT_Data)
+                })
+                break;
+
             //-------------------------------------------------------------------------------------------------------------------------------
             // WAT_INTERFACE_PHONENUMBER_VALIDATE
             //-------------------------------------------------------------------------------------------------------------------------------
