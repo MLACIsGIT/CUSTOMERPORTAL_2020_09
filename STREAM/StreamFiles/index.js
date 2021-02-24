@@ -280,15 +280,15 @@ module.exports = async function (context, req) {
                                 'Content-Type': fileMetaData[0].contentType,
                                 'Content-Length': fileMetaData[0].fileLength,
                                 'Content-Disposition': 'attachment; filename=' + fileMetaData[0].origFileName,
-                                'Creation-Date': fileMetaData[0].creationDate
+                                'Creation-Date': fileMetaData[0].creationDate,
+                                'File-Name': fileMetaData[0].origFileName,
+                                'File-Type': fileMetaData[0].contentType,
+                                'File-Length': fileMetaData[0].fileLength
                             },
                             body : result
                         }                    
                     }
                 }
-
-
-
 
                 break;
 
