@@ -1,10 +1,10 @@
 async function fetchSettings() {
-    const url = 'http://localhost:7071/api/map';
+    const url = 'https://selester-trial-vi-001.azurewebsites.net/api/map';
     const params = new URLSearchParams(window.location.search);
 
     let fetchData = {
         method: 'POST',
-        headers: new Headers({ 'Content-Type': 'application/json' }),
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             "header": {
                 "portalOwnerId": params.get('portalOwnerId'),
