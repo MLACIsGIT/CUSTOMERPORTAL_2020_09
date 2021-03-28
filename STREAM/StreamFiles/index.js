@@ -206,7 +206,7 @@ module.exports = async function (context, req) {
                     dbRequest.input('BLOB_Container', npm_mssql.NVarChar(50), watRequest.header.portalOwnerId.toString());
                     dbRequest.input('BLOB_File_Path', npm_mssql.NVarChar(255), filePath);
                     dbRequest.input('BLOB_File_Name', npm_mssql.NVarChar(255), fileName);
-                    dbRequest.input('BLOB_Orig_File_Name', npm_mssql.NVarChar(255), encodeURI(filesArray[iFiles].filename));
+                    dbRequest.input('BLOB_Orig_File_Name', npm_mssql.NVarChar(255), decodeURI(filesArray[iFiles].filename));
                     dbRequest.input('BLOB_Content_Type', npm_mssql.NVarChar(255), filesArray[iFiles].type);
                     dbRequest.input('BLOB_File_Length', npm_mssql.Int,filesArray[iFiles].data.length)
                     dbRequest.output('OUT_WAT_File_ID', npm_mssql.Int);
@@ -279,16 +279,16 @@ module.exports = async function (context, req) {
                                 'Cache-Control': 'no-cache',
                                 'Content-Type': fileMetaData[0].contentType,
                                 'Content-Length': fileMetaData[0].fileLength,
-                                'Content-Disposition': 'attachment; filename=' + fileMetaData[0].origFileName,
-                                'Creation-Date': fileMetaData[0].creationDate
+                                'Content-Disposition': 'attachment; filename=' + encodeURI(fileMetaData[0].origFileName),
+                                'Creation-Date': fileMetaData[0].creationDate,
+                                'File-Name': encodeURI(fileMetaData[0].origFileName),
+                                'File-Type': fileMetaData[0].contentType,
+                                'File-Length': fileMetaData[0].fileLength
                             },
                             body : result
                         }                    
                     }
                 }
-
-
-
 
                 break;
 

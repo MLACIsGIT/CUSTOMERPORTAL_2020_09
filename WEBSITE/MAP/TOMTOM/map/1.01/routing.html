@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html class='use-all-space'>
+    <head>
+        <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+        <meta charset='UTF-8'>
+        <title>SelExped térkép - TomTom</title>
+        <meta name='viewport'
+            content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'/>
+        <link rel='stylesheet' type='text/css' href='../../api/5.51.0/sdk/maps.css'>
+        <link rel='stylesheet' type='text/css' href='../../api/5.51.0/plugins/assets/ui-library/index.css'/>
+    </head>
+    <style>
+        .marker-start-icon {
+            background-size: contain;
+        }
+        .marker-end-icon {
+            background-size: contain;
+        }
+        .marker-point-icon {
+            background-size: contain;
+        }
+    </style>
+    <body>
+        <div class='map-view'>
+            <div id='map' class='full-map'></div>
+        </div>
+        <script src='../../api/5.51.0/sdk/maps-web.min.js'></script>
+        <script type='text/javascript' src='../../api/5.51.0/plugins/assets/js/mobile-or-tablet.js'></script>
+        <script src='./routing.js'></script>
+    </body>
+</html>
