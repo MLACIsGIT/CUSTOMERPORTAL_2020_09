@@ -1,5 +1,5 @@
 {
-  "name": "trial01",
+  "name": "serverless",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
-    "mssql": "^6.2.3",
+    "mssql": "^6.3.1",
     "seeme-js": "^1.0.0"
   },
   "devDependencies": {}

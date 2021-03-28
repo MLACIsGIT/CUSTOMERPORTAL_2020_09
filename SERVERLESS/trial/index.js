@@ -58,16 +58,20 @@ Result_OK = (result) => {
 }
 
 function WAT_Connect() {
-    return new Promise((resolve, reject) => {
-        let Pool = new npm_mssql.ConnectionPool(DB_config);
-        Pool.connect(function (err) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(Pool);
-            }
+    try {
+        return new Promise((resolve, reject) => {
+            let Pool = new npm_mssql.ConnectionPool(DB_config);
+            Pool.connect(function (err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(Pool);
+                }
+            })
         })
-    })
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 function WAT_SELECT(DB_Conn, SQL_SELECT) {
@@ -189,7 +193,7 @@ module.exports = async function (context, req) {
                 DB_Request = new npm_mssql.Request(DB_Conn)
                 DB_Request.output('OUT_Data', npm_mssql.NVarChar('max'));
                 DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_TEST')
-console.log(DB_Results.output.OUT_Data)
+                console.log(DB_Results.output.OUT_Data)
                 context.res = Result_OK({
                     "Results": JSON.parse(DB_Results.output.OUT_Data)
                 })
@@ -330,7 +334,7 @@ console.log(DB_Results.output.OUT_Data)
                     })
                 } else {
                     context.res = Result_OK({
-                        "Result":"OK"
+                        "Result": "OK"
                     });
                 }
                 break;
@@ -412,6 +416,48 @@ console.log(DB_Results.output.OUT_Data)
                     context.res = Result_OK({
                         "SMS_PhoneNumber": DB_Results.output.OUT_SMS_PhoneNumber,
                         "SMS_Text": DB_Results.output.OUT_SMS_Text
+                    })
+                }
+                break;
+
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_GET_DATA
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_GET_DATA':
+                let sqlTop = WAT_Request.body.TOP ?? 0
+
+                sqlTop = (sqlTop > 10000 || sqlTop <= 0) ? 1000 : sqlTop;
+
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(WAT_Request.header.Portal_owner_id));
+                DB_Request.input('Lang', npm_mssql.NVarChar('max'), WAT_Request.header.lang);
+                DB_Request.input('WAT_Sessions_ID', npm_mssql.VarChar(255), WAT_Request.header.Session_ID);
+                DB_Request.input('SELECT', npm_mssql.NVarChar('max'), WAT_Request.body.SELECT);
+                DB_Request.input('TOP', npm_mssql.Int, sqlTop);
+                DB_Request.input('FROM', npm_mssql.NVarChar('max'), WAT_Request.body.FROM);
+                DB_Request.input('WHERE', npm_mssql.NVarChar('max'), WAT_Request.body.WHERE);
+                DB_Request.input('GROUP_BY', npm_mssql.NVarChar('max'), WAT_Request.body.GROUP_BY);
+                DB_Request.input('ORDER_BY', npm_mssql.NVarChar('max'), WAT_Request.body.ORDER_BY);
+                DB_Request.input('PAGE_NO', npm_mssql.Int, WAT_Request.body.PAGE_NO);
+                DB_Request.input('ROWS_PER_PAGE', npm_mssql.Int, WAT_Request.body.ROWS_PER_PAGE);
+
+                DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255));
+                DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'));
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_GET_DATA');
+
+                if (DB_Results.output.OUT_ErrCode != "") {
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
+                        "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
+                        }
+                    })
+                } else {
+                    context.res = Result_OK({
+                        countOfRecords: DB_Results.recordset['length'],
+                        columns: DB_Results.recordset['columns'],
+                        data: DB_Results.recordset
                     })
                 }
                 break;
