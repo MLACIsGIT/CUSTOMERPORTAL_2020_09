@@ -1,0 +1,820 @@
+{
+    "header": {
+        "Description": "Language settings for REPORT_INVOICES001",
+        "last-modified": "2020-08-19"
+    },
+    "form-items": {
+        "REPORT_INVOICES001_COLUMNAMES_ID": {
+            "hu": "id",
+            "de": "Id",
+            "en": "Id"
+        },
+        "REPORT_INVOICES001_COLUMNAMES_ExternalSystem_ID": {
+            "hu": "SelExped id",
+            "de": "SelExped id",
+            "en": "SelExped id"
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_InvNum": {
+            "hu": "Számlaszám",
+            "de": "Rechnungsnummer",
+            "en": "Invoice number"
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Inv_SeqNum": {
+            "hu": "Iktatószám",
+            "de": "Registrationsnummer",
+            "en": "Registration number"
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_ACCT_Period": {
+            "hu": "Pénzügyi periódus",
+            "de": "Finanzperiode",
+            "en": "Financial period"
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Type": {
+            "hu": "Bizonylat típusa",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Class": {
+            "hu": "Eseti/időszakos",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Ref_InvNum": {
+            "hu": "Hiv.biz.szám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_AccountingStatus": {
+            "hu": "Könyvelési állapota",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Cancellation_ReasonCode": {
+            "hu": "Javítás oka",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_ACCT_Code": {
+            "hu": "Szállító jele könyvelésben",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Name": {
+            "hu": "Szállító neve",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Country": {
+            "hu": "Szállító ország",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_State": {
+            "hu": "Szállító állam/megye",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_ZIP": {
+            "hu": "Szállító ir.szám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_District": {
+            "hu": "Szállító kerület",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_City": {
+            "hu": "Szállító város",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Addr_StreetName": {
+            "hu": "Szállító közterület neve",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Addr_ps_type": {
+            "hu": "Szállító közterület típusa",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Addr_housenr": {
+            "hu": "Szállító házszám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Addr_building": {
+            "hu": "Szállító épület",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Addr_stairway": {
+            "hu": "Szállító lépcsőház",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Addr_floor": {
+            "hu": "Szállító emelet",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Addr_door": {
+            "hu": "Szállító ajtó",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_CountryZipCity": {
+            "hu": "Szállító ország-ir.szám-város",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Addr": {
+            "hu": "Szállító címe",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Contact": {
+            "hu": "Szállító kapcsolattartó",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Phone": {
+            "hu": "Szállító tel.",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_Email": {
+            "hu": "Szállító e-mail",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_legalPersonType": {
+            "hu": "Szállító jogi személy típusa",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_TaxNum": {
+            "hu": "Szállító belf.adószám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_TaxNum2": {
+            "hu": "Szállító közösségi adószám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_TaxNum3": {
+            "hu": "Szállító 3.országos adószám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_PrivatePersonID": {
+            "hu": "Szállító magánszemély azonosító",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_BankAccount": {
+            "hu": "Szállító bankszámla",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_IBAN": {
+            "hu": "Szállító IBAN",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_SWIFT": {
+            "hu": "Szállító SWIFT",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_BankDetails": {
+            "hu": "Szállító bankadatok",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Vendor_AccNum": {
+            "hu": "Szállító fők.szla.szám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_ACCT_Code": {
+            "hu": "Vevő jele könyvelésben",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Name": {
+            "hu": "Vevő neve",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Country": {
+            "hu": "Vevő ország",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_State": {
+            "hu": "Vevő állam/megye",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_ZIP": {
+            "hu": "Vevő ir.szám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_District": {
+            "hu": "Vevő kerület",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_City": {
+            "hu": "Vevő város",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Addr_StreetName": {
+            "hu": "Vevő közterület neve",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Addr_ps_type": {
+            "hu": "Vevő közterület típusa",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Addr_housenr": {
+            "hu": "Vevő házszám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Addr_building": {
+            "hu": "Vevő épület",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Addr_stairway": {
+            "hu": "Vevő lépcsőház",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Addr_floor": {
+            "hu": "Vevő emelet",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Addr_door": {
+            "hu": "Vevő ajtó",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_CountryZipCity": {
+            "hu": "Vevő ország-ir.szám-város",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Addr": {
+            "hu": "Vevő címe",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Contact": {
+            "hu": "Vevő kapcsolattartó",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Phone": {
+            "hu": "Vevő tel.",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_Email": {
+            "hu": "Vevő e-mail",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_legalPersonType": {
+            "hu": "Vevő jogi személy típusa",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_TaxNum": {
+            "hu": "Vevő belf.adószám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_TaxNum2": {
+            "hu": "Vevő közösségi adószám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_TaxNum3": {
+            "hu": "Vevő 3.országos adószám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_PrivatePersonID": {
+            "hu": "Vevő magánszemély azonosító",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_BankAccount": {
+            "hu": "Vevő bankszámla",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_IBAN": {
+            "hu": "Vevő IBAN",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_SWIFT": {
+            "hu": "Vevő SWIFT",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_BankDetails": {
+            "hu": "Vevő bankadatok",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Customer_AccNum": {
+            "hu": "Vevő fők.szla.szám",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Period_FROM": {
+            "hu": "Időszak -tól",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Period_TO": {
+            "hu": "Időszak -ig",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Date": {
+            "hu": "Kelte",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_DeliveryDate": {
+            "hu": "Teljesítve",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_AccDate": {
+            "hu": "Könyvelési dátum",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_PaymentMethod": {
+            "hu": "Fiz.mód",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_DueDate": {
+            "hu": "Fiz.hat.idő",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_PostInDate": {
+            "hu": "Számla beérkezés dátuma",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_InvInDueDate": {
+            "hu": "Számla tervezett kifizetési dátuma",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Net_LC": {
+            "hu": "Nettó HUF",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Tax_LC": {
+            "hu": "ÁFA HUF",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Gross_LC": {
+            "hu": "Bruttó HUF",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_PayStatus": {
+            "hu": "Fizetve?",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Fully_paid_date": {
+            "hu": "Pü.rendezés dátuma",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_PaidAmount_DC": {
+            "hu": "Fizetve",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_PaidAmount_FC": {
+            "hu": "Fizetve EUR",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_PaidAmount_LC": {
+            "hu": "Fizetve HUF",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Net_DC": {
+            "hu": "Nettó",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Tax_DC": {
+            "hu": "ÁFA",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Gross_DC": {
+            "hu": "Bruttó",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Curr_DC": {
+            "hu": "Devizanem",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Net_FC": {
+            "hu": "Nettó EUR",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Tax_FC": {
+            "hu": "ÁFA EUR",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_COLUMNAMES_INV_Gross_FC": {
+            "hu": "Bruttó EUR",
+            "de": "",
+            "en": ""
+        },
+        "REPORT_INVOICES001_FILTERS": {
+            "hu": "Szűrőfeltételek",
+            "de": "Filter",
+            "en": "Filter"
+        },
+        "REPORT_INVOICES001_DATA": {
+            "hu": "Számlalista",
+            "de": "Rechnungen",
+            "en": "Invoices"
+        },
+        "REPORT_INVOICES001_COLUMNS": {
+            "hu": "Számlalista oszlopainak kiválasztása",
+            "de": "Auswahl Spalten",
+            "en": "Select list columns"
+        },
+        "REPORT_INVOICES001_HEADER_TITLE": {
+            "hu": "Rendezetlen számlák listája",
+            "de": "Offene Posten",
+            "en": "Unsettled invoices"
+        },
+        "REPORT_INVOICES001_COLUMNS_HEADER": {
+            "hu": "Válassza ki azokat az oszlopokat, amelyeket meg szeretne jeleníteni a listában.",
+            "de": "Wählen Sie die Felder aus, die in der Liste angezeigt werden sollen.",
+            "en": "Select the columns you want to display in the list."
+        },
+        "REPORT_INVOICES001_FILTERTEXT_ExternalSystem_ID": {
+            "hu": "SelExped id:",
+            "de": "SelExped id:",
+            "en": "SelExped id:"
+        },
+        "REPORT_INVOICES001_FILTERTEXT_INV_InvNum": {
+            "hu": "Számlaszám:",
+            "de": "Rechnungsnummer:",
+            "en": "Invoice number:"
+        },
+        "REPORT_INVOICES001_FILTERTEXT_INV_Inv_SeqNum": {
+            "hu": "Iktatósorszám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_ACCT_Period": {
+            "hu": "Pénzügyi periódus:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Type": {
+            "hu": "Bizonylat típusa:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Class": {
+            "hu": "Eseti/folyamatos:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Ref_InvNum": {
+            "hu": "Hivatkozott bizonylatszám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_AccountingStatus": {
+            "hu": "Könyvelési állapota:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Cancellation_ReasonCode": {
+            "hu": "Javítóbiz.kiállításának oka:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_ACCT_Code": {
+            "hu": "Szállító jele könyvelésben:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_Name": {
+            "hu": "Szállító neve:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_Country": {
+            "hu": "Szállító országa:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_State": {
+            "hu": "Szállító állam/megye:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_ZIP": {
+            "hu": "Szállító ir.szám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_District": {
+            "hu": "Szállító kerület:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_City": {
+            "hu": "Szállító város:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_Addr_StreetName": {
+            "hu": "Szállító közterület neve:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_Addr": {
+            "hu": "Szállító címe:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_Contact": {
+            "hu": "Szállító kapcsolattartó:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_Phone": {
+            "hu": "Szállító tel.:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_Email": {
+            "hu": "Szállító e-mail:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_legalPersonType": {
+            "hu": "Szállító jogi személy típusa:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_TaxNum": {
+            "hu": "Szállító belf.adószám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_TaxNum2": {
+            "hu": "Szállító közösségi adószám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_TaxNum3": {
+            "hu": "Szállító 3.orsz.adószám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_PrivatePersonID": {
+            "hu": "Szállító magánszemély azonosító:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_BankAccount": {
+            "hu": "Szállító bankszámla:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_IBAN": {
+            "hu": "Szállító IBAN:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_SWIFT": {
+            "hu": "Szállító SWIFT:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_BankDetails": {
+            "hu": "Szállító bankadatok:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Vendor_AccNum": {
+            "hu": "Szállító fők.szla.szám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_Name": {
+            "hu": "Vevő neve:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_Country": {
+            "hu": "Vevő ország:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_State": {
+            "hu": "Vevő állam/megye:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_ZIP": {
+            "hu": "Vevő ir.szám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_District": {
+            "hu": "Vevő kerület:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_City": {
+            "hu": "Vevő város:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_Addr_StreetName": {
+            "hu": "Vevő közterület neve:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_Addr": {
+            "hu": "Vevő címe:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_Contact": {
+            "hu": "Vevő kapcsolattartó:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_Phone": {
+            "hu": "Vevő tel.:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_Email": {
+            "hu": "Vevő e-mail:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_legalPersonType": {
+            "hu": "Vevő jogi személy típusa:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_TaxNum": {
+            "hu": "Vevő belf.adószám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_TaxNum2": {
+            "hu": "Vevő közösségi adószám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_TaxNum3": {
+            "hu": "Vevő 3.orsz.adószám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_PrivatePersonID": {
+            "hu": "Vevő magánszemély azonosító:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_BankAccount": {
+            "hu": "Vevő bankszámla:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_IBAN": {
+            "hu": "Vevő IBAN:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_SWIFT": {
+            "hu": "Vevő SWIFT:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_BankDetails": {
+            "hu": "Vevő bankadatok:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Customer_AccNum": {
+            "hu": "Vevő fők.szla.szám:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Period_FROM": {
+            "hu": "Időszak kezdete:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Period_TO": {
+            "hu": "Időszak vége:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Date": {
+            "hu": "Számla kelte:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_DeliveryDate": {
+            "hu": "Teljesítés dátuma:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_AccDate": {
+            "hu": "Könyvelési dátum:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_PaymentMethod": {
+            "hu": "Fizetési mód:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_DueDate": {
+            "hu": "Fizetési határidő:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_PostInDate": {
+            "hu": "Számla beérkezés dátuma:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_InvInDueDate": {
+            "hu": "Számla tervezett kifizetési dátuma:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Fully_paid_date": {
+            "hu": "Számla kifizetés dátuma:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Curr_DC": {
+            "hu": "Számla devizaneme:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Remarks1": {
+            "hu": "Megjegyzés a számlán:",
+            "de": ":",
+            "en": ":"
+        },
+"REPORT_INVOICES001_FILTERTEXT_INV_Attachments": {
+            "hu": "Mellékletek:",
+            "de": ":",
+            "en": ":"
+        }
+    },
+    "text-elements": {},
+    "dialogs": {}
+}

@@ -1,0 +1,255 @@
+{
+    "header": {
+        "Description": "Language settings for REPORT_TEVA_TIG",
+        "last-modified": "2021-03-28"
+    },
+    "form-items": {
+        "REPORT_TEVA_TIG_COLUMNAMES_ID": {
+            "hu": "id",
+            "de": "Id",
+            "en": "Id"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_PositionNumber": {
+            "hu": "Position number",
+            "de": "Position number",
+            "en": "Position number"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_SuppliersPosition": {
+            "hu": "Suppliers position",
+            "de": "Suppliers position",
+            "en": "Suppliers position"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ArrivalDate": {
+            "hu": "Arrival date",
+            "de": "Arrival date",
+            "en": "Arrival date"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_OrderNumber": {
+            "hu": "Order number",
+            "de": "Order number",
+            "en": "Order number"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ArrivalWarehouse": {
+            "hu": "Arrival warehouse",
+            "de": "Arrival warehouse",
+            "en": "Arrival warehouse"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ArrivalZIP": {
+            "hu": "Arrival zipcode",
+            "de": "Arrival zipcode",
+            "en": "Arrival zipcode"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ArrivalCity": {
+            "hu": "Arrival city",
+            "de": "Arrival city",
+            "en": "Arrival city"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ArrivalAddress": {
+            "hu": "Arrival address",
+            "de": "Arrival address",
+            "en": "Arrival address"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ShipmentType": {
+            "hu": "Shipment type",
+            "de": "Shipment type",
+            "en": "Shipment type"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_WrappingType": {
+            "hu": "Wrapping type",
+            "de": "Wrapping type",
+            "en": "Wrapping type"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_WrappingQuantity": {
+            "hu": "Wrapping quantity",
+            "de": "Wrapping quantity",
+            "en": "Wrapping quantity"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_UnitPrice": {
+            "hu": "Extra waiting hours unit price",
+            "de": "Extra waiting hours unit price",
+            "en": "Extra waiting hours unit price"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_TransportationFee": {
+            "hu": "Transportation fee",
+            "de": "Transportation fee",
+            "en": "Transportation fee"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_Weight": {
+            "hu": "Weight",
+            "de": "Weight",
+            "en": "Weight"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_Temperature": {
+            "hu": "Temperature",
+            "de": "Temperature",
+            "en": "Temperature"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_RouteID": {
+            "hu": "Route id",
+            "de": "Route id",
+            "en": "Route id"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ExtraWaitingHours": {
+            "hu": "Extra waiting hours",
+            "de": "Extra waiting hours",
+            "en": "Extra waiting hours"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ExtraWaitingReason": {
+            "hu": "Extra waiting reason",
+            "de": "Extra waiting reason",
+            "en": "Extra waiting reason"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ExtraWaitingHoursUnitPrice": {
+            "hu": "Extra waiting hours unit price",
+            "de": "Extra waiting hours unit price",
+            "en": "Extra waiting hours unit price"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_ExtraWaitingHoursFee": {
+            "hu": "Extra waiting hours fee",
+            "de": "Extra waiting hours fee",
+            "en": "Extra waiting hours fee"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_EM": {
+            "hu": "EM",
+            "de": "EM",
+            "en": "EM"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_Discount25": {
+            "hu": "Discount 25%",
+            "de": "Discount 25%",
+            "en": "Discount 25%"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_Total": {
+            "hu": "Total",
+            "de": "Total",
+            "en": "Total"
+        },
+        "REPORT_TEVA_TIG_COLUMNAMES_TIG_COMMENT": {
+            "hu": "Comment",
+            "de": "Comment",
+            "en": "Comment"
+        },
+        "REPORT_TEVA_TIG_FILTERS": {
+            "hu": "Szűrőfeltételek",
+            "de": "Filter",
+            "en": "Filter"
+        },
+        "REPORT_TEVA_TIG_DATA": {
+            "hu": "TEVA TIG REPORT",
+            "de": "TEVA TIG REPORT",
+            "en": "TEVA TIG REPORT"
+        },
+        "REPORT_TEVA_TIG_COLUMNS": {
+            "hu": "Riport oszlopainak kiválasztása",
+            "de": "Auswahl Spalten",
+            "en": "Select list columns"
+        },
+        "REPORT_TEVA_TIG_HEADER_TITLE": {
+            "hu": "Rendezetlen számlák listája",
+            "de": "Offene Posten",
+            "en": "Unsettled invoices"
+        },
+        "REPORT_TEVA_TIG_COLUMNS_HEADER": {
+            "hu": "Válassza ki azokat az oszlopokat, amelyeket meg szeretne jeleníteni a listában.",
+            "de": "Wählen Sie die Felder aus, die in der Liste angezeigt werden sollen.",
+            "en": "Select the columns you want to display in the list."
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_PositionNumber": {
+            "hu": "Position number",
+            "de": "Position number",
+            "en": "Position number"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_SuppliersPosition": {
+            "hu": "Suppliers position",
+            "de": "Suppliers position",
+            "en": "Suppliers position"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ArrivalDate": {
+            "hu": "Arrival date",
+            "de": "Arrival date",
+            "en": "Arrival date"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_OrderNumber": {
+            "hu": "Order number",
+            "de": "Order number",
+            "en": "Order number"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ArrivalWarehouse": {
+            "hu": "Arrival warehouse",
+            "de": "Arrival warehouse",
+            "en": "Arrival warehouse"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ArrivalZIP": {
+            "hu": "Arrival zipcode",
+            "de": "Arrival zipcode",
+            "en": "Arrival zipcode"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ArrivalCity": {
+            "hu": "Arrival city",
+            "de": "Arrival city",
+            "en": "Arrival city"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ArrivalAddress": {
+            "hu": "Arrival address",
+            "de": "Arrival address",
+            "en": "Arrival address"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ShipmentType": {
+            "hu": "Shipment type",
+            "de": "Shipment type",
+            "en": "Shipment type"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_WrappingType": {
+            "hu": "Wrapping type",
+            "de": "Wrapping type",
+            "en": "Wrapping type"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_WrappingQuantity": {
+            "hu": "Wrapping quantity",
+            "de": "Wrapping quantity",
+            "en": "Wrapping quantity"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_Weight": {
+            "hu": "Weight",
+            "de": "Weight",
+            "en": "Weight"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_Temperature": {
+            "hu": "Temperature",
+            "de": "Temperature",
+            "en": "Temperature"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_RouteID": {
+            "hu": "Route id",
+            "de": "Route id",
+            "en": "Route id"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ExtraWaitingHours": {
+            "hu": "Extra waiting hours",
+            "de": "Extra waiting hours",
+            "en": "Extra waiting hours"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ExtraWaitingReason": {
+            "hu": "Extra waiting reason",
+            "de": "Extra waiting reason",
+            "en": "Extra waiting reason"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ExtraWaitingHoursUnitPrice": {
+            "hu": "Extra waiting hours unit price",
+            "de": "Extra waiting hours unit price",
+            "en": "Extra waiting hours unit price"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_ExtraWaitingHoursFee": {
+            "hu": "Extra waiting hours fee",
+            "de": "Extra waiting hours fee",
+            "en": "Extra waiting hours fee"
+        },
+        "REPORT_TEVA_TIG_FILTERTEXT_TIG_COMMENT": {
+            "hu": "Comment",
+            "de": "Comment",
+            "en": "Comment"
+        }
+   },
+    "text-elements": {},
+    "dialogs": {}
+}

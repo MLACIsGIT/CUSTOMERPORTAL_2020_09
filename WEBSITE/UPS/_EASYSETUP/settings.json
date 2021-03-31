@@ -16,5 +16,29 @@
 
     "default_language": "gb",
 
-    "base_language_files": ["${origin}/_base/js/GL_Lang.json"]
+    "base_language_files": [
+        "${origin}/_base/js/GL_Lang.json",
+        "${origin}/_EASYSETUP/reports/REPORT_TEVA_TIG/REPORT_TEVA_TIG_Lang.json"
+
+    ],
+
+    "reports": [
+        {
+            "reportId": "REPORT_TEVA_TIG",
+            "type": "SEL_REPORT",
+            "recordset": {
+                "defaultSqlSelect": "ID, TIG_PositionNumber",
+                "defaultSqlTop": 10,
+                "sqlFrom": "U_UPS_TEVA_TIG_DATA_VW",
+                "defaultSqlOrderBy": "TIG_PositionNumber"
+            },
+            "controls": {
+                "agGrid": "REPORT_TEVA_TIG-agGrid",
+                "btnLoadDataId": "REPORT_TEVA_TIG-btnLoadData",
+                "loadingSpinnerId": "REPORT_TEVA_TIG-loading-spinner",
+                "btnFilterSettings": "REPORT_TEVA_TIG_FILTER_SETTINGS",
+                "btnExcelExport": "REPORT_TEVA_TIG-excel-export"
+            }
+        }
+    ]
 }

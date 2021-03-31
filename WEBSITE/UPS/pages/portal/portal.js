@@ -29,49 +29,6 @@ let NAVBAR_PAGES = new M_SEL_PAGES.SEL_PAGE({
 
 let p_NAVBAR_SETTINGS_GET = fetch(NAVBAR_SETTINGS_URL);
 
-// ----------- AG GRID ------------------------------------------
-var columnDefs = [
-    { headerName: "Make", field: "make", sortable: true, filter: true, checkboxSelection: true, rowGroup: true },
-    { headerName: "Model", field: "model", sortable: true, filter: true },
-    { headerName: "Price", field: "price", sortable: true, filter: true }
-];
-
-// specify the data
-/*
-var rowData = [
-  {make: "Toyota", model: "Celica", price: 35000},
-  {make: "Ford", model: "Mondeo", price: 32000},
-  {make: "Porsche", model: "Boxter", price: 72000}
-];
-*/
-
-// let the grid know which columns and what data to use
-var gridOptions = {
-    columnDefs: columnDefs,
-    //rowData: rowData,
-    rowSelection: 'multiple',
-    pagination: true
-};
-
-// setup the grid after the page has finished loading
-document.addEventListener('DOMContentLoaded', function () {
-    var gridDiv = document.querySelector('#myGrid');
-    new agGrid.Grid(gridDiv, gridOptions);
-
-    agGrid.simpleHttpRequest({ url: 'https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/sample-data/rowData.json' }).then(function (data) {
-        gridOptions.api.setRowData(data);
-    });
-});
-
-function getSelectedRows() {
-    var selectedNodes = gridOptions.api.getSelectedNodes()
-    var selectedData = selectedNodes.map(function (node) { return node.data })
-    var selectedDataStringPresentation = selectedData.map(function (node) { return node.make + ' ' + node.model }).join(', ')
-
-    console.log(selectedData);
-}
-// ----------- AG GRID END --------------------------------------
-
 let FPc_HAM_MENU = document.getElementById("HAM_MENU");
 
 let HAM_MENU = new M_SEL_HAM.SEL_HAM_MENU({
@@ -101,7 +58,7 @@ let HAM_DESELECT_ALL = () => { HAM_MENU.DESELECT_ALL() }
 
 let HAM_SELECT_ITEM = (HAM_ITEM_id, Do_not_hide = false) => {
     HAM_MENU.SELECTED_ITEM_SET(HAM_ITEM_id);
-    if ( M_GL.IsNull(Do_not_hide, false) == false ) {
+    if (M_GL.IsNull(Do_not_hide, false) == false) {
         HAM_MENU.HAM_HIDE();
     }
     HAM_PAGES.PAGE_SELECT(HAM_ITEM_id);

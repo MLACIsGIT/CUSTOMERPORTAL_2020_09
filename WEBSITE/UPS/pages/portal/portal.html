@@ -8,8 +8,8 @@
   <link rel="icon" type="image/png" href="../../_EASYSETUP/pictures/favicon.ico">
 
   <!-- BOOTSTRAP -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
-    integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
   <!-- BOOTSTRAP - END -->
 
   <!-- GOOGLE ICONS -->
@@ -32,7 +32,15 @@
   <link rel="stylesheet" href="portal.css">
   <link rel="stylesheet" href="../../_EASYSETUP/Pages/css/U_portal.css">
 
+  <link rel="stylesheet" href="../../_EASYSETUP/reports/REPORT_TEVA_TIG/REPORT_TEVA_TIG.css">
+
   <title id="Page_Title">###Page_Title</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+  crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
 </head>
 
 <body>
@@ -228,27 +236,33 @@
             <div class="HAM_ITEM_NEWS_1_MESSAGE">
               <h4 class="HAM_ITEM_NEWS_1_MESSAGE_DATE">10.01.2020</h4>
               <h3 class="HAM_ITEM_NEWS_1_MESSAGE_TITLE">Lorem ipsum dolor sit amet.</h3>
-              <h4 class="HAM_ITEM_NEWS_1_MESSAGE_TEXT">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut optio commodi.</h4>
+              <h4 class="HAM_ITEM_NEWS_1_MESSAGE_TEXT">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut
+                optio commodi.</h4>
               <h4 class="HAM_ITEM_NEWS_1_MESSAGE_LINK_AREA"><a href="">Details...</a></h4>
             </div>
 
             <div class="HAM_ITEM_NEWS_1_MESSAGE">
               <h4 class="HAM_ITEM_NEWS_1_MESSAGE_DATE">10.01.2020</h4>
               <h3 class="HAM_ITEM_NEWS_1_MESSAGE_TITLE">Lorem ipsum dolor sit amet.</h3>
-              <h4 class="HAM_ITEM_NEWS_1_MESSAGE_TEXT">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut optio commodi.</h4>
+              <h4 class="HAM_ITEM_NEWS_1_MESSAGE_TEXT">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut
+                optio commodi.</h4>
               <h4 class="HAM_ITEM_NEWS_1_MESSAGE_LINK_AREA"><a href="">Details...</a></h4>
             </div>
 
             <div class="HAM_ITEM_NEWS_1_MESSAGE">
               <h4 class="HAM_ITEM_NEWS_1_MESSAGE_DATE">10.01.2020</h4>
               <h3 class="HAM_ITEM_NEWS_1_MESSAGE_TITLE">Lorem ipsum dolor sit amet.</h3>
-              <h4 class="HAM_ITEM_NEWS_1_MESSAGE_TEXT">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut optio commodi.</h4>
+              <h4 class="HAM_ITEM_NEWS_1_MESSAGE_TEXT">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut
+                optio commodi.</h4>
               <h4 class="HAM_ITEM_NEWS_1_MESSAGE_LINK_AREA"><a href="">Details...</a></h4>
             </div>
           </div>
           <div class="HAM_ITEM_NEWS_1_COLUMN_2">
-            <img id="HAM_ITEM_NEWS_BACKGROUND_1_img" src="../../_EASYSETUP/Pages/NEWS_1/pictures/NEWS_1_background_1.png"
-            alt="background_1.png">
+            <img id="HAM_ITEM_NEWS_BACKGROUND_1_img"
+              src="../../_EASYSETUP/Pages/NEWS_1/pictures/NEWS_1_background_1.png" alt="background_1.png">
 
           </div>
         </div>
@@ -266,48 +280,8 @@
         <h4>NEWS - 3</h4>
       </div>
 
-      <div class="SEL_DATA_AREA HAM_ITEM_REPORTS_1">
-        <div class="HAM_ITEM_REPORTS_1_Search_Area">
-          <form>
-            <div class="form-group row">
-              <label for="Filter_Supliers_Position" class="col-sm-3 col-form-label">Suplier's position:</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" id="Filter_PLATE_NO">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="Filter_OrderNo" class="col-sm-3 col-form-label">Order no.:</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" id="Filter_PLATE_NO">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="Filter_DATE_FROM" class="col-sm-3 col-form-label">Arrival date from-to:</label>
-              <div class="col-sm-3">
-                <input type="date" class="form-control" id="Filter_DATE_FROM">
-              </div>
-              <div class="col-sm-3">
-                <input type="date" class="form-control" id="Filter_DATE_TO">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="Filter_ARRIVAL_CITY" class="col-sm-3 col-form-label">Arrival city:</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" id="Filter_PLATE_NO">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="Filter_PLATE_NO" class="col-sm-3 col-form-label">Plate no.:</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" id="Filter_PLATE_NO">
-              </div>
-            </div>
-            <button id="FPc_HAM_ITEM_REPORTS_1_SUBMIT" type="submit" class="btn btn-primary">Submit</button>;
-          </form>
-        </div>
-        <div class="HAM_ITEM_REPORTS_1_Data_Area">
-
-        </div>
+      <div id="HAM_ITEM_REPORTS_1_DATA" class="SEL_DATA_AREA HAM_ITEM_REPORTS_1"
+        from-file="${origin}/_EASYSETUP/reports/REPORT_TEVA_TIG/REPORT_TEVA_TIG.html">
       </div>
 
       <div class="SEL_DATA_AREA HAM_ITEM_REPORTS_2">

@@ -1,0 +1,11 @@
+#REPORT_TEVA_TIG-loading-spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#REPORT_TEVA_TIG-agGrid {
+    width: 100%;
+    height: 60vh;
+    margin: auto;
+}

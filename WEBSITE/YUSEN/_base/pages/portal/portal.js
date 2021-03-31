@@ -3,7 +3,6 @@ import * as M_CP_APP from '../../js/CP_App.js';
 import * as M_SEL_NAVBAR from '../../js/SEL_NAVBAR.js'
 import * as M_SEL_HAM from '../../js/SEL_HAM.js'
 import * as M_SEL_PAGES from '../../js/SEL_PAGER.js'
-import * as AG_GRID from "https://unpkg.com/ag-grid-enterprise/dist/ag-grid-enterprise.min.noStyle.js"
 
 let CP_App = new M_CP_APP.CP_App(
     {
@@ -18,49 +17,6 @@ let NAVBAR_MAIN;
 let NAVBAR_PAGES;
 
 let p_NAVBAR_SETTINGS_GET = fetch(NAVBAR_SETTINGS_URL);
-
-// ----------- AG GRID ------------------------------------------
-var columnDefs = [
-    { headerName: "Make", field: "make", sortable: true, filter: true, checkboxSelection: true, rowGroup: true },
-    { headerName: "Model", field: "model", sortable: true, filter: true },
-    { headerName: "Price", field: "price", sortable: true, filter: true }
-];
-
-// specify the data
-/*
-var rowData = [
-  {make: "Toyota", model: "Celica", price: 35000},
-  {make: "Ford", model: "Mondeo", price: 32000},
-  {make: "Porsche", model: "Boxter", price: 72000}
-];
-*/
-
-// let the grid know which columns and what data to use
-var gridOptions = {
-    columnDefs: columnDefs,
-    //rowData: rowData,
-    rowSelection: 'multiple',
-    pagination: true
-};
-
-// setup the grid after the page has finished loading
-document.addEventListener('DOMContentLoaded', function () {
-    var gridDiv = document.querySelector('#myGrid');
-    new agGrid.Grid(gridDiv, gridOptions);
-
-    agGrid.simpleHttpRequest({ url: 'https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/sample-data/rowData.json' }).then(function (data) {
-        gridOptions.api.setRowData(data);
-    });
-});
-
-function getSelectedRows() {
-    var selectedNodes = gridOptions.api.getSelectedNodes()
-    var selectedData = selectedNodes.map(function (node) { return node.data })
-    var selectedDataStringPresentation = selectedData.map(function (node) { return node.make + ' ' + node.model }).join(', ')
-
-    console.log(selectedData);
-}
-// ----------- AG GRID END --------------------------------------
 
 let FPc_HAM_MENU = document.getElementById("HAM_MENU");
 
@@ -135,23 +91,3 @@ p_NAVBAR_SETTINGS_GET
         });
         NAVBAR_SELECT_ITEM("FPc_NAVBAR_MAIN_ITEM_NEWS")
     })
-
-/*
-let HAM_ITEM_1_CLICK = () => {
-    document.getElementById("grid_demo").style.display = "none"
-    document.getElementById("filter_demo").style.display = "block"
-    HAM_MENU.HAM_HIDE();
-}
-
-let BTN_SHOW_GRID_CLICK = () => {
-    document.getElementById("filter_demo").style.display = "none"
-    document.getElementById("grid_demo").style.display = "block"
-    getSelectedRows()
-}
-
-let HAM_ITEM_NEWS_1 = document.getElementById("HAM_ITEM_NEWS_1")
-HAM_ITEM_NEWS_1.addEventListener("click", HAM_ITEM_1_CLICK)
-
-let BTN_SHOW_GRID = document.getElementById("BTN_SHOW_GRID")
-BTN_SHOW_GRID.addEventListener("click", BTN_SHOW_GRID_CLICK)
-*/

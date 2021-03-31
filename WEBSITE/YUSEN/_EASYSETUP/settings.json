@@ -16,6 +16,26 @@
     ],
     "default_language": "gb",
     "base_language_files": [
-        "${origin}/_base/js/GL_Lang.json"
+        "${origin}/_base/js/GL_Lang.json",
+        "${origin}/_base/reports/REPORT_INVOICES001/REPORT_INVOICES001_Lang.json"
+    ],
+    "reports": [
+        {
+            "reportId": "REPORT_INVOICES001",
+            "type": "SEL_REPORT",
+            "recordset": {
+                "defaultSqlSelect": "ID, INV_InvNum",
+                "defaultSqlTop": 10,
+                "sqlFrom": "WAT_INVOICES",
+                "defaultSqlOrderBy": "INV_InvNum"
+            },
+            "controls": {
+                "agGrid": "REPORT_INVOICES001-agGrid",
+                "btnLoadDataId": "REPORT_INVOICES001-btnLoadData",
+                "loadingSpinnerId": "REPORT_INVOICES001-loading-spinner",
+                "btnFilterSettings": "REPORT_INVOICES001_FILTER_SETTINGS",
+                "btnExcelExport": "REPORT_INVOICES001-excel-export"
+            }
+        }
     ]
 }

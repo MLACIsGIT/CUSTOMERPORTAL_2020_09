@@ -1,0 +1,13 @@
+
+.SEL_REPORT_GRID_fix-30 {
+    width: 30%;
+    overflow: hidden;
+}
+
+.SEL_REPORT_GRID_overflowHidden {
+    overflow: hidden;
+}
+
+.SEL_REPORT_GRID_excel-icon {
+    width: 48px;
+}

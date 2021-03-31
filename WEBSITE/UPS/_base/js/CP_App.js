@@ -1,4 +1,7 @@
 import * as GL from '../../_base/js/GL.js';
+import SEL_REPORT from '../../_base/js/SEL_REPORT.js';
+import AgGrid from '../../_base/js/SEL_AgGrid.js'
+import Recordset from '../../_base/js/SEL_RECORDSET.js'
 
 export class CP_App {
     Host_Location_url() { return `${location.protocol}//${location.host}` };
@@ -25,32 +28,18 @@ export class CP_App {
         if (this.Redirected == false) { return this._REDIRECT_to_index_html_If_Settings_NULL() }
     }
 
-    _HTML_Insert_from_file = () => {
-        let z;
-        let i;
-        let elmnt;
-        let file;
-        let xhttp;
-
-        z = document.getElementsByTagName("*");
-        for (i = 0; i < z.length; i++) {
-            elmnt = z[i];
-            file = elmnt.getAttribute("from-file");
-            if (file) {
-                file = GL.REPLACE_Params_In_FileNames(file);
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4) {
-                        if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-                        if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-                        elmnt.removeAttribute("from-file");
-                        this._HTML_Insert_from_file  //includeHTML();
-                    }
-                }
-                xhttp.open("GET", file, true);
-                xhttp.send();
-                return;
+    HTML_fileElements_get() {
+        return Array.from(document.querySelectorAll('[from-file]')).map((e) => {
+            return {
+                id: e.id,
+                file: GL.REPLACE_Params_In_FileNames(e.getAttribute('from-file'))
             }
+        });
+    }
+
+    HTML_fileElements_set(arrayOfFileElements, arrayOfHtmls) {
+        for (let i = 0; i < arrayOfFileElements.length; i++) {
+            document.getElementsById(arrayOfFileElement[i].id).innerHTML = arrayOfHtmls[i];
         }
     }
 
@@ -71,26 +60,73 @@ export class CP_App {
 
         //#Session
         let Session_STR = GL.IsNull(sessionStorage.getItem('Session'), "{}");
-        this.Session = JSON.parse(Session_STR);
+        this.Session = "" //+++JSON.parse(Session_STR);
 
         //#DebugMode;
         this.DebugMode = (this.Settings["DEBUG"] && document.location.origin.indexOf("127.0.0.1") > 0) ? true : false;
 
-        //Html_Insert_from_file
-        this._HTML_Insert_from_file();
-
-        //Lang_Selector
+        //Lang_Selector - will set after load Html_fileElements
+        this.Lang_Selector = undefined;
         let Lang_Selector_Params = {
             "Language_Selector_ID": GL.IsNull(Params["Language_Selector_ID"], ""),
             "Language_Files": GL.IsNull(Params["Language_Files"])
         }
-        this.Lang_Selector = new Language_Selector(this, Lang_Selector_Params);
+
+        //REPORTS
+        this.REPORTS = [];
+
+        //Html_fileElements
+        let arrayOfHtmlFileElements = this.HTML_fileElements_get();
+        if (arrayOfHtmlFileElements.length === 0) {
+            //Lang_Selector
+            this.Lang_Selector = new Language_Selector(this, Lang_Selector_Params);
+
+            //Reports
+            this.setReports();
+        } else {
+            let pLoad = Promise.all(arrayOfHtmlFileElements.map(e => fetch(e.file)));
+            pLoad.then((responses) => {
+                Promise.all(responses.map(response => response.text()))
+                    .then(htmls => {
+                        for (let i = 0; i < arrayOfHtmlFileElements.length; i++) {
+                            document.getElementById(arrayOfHtmlFileElements[i].id).innerHTML = htmls[i];
+                        }
+
+                        //Lang_Selector
+                        this.Lang_Selector = new Language_Selector(this, Lang_Selector_Params);
+
+                        //Reports
+                        this.setReports();
+                    })
+            })
+        }
+
 
         //GATEWAY
         this.GATEWAY = new GATEWAY(this)
 
         //PROCESS_HANDLER
         this.PROCESS_HANDLER = new PROCESS_HANDLER(this);
+    }
+
+    setReports() {
+        let reportDefs = this.Settings.reports;
+        if (reportDefs) {
+            reportDefs.forEach(cReport => {
+                if (document.getElementById(cReport.reportId)) {
+                    let newAgGrid = new AgGrid(this, cReport.reportId, cReport.controls.agGrid);
+                    let newRecordset = new Recordset(this, {
+                        defaultSqlSelect: cReport.recordset.defaultSqlSelect,
+                        defaultSqlTop: cReport.recordset.defaultSqlTop,
+                        sqlFrom: cReport.recordset.sqlFrom,
+                        defaultSqlOrderBy: cReport.recordset.defaultSqlOrderBy
+                    })
+
+                    let newReport = new SEL_REPORT(this, cReport.reportId, newAgGrid, newRecordset, cReport.controls);
+                    this.REPORTS.push(newReport);
+                }
+            });
+        }
     }
 };
 
@@ -227,7 +263,57 @@ export class GATEWAY {
 // Language_Selector
 //-------------------------------------------------------------------------------------------------
 export class Language_Selector {
-    _RECAPTCHA_Lang_SET () {
+    constructor(CP_App, Params) {
+        /*
+        Params felepitese:
+     
+        {
+            "Language_Selector_ID": <a form-on levo language_selector (tipusa: SELECT)>
+            "Language_Files": [
+                                <a nyelvi elemeket tartalmazo file 1>,
+                                <a nyelvi elemeket tartalmazo file 2>,
+                                ...
+                              ]
+        }
+        */
+
+
+        //#CP_App;
+        this.CP_App = CP_App;
+
+        //#FPc_Language_Selector;
+        this.FPc_Language_Selector = document.getElementById(Params["Language_Selector_ID"]);
+
+        //#Current_Lang;
+        this.Current_Lang = this.Lang_DEFAULT_GET();
+
+        //Load language files
+        //#Language_Files = [];
+        this.Language_Files = [];
+        this._Language_Files_ADD(Params["Language_Files"]);
+        if (this.CP_App.Settings_GET().base_language_files) {
+            this._Language_Files_ADD(this.CP_App.Settings_GET().base_language_files)
+        }
+
+        let Promise_All_FileLoads = [];
+        for (let Current_File of this.Language_Files) {
+            Promise_All_FileLoads.push((fetch(Current_File.FileName)))
+        }
+
+        Promise.all(Promise_All_FileLoads)
+            .then(files => { return Promise.all(files.map(file => file.json())); })
+            .then(jsonData => {
+                for (let i = 0; i < this.Language_Files.length; i++) {
+                    this.Language_Files[i].Data = jsonData[i]
+                }
+                this.Lang_CURRENT_SET(this.Current_Lang);
+            })
+            .catch(err => { console.error(err) })
+
+        this._Language_Selector_INIT()
+    };
+
+    _RECAPTCHA_Lang_SET() {
         //set Google recaptcha language
         let All_Recaptchas = document.querySelectorAll(".g-recaptcha");
         for (let g_recaptcha of All_Recaptchas) {
@@ -243,7 +329,7 @@ export class Language_Selector {
         }
     }
 
-    Lang_CURRENT_SET = (New_Lang) => {
+    Lang_CURRENT_SET(New_Lang) {
         New_Lang = GL.IsNull(New_Lang, "").trim();
         New_Lang = (New_Lang == '') ? this.Lang_DEFAULT_GET() : New_Lang;
         if (!this.Lang_IsSupported(New_Lang)) {
@@ -261,15 +347,12 @@ export class Language_Selector {
             if (Items != null) {
                 for (let k of Object.keys(Items)) {
                     let Doc_Item = document.getElementById(k)
-                    let Translation = Items[k][this.Current_Lang];
-                    if (Doc_Item && Translation) {
-                        if (GL.IsNull(Doc_Item.placeholder, "").trim() > "") {
-                            Doc_Item.placeholder = Translation;
-                        } else if (Doc_Item.tagName === "INPUT" && Doc_Item.value !== undefined) {
-                            Doc_Item.value = Translation;
-                        } else {
-                            Doc_Item.innerText = Translation;
-                        }
+                    let translation = Items[k][this.Current_Lang];
+                    this._setElementText(Doc_Item, translation);
+
+                    let langelements = document.querySelectorAll(`[langelementid="${k}"]`);
+                    if (langelements?.length > 0) {
+                        Array.from(langelements).forEach(e => this._setElementText(e, translation));
                     }
                 }
             }
@@ -280,7 +363,19 @@ export class Language_Selector {
         GL.COOKIES_SET("Lang", New_Lang);
     }
 
-    Text_GET = (type, textcode) => {
+    _setElementText(element, translation) {
+        if (element && translation) {
+            if (GL.IsNull(element.placeholder, "").trim() > "") {
+                element.placeholder = translation;
+            } else if (element.tagName === "INPUT" && element.value !== undefined) {
+                element.value = translation;
+            } else {
+                element.innerText = translation;
+            }
+        }
+    }
+
+    Text_GET(type, textcode) {
         let OUT = '';
 
         for (let c of this.Language_Files) {
@@ -294,9 +389,13 @@ export class Language_Selector {
         return '';
     }
 
-    Lang_CURRENT_GET = () => this.Current_Lang;
+    Lang_CURRENT_GET() {
+        return this.Current_Lang;
+    }
 
-    Lang_IsSupported = (Language_to_check) => this.CP_App.Settings_GET().supported_languages.filter(Lang => Lang == Language_to_check).length == 1;
+    Lang_IsSupported(Language_to_check) {
+        return (this.CP_App.Settings_GET().supported_languages.filter(Lang => Lang == Language_to_check).length == 1);
+    }
 
     Lang_DEFAULT_GET() {
         let OUT = 'en';
@@ -326,7 +425,7 @@ export class Language_Selector {
         return OUT;
     }
 
-    _Language_Files_ADD = (Language_File_Names) => {
+    _Language_Files_ADD(Language_File_Names) {
         for (let Current_FileName of Language_File_Names) {
             Current_FileName = GL.REPLACE_Params_In_FileNames(Current_FileName)
             let Current_Struct = {
@@ -338,11 +437,11 @@ export class Language_Selector {
         }
     }
 
-    _FPc_Language_Selector_onchange = () => {
+    _FPc_Language_Selector_onchange() {
         this.Lang_CURRENT_SET(this.FPc_Language_Selector.value)
     }
 
-    _Language_Selector_INIT = () => {
+    _Language_Selector_INIT() {
         if (this.FPc_Language_Selector) {
             this.FPc_Language_Selector.innerText = '';
             let supported_languages = (this.CP_App.Settings_GET()).supported_languages;
@@ -355,56 +454,7 @@ export class Language_Selector {
             }
             this.FPc_Language_Selector.value = this.Current_Lang;
 
-            this.FPc_Language_Selector.onchange = this._FPc_Language_Selector_onchange
+            this.FPc_Language_Selector.addEventListener("change", this._FPc_Language_Selector_onchange.bind(this));
         }
     }
-
-
-    constructor(CP_App, Params) {
-        /*
-        Params felepitese:
-     
-        {
-            "Language_Selector_ID": <a form-on levo language_selector (tipusa: SELECT)>
-            "Language_Files": [
-                                <a nyelvi elemeket tartalmazo file 1>,
-                                <a nyelvi elemeket tartalmazo file 2>,
-                                ...
-                              ]
-        }
-        */
-
-
-        //#CP_App;
-        this.CP_App = CP_App;
-
-        //#FPc_Language_Selector;
-        this.FPc_Language_Selector = document.getElementById(Params["Language_Selector_ID"]);
-
-        //#Current_Lang;
-        this.Current_Lang = this.Lang_DEFAULT_GET();
-
-        //Load language files
-        //#Language_Files = [];
-        this.Language_Files = [];
-        this._Language_Files_ADD(Params["Language_Files"]);
-        this._Language_Files_ADD((this.CP_App.Settings_GET()).base_language_files)
-
-        let Promise_All_FileLoads = [];
-        for (let Current_File of this.Language_Files) {
-            Promise_All_FileLoads.push((fetch(Current_File.FileName)))
-        }
-
-        Promise.all(Promise_All_FileLoads)
-            .then(files => { return Promise.all(files.map(file => file.json())); })
-            .then(jsonData => {
-                for (let i = 0; i < this.Language_Files.length; i++) {
-                    this.Language_Files[i].Data = jsonData[i]
-                }
-                this.Lang_CURRENT_SET(this.Current_Lang);
-            })
-            .catch(err => { console.error(err) })
-
-        this._Language_Selector_INIT()
-    };
 }

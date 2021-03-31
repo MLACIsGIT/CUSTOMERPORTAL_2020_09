@@ -105,6 +105,91 @@
             "hu": "Yusen Logistics új, egységesített IT platformja",
             "de": "Neue einheitliche IT-Plattform von Yusen Logistics",
             "en": "Yusen Logistics' New Unified IT Platform"
+        },
+
+        "HAM_ITEM_INV_1_TITLE": {
+            "hu": "Rendezetlen számlák",
+            "de": "Offene Posten",
+            "en": "Unsettled invoices"
+        },
+
+        "HAM_ITEM_INV_1_TEXT": {
+            "hu": "Pénzügyileg rendezetlen számlák listája, számlák letöltése pdf vagy xml formátumban",
+            "de": "Liste der Offene Posten, herunterladung von Rechnungen in Pdf oder Xml",
+            "en": "List of Unsettled invoices, download invoices in pdf or xml"
+        },
+
+        "HAM_ITEM_INV_2_TITLE": {
+            "hu": "Számlakönyv",
+            "de": "Rechnungsbuch",
+            "en": "Book of invoices"
+        },
+
+        "HAM_ITEM_INV_2_TEXT": {
+            "hu": "Számlák visszakeresése, letöltése, számlák letöltése pdf vagy xml formátumban",
+            "de": "Rechnungen abrufen und herunterladen in Pdf oder Xml",
+            "en": "Retrieve and download invoices, download invoices in pdf or xml"
+        },
+
+        "HAM_ITEM_STOCKS_1_TITLE": {
+            "hu": "Készletlista",
+            "de": "Bestandsliste",
+            "en": "Stocklist"
+        },
+
+        "HAM_ITEM_STOCKS_1_TEXT": {
+            "hu": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "de": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "en": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque"
+        },
+
+        "HAM_ITEM_STOCKS_2_TITLE": {
+            "hu": "Mozgáslista",
+            "de": "Bewegungsliste",
+            "en": "List of movements"
+        },
+
+        "HAM_ITEM_STOCKS_2_TEXT": {
+            "hu": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "de": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "en": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque"
+        },
+
+        "HAM_ITEM_CONTACT_1_TITLE": {
+            "hu": "BILK",
+            "de": "BILK",
+            "en": "BILK"
+        },
+
+        "HAM_ITEM_CONTACT_1_TEXT": {
+            "hu": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "de": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "en": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque"
+        },
+
+        "HAM_ITEM_CONTACT_2_TITLE": {
+            "hu": "BÉCS",
+            "de": "WIEN",
+            "en": "VIENNA"
+        },
+
+        "HAM_ITEM_CONTACT_2_TEXT": {
+            "hu": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "de": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "en": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque"
+        },
+
+
+        "HAM_ITEM_CONTACT_3_TITLE": {
+            "hu": "COPER",
+            "de": "COPER",
+            "en": "COPER"
+        },
+
+        "HAM_ITEM_CONTACT_3_TEXT": {
+            "hu": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "de": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque",
+            "en": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero qui obcaecati, voluptatibus atque"
         }
     },
 
