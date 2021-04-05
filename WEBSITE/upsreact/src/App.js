@@ -3,27 +3,43 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, useHistory, Redirect } from "react-router-dom"
 import PageHome from './Pages/Home/PageHome'
 import PageLogin from './Pages/Login/PageLogin'
+import Header from './Components/Header/Header'
 
 function App() {
   //const navigationHistory = useHistory();
+  const [lang, setLang] = useState("en")
   const [loginData, setLoginData] = useState({
     userId: null,
     token: null,
     tokenValid: null
   })
+  const [selectedPage, setSelectedPage] = useState({
+    currentPage: "login"
+  })
 
-//navigationHistory.push("/login")
+  function onLanguageChanged(lang) {
+    setLang(lang);
+  }
 
   return (
     <Router>
-      <Link to={"/login"} className="btn btn-info">Login</Link>
+      <Header
+        lang={lang}
+        onLanguageChanged={lang => onLanguageChanged(lang)}
+        selectedPage={selectedPage}
+      />
+
       <Switch>
         <Route exact path="/">
-          <PageLogin />
+          <PageLogin
+            lang={lang}
+          />
         </Route>
 
         <Route exact path="/home">
-          <PageHome />
+          <PageHome
+            lang={lang}
+          />
         </Route>
 
       </Switch>

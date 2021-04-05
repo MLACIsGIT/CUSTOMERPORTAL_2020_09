@@ -1,0 +1,28 @@
+@import "../../App.scss";
+@import "../../_SelComponents/_SelWebComponents/responsibleSettings.scss";
+
+@mixin responsiveLogo {
+    display: inline-block;
+
+    @media screen and (max-width: 319px) {
+        width: 70px;
+        @content;
+    }
+
+    @media screen and (min-width: 320px) and (max-width: 799px) {
+        width: 121px;
+        @content;
+    }
+
+    @media screen and (min-width: 320px) and (min-width: 800px) {
+        width: 161px;
+        padding: 12px 0 14px 0;
+        @content;
+    }
+}
+
+.main-header {
+    .header-logo {
+        @include responsiveLogo();
+    }
+}
