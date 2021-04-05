@@ -1,7 +1,7 @@
 const npm_mssql = require('mssql');
-const keyGen = require('./keyGen')
-const constants = require('./constants')
-const DatabaseHandler = require('./databaseHandler')
+const keyGen = require('./keyGen');
+const constants = require('./constants');
+const DatabaseHandler = require('./databaseHandler');
 
 class User {
     constructor(htmlReq) {

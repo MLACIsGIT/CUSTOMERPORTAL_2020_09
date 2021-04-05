@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@tomtom-international/web-sdk-maps": "^6.7.0",
+    "bcrypt": "^5.0.1",
+    "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "mssql": "^6.3.1",
     "seeme-js": "^1.0.0"

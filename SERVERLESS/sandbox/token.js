@@ -1,6 +1,6 @@
 const npm_mssql = require('mssql');
-const crypto = require('crypto')
-const jwt = require('jsonwebtoken')
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 const DatabaseHandler = require('./databaseHandler')
 
