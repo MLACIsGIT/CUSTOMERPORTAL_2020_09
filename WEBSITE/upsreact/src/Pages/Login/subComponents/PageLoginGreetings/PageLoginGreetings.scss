@@ -1,0 +1,28 @@
+@import "../../../../App.scss";
+
+#page-login-greetings {
+    background-color: $UPS_DARK_BLUE;
+
+    h4 {
+        color: $UPS_BLUE;
+        font-size: 32px;
+        font-weight: 800;
+    }
+
+    hr {
+        color: $UPS_BROWN_LIGHT_TONE_50;
+        height: 1px;
+        opacity: 0.6;
+    }
+    p {
+        color: $UPS_WHITE;
+
+        button {
+            border: none;
+            background-color: $UPS_TEAL;
+            height: 40px;
+            width: 40px;
+            margin-left: 5px;
+        }
+    }
+}

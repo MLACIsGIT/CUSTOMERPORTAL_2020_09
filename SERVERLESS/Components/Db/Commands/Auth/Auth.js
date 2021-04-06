@@ -58,7 +58,7 @@ class Auth {
                 validUntil: outParams.validUntil
             });
         } else {
-            this.comm.res.setResultErr("LOGIN FAILED");
+            this.comm.res.setResultErr("LOGIN_FAILED");
         }
     }
 }

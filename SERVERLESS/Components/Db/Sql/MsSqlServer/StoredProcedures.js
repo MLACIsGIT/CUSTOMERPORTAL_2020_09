@@ -44,11 +44,17 @@ class StoredProcedures {
             let dbResults = await this.db.spExecute(dbRequest, "WAT_INTERFACE_getUser")
             outParams.result = (dbResults.output.OUT_Result) ? true : false;
             if (outParams.result === true) {
-                outParams.userId = dbResults.output.OUT_UserId
-                outParams.userLevel = dbResults.output.OUT_UserLevel
-                outParams.currentUTC = dbResults.output.OUT_CurrentUTC
-                outParams.validUntil = dbResults.output.OUT_ValidUntil
-                outParams.tokenKey = dbResults.output.OUT_TokenKey
+                if (dbResults.output.OUT_UserId === null) {
+                    return {
+                        result: false
+                    }
+                } else {
+                    outParams.userId = dbResults.output.OUT_UserId
+                    outParams.userLevel = dbResults.output.OUT_UserLevel
+                    outParams.currentUTC = dbResults.output.OUT_CurrentUTC
+                    outParams.validUntil = dbResults.output.OUT_ValidUntil
+                    outParams.tokenKey = dbResults.output.OUT_TokenKey
+                }
 
                 return outParams
             }
