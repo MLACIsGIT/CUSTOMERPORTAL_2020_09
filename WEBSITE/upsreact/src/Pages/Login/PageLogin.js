@@ -1,16 +1,35 @@
 import "./PageLogin.scss";
 import backgroundImage from "./login_world.png";
+import { Redirect } from 'react-router-dom';
+import HeaderLine from "../../Components/HeaderLine/HeaderLine"
 import PageLoginGreetings from './subComponents/PageLoginGreetings/PageLoginGreetings'
 import SelLogin from '../../_SelComponents/_SelWebComponents/SelLogin/SelLogin'
 
 export default function PageLogin(props) {
+    function onLogin(newLoginData) {
+        props.onLogin(newLoginData)
+    }
+
+    if (props.loginData.user !== null) {
+        return <Redirect to='/home' />
+    }
+
     return (
         <div id="page-login">
+            <HeaderLine
+                lang={props.lang}
+                selectedPage={"login"}
+            />
+
             <div className="SEL-LAYOUT-CONTAINER SEL-LAYOUT-BLOCK-600px">
                 <PageLoginGreetings lang={props.lang} />
 
                 <div className="SEL-LAYOUT-2-COLUMNS">
-                    <SelLogin lang={props.lang} />
+                    <SelLogin
+                        lang={props.lang}
+                        db={props.db}
+                        onLogin={newLoginData => onLogin(newLoginData)}
+                    />
                 </div>
             </div>
 

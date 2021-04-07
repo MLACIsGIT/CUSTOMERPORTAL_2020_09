@@ -1,6 +1,6 @@
 import './App.scss';
 import { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, useHistory, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Settings from './Settings.js';
 import Db from './_SelComponents/_SelWebComponents/js/Db'
 import PageHome from './Pages/Home/PageHome'
@@ -14,16 +14,24 @@ function App() {
 
   const [lang, setLang] = useState("en");
   const [loginData, setLoginData] = useState({
-    userId: null,
-    token: null,
-    tokenValid: null
+    user: null,
+    token: null
   });
-  const [selectedPage, setSelectedPage] = useState({
-    currentPage: "login"
-  });
+
 
   function onLanguageChanged(lang) {
     setLang(lang);
+  }
+
+  function onLogout() {
+    setLoginData({
+      user: null,
+      token: null
+    })
+  }
+
+  function onLogin(newLoginData) {
+    setLoginData(newLoginData);
   }
 
   return (
@@ -31,7 +39,8 @@ function App() {
       <Header
         lang={lang}
         onLanguageChanged={lang => onLanguageChanged(lang)}
-        selectedPage={selectedPage}
+        loginData={loginData}
+        onLogout={onLogout}
       />
 
       <Switch>
@@ -39,6 +48,8 @@ function App() {
           <PageLogin
             lang={lang}
             db={db}
+            loginData={loginData}
+            onLogin={newLoginData => onLogin(newLoginData)}
           />
         </Route>
 

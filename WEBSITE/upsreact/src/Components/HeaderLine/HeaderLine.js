@@ -5,7 +5,7 @@ import * as LangJSON from "./HeaderLine-lang"
 export default function HeaderLine(props) {
     const LangElements = LangJSON.langJSON();
     const lang = props.lang;
-    const selectedPage = props.selectedPage.currentPage;
+    const selectedPage = props.selectedPage;
 
     function lng(key) {
         return Gl.LANG_GET_FormItem(LangElements, key, lang)

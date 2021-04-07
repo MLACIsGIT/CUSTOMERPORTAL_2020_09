@@ -1,11 +1,14 @@
 import './Header.scss';
 import headerLogo from "./headerLogo.png";
 import LanguageSelector from "../../_SelComponents/_SelWebComponents/LanguageSelector/LanguageSelector"
-import HeaderLine from "../HeaderLine/HeaderLine";
-
+import LoggedUser from "../../_SelComponents/_SelWebComponents/LoggedUser/LoggedUser"
 export default function Header(props) {
     function onLanguageChanged(lang) {
         props.onLanguageChanged(lang);
+    }
+
+    function onLogout() {
+        props.onLogout()
     }
 
     return (
@@ -15,7 +18,16 @@ export default function Header(props) {
                     <img className="header-logo" src={headerLogo} alt="logo" />
                 </div>
 
-                <div className="Logo_And_Header_LanguagePicker">
+                <div className="loggedUser-and-languagePicker">
+                    {
+                        (props.loginData.user) &&
+                        <LoggedUser
+                            lang={props.lang}
+                            loginData={props.loginData}
+                            onLogout={onLogout}
+                        />
+                    }
+
                     <LanguageSelector languages={[
                         { value: "en", text: "en" },
                         { value: "de", text: "de" },
@@ -26,11 +38,6 @@ export default function Header(props) {
                     />
                 </div>
             </div>
-
-            <HeaderLine
-                lang={props.lang}
-                selectedPage={props.selectedPage}
-            />
         </header>
 
     )

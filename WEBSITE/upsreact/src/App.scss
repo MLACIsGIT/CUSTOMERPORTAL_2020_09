@@ -25,3 +25,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+#LoggedUser-user-icon {
+    border: none;
+    color: $UPS_BROWN_LIGHT_TONE_50;
+    width: 32px;
+    height: 32px;
+    background-image: url("./PicturesForSelComponents/LoggedUser-user-icon.svg");
+}

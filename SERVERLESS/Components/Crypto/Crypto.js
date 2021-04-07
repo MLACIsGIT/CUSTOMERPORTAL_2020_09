@@ -15,6 +15,7 @@ class Crypto {
     }
 
     async getHashedPassword(password, salt) {
+        salt = ((salt === undefined) ? "" : salt)
         let hash = crypto.createHash('sha512');
         let data = hash.update(`${salt}${password}`, 'utf-8');
         let gen_hash = (data.digest('hex')).toUpperCase();

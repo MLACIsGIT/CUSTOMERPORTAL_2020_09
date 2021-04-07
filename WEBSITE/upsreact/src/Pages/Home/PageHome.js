@@ -1,13 +1,20 @@
-import { useHistory } from "react-router-dom"
+import { Redirect } from "react-router-dom"
+import HeaderLine from "../../Components/HeaderLine/HeaderLine"
 
 export default function PageHome(props) {
-    const history = useHistory();
-    if (props.loginData.userId === null) {
-        history.push("/");
+    if (props.loginData.user === null) {
+        return (
+            <Redirect to="/" />
+        )
     }
 
     return (
         <div>
+            <HeaderLine
+                lang={props.lang}
+                selectedPage={"home"}
+            />
+
             <h1>PAGE HOME</h1>
         </div>
     )
