@@ -19,6 +19,7 @@ export default function PageLogin(props) {
             <HeaderLine
                 lang={props.lang}
                 selectedPage={"login"}
+                loginData={props.loginData}
             />
 
             <div className="SEL-LAYOUT-CONTAINER SEL-LAYOUT-BLOCK-600px">

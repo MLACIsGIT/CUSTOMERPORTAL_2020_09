@@ -5,6 +5,9 @@ import Settings from './Settings.js';
 import Db from './_SelComponents/_SelWebComponents/js/Db'
 import PageHome from './Pages/Home/PageHome'
 import PageLogin from './Pages/Login/PageLogin'
+import PageTrack from './Pages/Track/PageTrack'
+import PageReports from './Pages/Reports/PageReports'
+import PageContact from './Pages/Contact/PageContact'
 import Header from './Components/Header/Header'
 
 function App() {
@@ -61,6 +64,29 @@ function App() {
           />
         </Route>
 
+        <Route exact path="/track">
+          <PageTrack
+            lang={lang}
+            loginData={loginData}
+            db={db}
+          />
+        </Route>
+
+        <Route exact path="/reports">
+          <PageReports
+            lang={lang}
+            loginData={loginData}
+            db={db}
+          />
+        </Route>
+
+        <Route exact path="/contact">
+          <PageContact
+            lang={lang}
+            loginData={loginData}
+            db={db}
+          />
+        </Route>
       </Switch>
     </Router>
   );

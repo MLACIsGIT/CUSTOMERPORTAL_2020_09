@@ -16,8 +16,25 @@ export function langJSON() {
                 "hu": "Hírek, üzenetek",
                 "de": "Infos und Meldungen",
                 "en": "News and Messages"
-            }
+            },
 
+            "header-title-track": {
+                "hu": "Szállítmány nyomkövetése",
+                "de": "Track & Trace",
+                "en": "Track & Trace"
+            },
+
+            "header-title-reports": {
+                "hu": "Riportok",
+                "de": "Auswertungen",
+                "en": "Reports"
+            },
+
+            "header-title-contact": {
+                "hu": "Kapcsolat",
+                "de": "Kontakt",
+                "en": "Contact"
+            }
         },
 
         "text-elements": {},
