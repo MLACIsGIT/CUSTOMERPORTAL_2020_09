@@ -1,5 +1,7 @@
 import { Redirect } from "react-router-dom"
 import HeaderLine from "../../Components/HeaderLine/HeaderLine"
+import GridReport from "../../_SelComponents/_SelWebComponents/GridReport/GridReport"
+import * as reportTrackAndTraceLang from "./TrackAndTraceReport-lang"
 
 export default function PageTrack(props) {
     if (props.loginData.user === null) {
@@ -16,7 +18,21 @@ export default function PageTrack(props) {
                 loginData={props.loginData}
             />
 
-            <h1>{"Track & Trace"}</h1>
+            <GridReport
+                id="REPORT_TrackAndTrace"
+                lang={props.lang}
+                report={{
+                    "reportId": "REPORT_TEVA_TIG",
+                    "languageElements": reportTrackAndTraceLang.langJSON(),
+                    "recordset": {
+                        "defaultSqlSelect": "ID, TIG_PositionNumber",
+                        "defaultSqlTop": 10,
+                        "sqlFrom": "U_UPS_TEVA_TIG_DATA_VW",
+                        "defaultSqlOrderBy": "TIG_PositionNumber"
+                    }
+                }}
+            />
+
         </div>
     )
 }

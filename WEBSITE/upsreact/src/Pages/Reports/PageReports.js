@@ -19,7 +19,7 @@ export default function PageReports(props) {
             />
 
             <GridReport
-                id="TEVA-TIG-REPORT"
+                id="REPORT_TEVA_TIG"
                 lang={props.lang}
                 report={{
                     "reportId": "REPORT_TEVA_TIG",
@@ -31,7 +31,6 @@ export default function PageReports(props) {
                         "defaultSqlOrderBy": "TIG_PositionNumber"
                     }
                 }}
-
             />
 
         </div>
