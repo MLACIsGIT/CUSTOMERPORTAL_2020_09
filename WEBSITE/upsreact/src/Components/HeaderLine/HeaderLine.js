@@ -39,7 +39,7 @@ export default function HeaderLine(props) {
             <div className="main-navbar">
                 {navbar}
             </div>
-            <h1 class="HEADER_LINE">
+            <h1 className="HEADER_LINE">
                 {lng(`header-title-${selectedPage}`)}
             </h1>
         </div>

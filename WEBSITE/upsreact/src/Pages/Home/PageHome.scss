@@ -1,4 +1,46 @@
-#TEVA-TIG-REPORT-dataGrid {
-    height: 70vh;
-    width: 100%
-} 
+@import "../../App.scss";
+
+.page-home {
+    .HAM_ITEM_NEWS_1_CONTAINER {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .HAM_ITEM_NEWS_1_COLUMN_1 {
+        width: 65%;
+        background-color: var(--UPS_WHITE);
+
+        .HAM_ITEM_NEWS_1_MESSAGE {
+            margin: 40px;
+            padding: 20px 40px;
+            background-color: $UPS_BROWN_LIGHT_TONE_50;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        
+        .HAM_ITEM_NEWS_1_MESSAGE h3 {
+            font-size: 1.2rem;
+            color: var(--UPS_BROWN_DARK_TONE)
+        }
+        
+        .HAM_ITEM_NEWS_1_MESSAGE h4 {
+            font-size: 0.8rem;
+            color: var(--UPS_BROWN_DARK_TONE)
+        }
+        
+        .HAM_ITEM_NEWS_1_MESSAGE_LINK_AREA {
+            margin: 25px 0px 0px 0px;
+            color: var(--UPS_BLUE);
+        }        
+    }
+
+    .HAM_ITEM_NEWS_1_COLUMN_2 {
+        width: 35%;
+
+        #HAM_ITEM_NEWS_BACKGROUND_1_img {
+            display: block;
+            width: 100%;
+            height: auto;
+            background-repeat: no-repeat;
+        }
+    }
+}

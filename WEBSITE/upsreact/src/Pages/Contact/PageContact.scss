@@ -1,0 +1,44 @@
+@import "../../App.scss";
+
+.HAM_ITEM_CONTACT_1_CONTAINER {
+    display: flex;
+    justify-content: space-between;
+}
+
+.HAM_ITEM_CONTACT_1_COLUMN_1 {
+    width: 50%;
+}
+
+.HAM_ITEM_CONTACT_1_COLUMN_2 {
+    background-color: $UPS_DARK_BLUE;
+    width: 50%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.HAM_ITEM_CONTACT_1_COLUMN_2 h3 {
+    padding: 100px 0px 10px 0px;
+    color: $UPS_BLUE;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+.HAM_ITEM_CONTACT_1_COLUMN_2 h4 {
+    padding: 20px 0px 0px 0px;
+    color: $UPS_WHITE;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.HAM_ITEM_CONTACT_1_COLUMN_2 a {
+    color: $UPS_BROWN_LIGHT_TONE_50;
+}
+
+#PAGE_CONTACT_1_img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background-repeat: no-repeat;
+}
