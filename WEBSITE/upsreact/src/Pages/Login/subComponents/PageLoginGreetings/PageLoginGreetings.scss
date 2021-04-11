@@ -1,6 +1,12 @@
 @import "../../../../App.scss";
 
-#page-login-greetings {
+@media screen and (min-width: 600px) {
+    #page-login-greetings-alert {
+        height: 220px;
+    }
+}
+
+#page-login-greetings-alert {
     background-color: $UPS_DARK_BLUE;
 
     h4 {

@@ -45,6 +45,7 @@ export default function HeaderLine(props) {
             </h1>
             <TokenExpirationMessage
                 lang={lang}
+                loginData={props.loginData}
                 onLogout={props.onLogout}
             />
         </div>
