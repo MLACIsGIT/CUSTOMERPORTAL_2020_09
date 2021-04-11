@@ -61,6 +61,7 @@ function App() {
             lang={lang}
             loginData={loginData}
             db={db}
+            onLogout={onLogout}
           />
         </Route>
 
@@ -69,6 +70,7 @@ function App() {
             lang={lang}
             loginData={loginData}
             db={db}
+            onLogout={onLogout}
           />
         </Route>
 
@@ -77,6 +79,7 @@ function App() {
             lang={lang}
             loginData={loginData}
             db={db}
+            onLogout={onLogout}
           />
         </Route>
 
@@ -85,6 +88,7 @@ function App() {
             lang={lang}
             loginData={loginData}
             db={db}
+            onLogout={onLogout}
           />
         </Route>
       </Switch>
