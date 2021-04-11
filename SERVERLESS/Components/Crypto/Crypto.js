@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
 class Crypto {
@@ -21,13 +20,6 @@ class Crypto {
         let gen_hash = (data.digest('hex')).toUpperCase();
         
         return gen_hash;
-
-/*
-        if (this.saltGenerated === false) {
-            await this.genSalt();
-        }
-        return await bcrypt.hash(password, this.salt);
-*/
     }
 }
 

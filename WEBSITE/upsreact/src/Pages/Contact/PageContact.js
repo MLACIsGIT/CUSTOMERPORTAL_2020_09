@@ -19,20 +19,22 @@ export default function PageContact(props) {
             />
 
 
-<div className="HAM_ITEM_CONTACT_1_CONTAINER">
-          <div className="HAM_ITEM_CONTACT_1_COLUMN_1">
-            <img id="PAGE_CONTACT_1_img" src={ContactBackground}
-              alt="background_1.png"/>
-          </div>
-          <div className="HAM_ITEM_CONTACT_1_COLUMN_2">
-            <h3>UPS Healthcare Hungary Zrt.</h3>
-            <br/>
-            <h4>2040 Budaörs</h4>
-            <h4>Vasút utca 13</h4>
-            <h4>Tel.: 123456789</h4>
-            <h4>E-mail: <a href="mailto: email@email.hu">email@email.hu</a></h4>
-          </div>
-        </div>
+            <div className="HAM_ITEM_CONTACT_1_CONTAINER">
+                <div className="HAM_ITEM_CONTACT_1_COLUMN_1">
+                    <img src={ContactBackground} alt="background_1.png" />
+                </div>
+
+                <div className="HAM_ITEM_CONTACT_1_COLUMN_2">
+                    <div className="address-data">
+                        <h3>UPS Healthcare Hungary Zrt.</h3>
+                        <br />
+                        <h4>2040 Budaörs</h4>
+                        <h4>Vasút utca 13</h4>
+                        <h4>Tel.: 123456789</h4>
+                        <h4>E-mail: <a href="mailto: email@email.hu">email@email.hu</a></h4>
+                    </div>
+                </div>
+            </div>
 
 
 
