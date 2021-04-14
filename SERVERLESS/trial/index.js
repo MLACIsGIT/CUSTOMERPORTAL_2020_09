@@ -100,26 +100,24 @@ function WAT_SP_EXECUTE(DB_Request, Name_of_Procedure) {
 }
 
 module.exports = async function (context, req) {
-    /*
     //-------------------------------------------------------------------------------------------------------------------------------
     // SEEME SMS Send Test - Send an sms to seeme sms number and this code sends an sms to your phone number the incomming text
     //-------------------------------------------------------------------------------------------------------------------------------
 
-    try {
-        const seeme = new npm_seeme.SeeMeGateway(SEEME_config);
+    // try {
+    //     const seeme = new npm_seeme.SeeMeGateway(SEEME_config);
 
-        DB_Results = await seeme.sendSMS('36209213679', (JSON.stringify(context)))
-        context.res = {
-            status: 200,
-            body: JSON.stringify(DB_Results)
-        };
+    //     DB_Results = await seeme.sendSMS('36709474387', (JSON.stringify(context.bindings.req.originalUrl)))
+    //     context.res = {
+    //         status: 200,
+    //         body: JSON.stringify(DB_Results)
+    //     };
 
-        return;
-    } catch (e) {
-        console.error(e);
-    }
-    return;
-    */
+    //     return;
+    // } catch (e) {
+    //     console.error(e);
+    // }
+    // return;
 
     //-------------------------------------------------------------------------------------------------------------------------------
     // RECEIVE SEEME SMS
@@ -147,11 +145,17 @@ module.exports = async function (context, req) {
         let originalUrl = context.bindings.req.originalUrl;
         let originalMessage = ((originalUrl.split("?message="))[1]).split("&");
         SMS_Params.SMS_PhoneNumber = ((originalMessage[1]).split("="))[1];
-        SMS_Params.SMS_Message = (originalMessage[0]).replace("+", " ");
+        SMS_Params.SMS_Message = (originalMessage[0]).replace(/\+/g, " ");
 
-        if ((SMS_Params.SMS_Message).substr(0, 4) === "WAT " && SMS_Params.SMS_PhoneNumber > '') {
+        if ((SMS_Params.SMS_Message).substr(0, 8) === "WAT WEB " && SMS_Params.SMS_PhoneNumber > '') {
             SMS_Params.SMS_Type = 'VALIDATION';
             WAT_function = 'WAT_INTERFACE_PHONENUMBER_VALIDATE';
+            SMS_Params.SMS_PhoneNumber_InDB = (SMS_Params.SMS_PhoneNumber.substr(0, 2) != "00") ? "00" + SMS_Params.SMS_PhoneNumber : SMS_Params.SMS_PhoneNumber;
+        }
+
+        if ((SMS_Params.SMS_Message).substr(0, 8) === "WAT APP " && SMS_Params.SMS_PhoneNumber > '') {
+            SMS_Params.SMS_Type = 'VALIDATION';
+            WAT_function = 'WAT_INTERFACE_MOBILE_VALIDATE';
             SMS_Params.SMS_PhoneNumber_InDB = (SMS_Params.SMS_PhoneNumber.substr(0, 2) != "00") ? "00" + SMS_Params.SMS_PhoneNumber : SMS_Params.SMS_PhoneNumber;
         }
 
@@ -459,6 +463,116 @@ module.exports = async function (context, req) {
                         columns: DB_Results.recordset['columns'],
                         data: DB_Results.recordset
                     })
+                }
+                break;
+
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_MOBILE_GET_KEY
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_MOBILE_GET_KEY':
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(WAT_Request.header.Portal_owner_id));
+                DB_Request.input('WAT_Session_ID', npm_mssql.NVarChar(255), WAT_Request.header.Session_ID);
+                DB_Request.input('Phone_Number', npm_mssql.NVarChar(128), WAT_Request.body.phoneNumber);
+                DB_Request.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
+                DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255))
+                DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_MOBILE_GET_KEY');
+                if (DB_Results.output.OUT_ErrCode != "") {
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
+                        "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
+                        }
+                    })
+                } else {
+                    context.res = Result_OK(
+                        JSON.parse(DB_Results.output.OUT_WAT_Message)
+                    );
+                }
+                break;
+
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_MOBILE_VALIDATE
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_MOBILE_VALIDATE':
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.input('PhoneNumber', npm_mssql.NVarChar(128), SMS_Params.SMS_PhoneNumber_InDB)
+                DB_Request.input('Validation_Text', npm_mssql.NVarChar(255), SMS_Params.SMS_Message)
+                DB_Request.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
+                DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255))
+                DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_MOBILE_VALIDATE')
+                if (DB_Results.output.OUT_ErrCode != "") {
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
+                        "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
+                        }
+                    })
+                } else {
+                    context.res = Result_OK(
+                        JSON.parse(DB_Results.output.OUT_WAT_Message)
+                    );
+                }
+                break;
+
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_MOBILE_GET_REGISTRATION_STATE
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_MOBILE_GET_REGISTRATION_STATE':
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(WAT_Request.header.Portal_owner_id));
+                DB_Request.input('WAT_Session_ID', npm_mssql.NVarChar(255), WAT_Request.header.Session_ID);
+                DB_Request.input('Phone_Number', npm_mssql.NVarChar(128), WAT_Request.body.phoneNumber);
+                DB_Request.input('Registration_Key', npm_mssql.NVarChar(50), WAT_Request.body.registrationKey);
+                DB_Request.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
+                DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255))
+                DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_MOBILE_GET_REGISTRATION_STATE')
+                if (DB_Results.output.OUT_ErrCode != "") {
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
+                        "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
+                        }
+                    })
+                } else {
+                    context.res = Result_OK(
+                        JSON.parse(DB_Results.output.OUT_WAT_Message)
+                    );
+                }
+                break;
+
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_MOBILE_REGISTRATION_END
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_MOBILE_REGISTRATION_END':
+                DB_Request = new npm_mssql.Request(DB_Conn)
+                DB_Request.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(WAT_Request.header.Portal_owner_id));
+                DB_Request.input('WAT_Session_ID', npm_mssql.NVarChar(255), WAT_Request.header.Session_ID);
+                DB_Request.input('Phone_Number', npm_mssql.NVarChar(128), WAT_Request.body.phoneNumber);
+                DB_Request.input('Password', npm_mssql.NVarChar(255), WAT_Request.body.password);
+                DB_Request.input('Registration_Key', npm_mssql.NVarChar(50), WAT_Request.body.registrationKey);
+                DB_Request.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
+                DB_Request.output('OUT_ErrCode', npm_mssql.NVarChar(255))
+                DB_Request.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
+                DB_Results = await WAT_SP_EXECUTE(DB_Request, 'WAT_INTERFACE_MOBILE_REGISTRATION_END')
+                if (DB_Results.output.OUT_ErrCode != "") {
+                    context.res = Result_ERR(DB_Results.output.OUT_ErrCode, {
+                        "ReturnValues": {
+                            "ReturnValue": DB_Results.returnValue,
+                            "ErrCode": DB_Results.output.OUT_ErrCode,
+                            "ErrParams": DB_Results.output.OUT_ErrParams
+                        }
+                    })
+                } else {
+                    context.res = Result_OK(
+                        JSON.parse(DB_Results.output.OUT_WAT_Message)
+                    );
                 }
                 break;
 
