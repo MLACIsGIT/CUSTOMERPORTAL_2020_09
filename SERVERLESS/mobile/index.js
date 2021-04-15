@@ -3,32 +3,23 @@ const npm_seeme = require('seeme-js');
 
 const version = 'v001.01.01';
 
-const dbConfig = {
-    server: process.env.DB_server,
-    user: process.env.DB_user,
-    password: process.env.DB_password,
-    database: process.env.DB_database,
-    port: parseInt(process.env.DB_port),
-    options: {
-        encrypt: true
-    },
-    parseJSON: true
-};
+const dh = require('./components/databaseHandler')
+const tkn = require('./components/token');
 
 const SEEME_config = {
     apiKey: process.env.SEEME_apiKey
 };
 
-let request_id = "#";
+let token = "";
 let seeme;
 
-resultErr = (errcode, err) => {
+mResultErr = (errcode, err) => {
     return {
         status: 400,
         body: {
             "header": {
                 "version": version,
-                "request_id": request_id,
+                "token": token,
                 "result": errcode
             },
             'body': {
@@ -38,13 +29,13 @@ resultErr = (errcode, err) => {
     }
 }
 
-resultOk = (result) => {
+mResultOk = (result) => {
     return {
         status: 200,
         body: {
             "header": {
                 "version": version,
-                "request_id": request_id,
+                "token": token,
                 "result": "OK"
             },
             'body': result
@@ -53,35 +44,6 @@ resultOk = (result) => {
             'Content-Type': 'application/json'
         }
     }
-}
-
-function watConnect() {
-    try {
-        return new Promise((resolve, reject) => {
-            let Pool = new npm_mssql.ConnectionPool(dbConfig);
-            Pool.connect(function (err) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(Pool);
-                }
-            })
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-function watSpExecute(dbRequest, Name_of_Procedure) {
-    return new Promise((resolve, reject) => {
-        dbRequest.execute(Name_of_Procedure, function (err, results) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(results);
-            }
-        })
-    })
 }
 
 module.exports = async function (context, req) {
@@ -162,30 +124,114 @@ module.exports = async function (context, req) {
     try {
         //Step 1: connection
         onErrorErrCode = 'GATEWAY_ERROR_DB-Connect' // Procedure returns this errorcode if the next statement fails. 
-        dbConn = await watConnect();
+        dbConn = await dh.databaseHandler.watConnect();
         connected = true;
 
         //Step 2: Execute WAT Function
         onErrorErrCode = 'GATEWAY_ERROR_SQL-Statement failure'
 
+        let tokenParams = "";
+        let tokenizer;
+        let tokenResults;
+
         switch (watFunction) {
+            //-------------------------------------------------------------------------------------------------------------------------------
+            // WAT_INTERFACE_NEW_TOKEN
+            //-------------------------------------------------------------------------------------------------------------------------------
+            case 'WAT_INTERFACE_NEW_TOKEN':
+                if (typeof watRequest.header.portalOwnerId == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.phoneNumber == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.registrationKey == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.password == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                tokenParams = {
+                    "portalOwnerId" : watRequest.header.portalOwnerId,
+                    "userName": watRequest.body.phoneNumber,
+                    "registrationKey": watRequest.body.registrationKey,
+                    "password": watRequest.body.password
+                }
+                tokenizer = new tkn.Token(tokenParams);
+                await tokenizer.newToken();
+                
+                token = (tokenizer.token.token == undefined ? "" : tokenizer.token.token);
+
+                context.res = this.mResultOk("");
+            break;
+
             //-------------------------------------------------------------------------------------------------------------------------------
             // WAT_INTERFACE_SEND_MESSAGE
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'WAT_INTERFACE_SEND_MESSAGE':
+                if (typeof watRequest.header.portalOwnerId == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.header.token == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.messageFrom == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.messageTo == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.messageType == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.message == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                tokenParams = {
+                    "token": watRequest.header.token
+                }
+                tokenizer = new tkn.Token(tokenParams);
+                tokenResults = await tokenizer.validateToken();
+
+                if (tokenResults.token == ""){
+                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                    return;
+                }
+
+                token = tokenizer.token.token;
+
                 dbRequest = new npm_mssql.Request(dbConn)
-                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.Portal_owner_id));
-                dbRequest.input('WAT_Session_ID', npm_mssql.NVarChar(255), watRequest.header.Session_ID);
-                dbRequest.input('Message_FROM_WAT_User', npm_mssql.NVarChar(128), watRequest.body.Message_FROM);
-                dbRequest.input('Message_TO_WAT_User', npm_mssql.NVarChar(128), watRequest.body.Message_TO);
-                dbRequest.input('Message_Type', npm_mssql.Int, watRequest.body.Message_Type);
+                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
+                dbRequest.input('Message_FROM_WAT_User', npm_mssql.NVarChar(128), watRequest.body.messageFrom);
+                dbRequest.input('Message_TO_WAT_User', npm_mssql.NVarChar(128), watRequest.body.messageTo);
+                dbRequest.input('Message_Type', npm_mssql.Int, watRequest.body.messageType);
                 dbRequest.input('WAT_Message', npm_mssql.NVarChar('max'), JSON.stringify(watRequest.body.message));
                 dbRequest.output('OUT_WAT_Messages_ID', npm_mssql.Int);
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255));
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'));
-                dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_SEND_MESSAGE');
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'WAT_INTERFACE_SEND_MESSAGE');
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = mResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -193,7 +239,7 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = resultOk({
+                    context.res = mResultOk({
                         "Message_ID": dbResults.output.OUT_WAT_Messages_ID
                     });
                 }
@@ -203,17 +249,49 @@ module.exports = async function (context, req) {
             // WAT_INTERFACE_RECEIVE_MESSAGE
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'WAT_INTERFACE_RECEIVE_MESSAGE':
+                if (typeof watRequest.header.portalOwnerId == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.header.token == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.watUser == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.filter == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                tokenParams = {
+                    "token": watRequest.header.token
+                }
+                tokenizer = new tkn.Token(tokenParams);
+                tokenResults = await tokenizer.validateToken();
+
+                if (tokenResults.token == ""){
+                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                    return;
+                }
+
+                token = tokenizer.token.token;
+
                 dbRequest = new npm_mssql.Request(dbConn)
-                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.Portal_owner_id));
-                dbRequest.input('WAT_Session_ID', npm_mssql.NVarChar(255), watRequest.header.Session_ID);
-                dbRequest.input('WAT_User', npm_mssql.NVarChar(128), watRequest.body.WAT_User);
+                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
+                dbRequest.input('WAT_User', npm_mssql.NVarChar(128), watRequest.body.watUser);
                 dbRequest.input('Filter', npm_mssql.NVarChar(128), watRequest.body.filter);
                 dbRequest.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
-                dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_RECEIVE_MESSAGE');
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'WAT_INTERFACE_RECEIVE_MESSAGE');
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = mResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -221,7 +299,7 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = resultOk({
+                    context.res = mResultOk({
                         "Messages": JSON.parse(dbResults.output.OUT_WAT_Message)
                     });
                 }
@@ -231,16 +309,48 @@ module.exports = async function (context, req) {
             // WAT_INTERFACE_MESSAGE_ACCEPT
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'WAT_INTERFACE_MESSAGE_ACCEPT':
+                if (typeof watRequest.header.portalOwnerId == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.header.token == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.watUser == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.arrayOfAcceptedMessageIds == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                tokenParams = {
+                    "token": watRequest.header.token
+                }
+                tokenizer = new tkn.Token(tokenParams);
+                tokenResults = await tokenizer.validateToken();
+
+                if (tokenResults.token == ""){
+                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                    return;
+                }
+
+                token = tokenizer.token.token;
+
                 dbRequest = new npm_mssql.Request(dbConn)
-                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.Portal_owner_id));
-                dbRequest.input('WAT_Session_ID', npm_mssql.NVarChar(255), watRequest.header.Session_ID);
-                dbRequest.input('WAT_User', npm_mssql.NVarChar(128), watRequest.body.WAT_User);
-                dbRequest.input('Array_of_Accepted_Message_IDs', npm_mssql.NVarChar('max'), watRequest.body.Array_of_Accepted_Message_IDs);
+                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
+                dbRequest.input('WAT_User', npm_mssql.NVarChar(128), watRequest.body.watUser);
+                dbRequest.input('Array_of_Accepted_Message_IDs', npm_mssql.NVarChar('max'), watRequest.body.arrayOfAcceptedMessageIds);
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
-                dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_MESSAGE_ACCEPT');
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'WAT_INTERFACE_MESSAGE_ACCEPT');
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = mResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -248,7 +358,7 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = resultOk({
+                    context.res = mResultOk({
                         "Result": "OK"
                     });
                 }
@@ -258,16 +368,43 @@ module.exports = async function (context, req) {
             // WAT_INTERFACE_MOBILE_GET_KEY
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'WAT_INTERFACE_MOBILE_GET_KEY':
+                if (typeof watRequest.header.portalOwnerId == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.header.token == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.phoneNumber == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                tokenParams = {
+                    "token": watRequest.header.token
+                }
+                tokenizer = new tkn.Token(tokenParams);
+                tokenResults = await tokenizer.validateToken();
+
+                if (tokenResults.token == ""){
+                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                    return;
+                }
+
+                token = tokenizer.token.token;
+
                 dbRequest = new npm_mssql.Request(dbConn)
-                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.Portal_owner_id));
-                dbRequest.input('WAT_Session_ID', npm_mssql.NVarChar(255), watRequest.header.Session_ID);
+                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
                 dbRequest.input('Phone_Number', npm_mssql.NVarChar(128), watRequest.body.phoneNumber);
                 dbRequest.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
-                dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_MOBILE_GET_KEY');
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'WAT_INTERFACE_MOBILE_GET_KEY');
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = mResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -275,7 +412,7 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = resultOk(
+                    context.res = mResultOk(
                         JSON.parse(dbResults.output.OUT_WAT_Message)
                     );
                 }
@@ -291,9 +428,9 @@ module.exports = async function (context, req) {
                 dbRequest.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
-                dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_MOBILE_VALIDATE')
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'WAT_INTERFACE_MOBILE_VALIDATE')
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = mResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -301,7 +438,7 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = resultOk(
+                    context.res = mResultOk(
                         JSON.parse(dbResults.output.OUT_WAT_Message)
                     );
                 }
@@ -311,17 +448,49 @@ module.exports = async function (context, req) {
             // WAT_INTERFACE_MOBILE_GET_REGISTRATION_STATE
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'WAT_INTERFACE_MOBILE_GET_REGISTRATION_STATE':
+                if (typeof watRequest.header.portalOwnerId == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.header.token == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.phoneNumber == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.registrationKey == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                tokenParams = {
+                    "token": watRequest.header.token
+                }
+                tokenizer = new tkn.Token(tokenParams);
+                tokenResults = await tokenizer.validateToken();
+
+                if (tokenResults.token == ""){
+                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                    return;
+                }
+
+                token = tokenizer.token.token;
+
                 dbRequest = new npm_mssql.Request(dbConn)
-                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.Portal_owner_id));
-                dbRequest.input('WAT_Session_ID', npm_mssql.NVarChar(255), watRequest.header.Session_ID);
+                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
                 dbRequest.input('Phone_Number', npm_mssql.NVarChar(128), watRequest.body.phoneNumber);
                 dbRequest.input('Registration_Key', npm_mssql.NVarChar(50), watRequest.body.registrationKey);
                 dbRequest.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
-                dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_MOBILE_GET_REGISTRATION_STATE')
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'WAT_INTERFACE_MOBILE_GET_REGISTRATION_STATE')
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = mResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -329,7 +498,7 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = resultOk(
+                    context.res = mResultOk(
                         JSON.parse(dbResults.output.OUT_WAT_Message)
                     );
                 }
@@ -339,18 +508,55 @@ module.exports = async function (context, req) {
             // WAT_INTERFACE_MOBILE_REGISTRATION_END
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'WAT_INTERFACE_MOBILE_REGISTRATION_END':
+                if (typeof watRequest.header.portalOwnerId == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.header.token == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.phoneNumber == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.password == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                if (typeof watRequest.body.registrationKey == 'undefined'){
+                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    return;
+                }
+
+                tokenParams = {
+                    "token": watRequest.header.token
+                }
+                tokenizer = new tkn.Token(tokenParams);
+                tokenResults = await tokenizer.validateToken();
+
+                if (tokenResults.token == ""){
+                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                    return;
+                }
+
+                token = tokenizer.token.token;
+
                 dbRequest = new npm_mssql.Request(dbConn)
-                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.Portal_owner_id));
-                dbRequest.input('WAT_Session_ID', npm_mssql.NVarChar(255), watRequest.header.Session_ID);
+                dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
                 dbRequest.input('Phone_Number', npm_mssql.NVarChar(128), watRequest.body.phoneNumber);
                 dbRequest.input('Password', npm_mssql.NVarChar(255), watRequest.body.password);
                 dbRequest.input('Registration_Key', npm_mssql.NVarChar(50), watRequest.body.registrationKey);
                 dbRequest.output('OUT_WAT_Message', npm_mssql.NVarChar('max'));
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
-                dbResults = await watSpExecute(dbRequest, 'WAT_INTERFACE_MOBILE_REGISTRATION_END')
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'WAT_INTERFACE_MOBILE_REGISTRATION_END')
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = mResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -358,19 +564,19 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = resultOk(
+                    context.res = mResultOk(
                         JSON.parse(dbResults.output.OUT_WAT_Message)
                     );
                 }
                 break;
 
             default:
-                context.res = resultErr('GATEWAY_ERROR_unknown_function_call', { unknown_function: watFunction })
+                context.res = mResultErr('GATEWAY_ERROR_unknown_function_call', { unknown_function: watFunction })
                 break;
         }
 
     } catch (err) {
-        context.res = resultErr(onErrorErrCode, err)
+        context.res = mResultErr(onErrorErrCode, err)
     }
 
     // Disconnect
