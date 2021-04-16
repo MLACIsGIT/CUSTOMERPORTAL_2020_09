@@ -19,7 +19,7 @@ mResultErr = (errcode, err) => {
         body: {
             "header": {
                 "version": version,
-                "token": token,
+                "token": "",
                 "result": errcode
             },
             'body': {
