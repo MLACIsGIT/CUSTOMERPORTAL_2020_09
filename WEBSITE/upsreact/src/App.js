@@ -1,5 +1,5 @@
 import './App.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Settings from './Settings.js';
 import Db from './_SelComponents/_SelWebComponents/js/Db'
@@ -11,7 +11,6 @@ import PageContact from './Pages/Contact/PageContact'
 import Header from './Components/Header/Header'
 
 function App() {
-  //const navigationHistory = useHistory();
   const settings = Settings();
   const db = new Db(settings);
 
@@ -21,17 +20,33 @@ function App() {
     token: null
   });
 
+  const [extendedToken, setExtendedToken] = useState(null)
 
   function onLanguageChanged(lang) {
     setLang(lang);
   }
 
   function onLogout() {
+
     setLoginData({
       user: null,
       token: null
     })
   }
+
+  function onExtendToken(newToken) {
+    setExtendedToken(newToken);
+  }
+
+  useEffect(() => {
+    if (extendedToken === null) {
+      if (loginData.user !== null) {
+        onLogout();
+      }
+    } else {
+      setLoginData({ ...loginData, token: extendedToken })
+    }
+  }, [extendedToken])
 
   function onLogin(newLoginData) {
     setLoginData(newLoginData);
@@ -41,8 +56,10 @@ function App() {
     <Router>
       <Header
         lang={lang}
+        db={db}
         onLanguageChanged={lang => onLanguageChanged(lang)}
         loginData={loginData}
+        onExtendToken={newToken => onExtendToken(newToken)}
         onLogout={onLogout}
       />
 

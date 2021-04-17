@@ -40,10 +40,13 @@ export default function Header(props) {
                     />
                 </div>
             </div>
+
             <TokenExpirationMessage
                 lang={props.lang}
+                db={props.db}
                 loginData={props.loginData}
-                onLogout={props.onLogout}
+                onExtendToken={newToken => props.onExtendToken(newToken)}
+                onLogout={onLogout}
             />
         </header>
 
