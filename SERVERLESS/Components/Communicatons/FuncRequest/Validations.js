@@ -23,9 +23,6 @@ class Validations {
                     .required(),
 
                 salt: Joi.number()
-                    .integer()
-                    .min(1000000)
-                    .max(9999999)
                     .required()
             }),
 
@@ -46,6 +43,12 @@ class Validations {
                 password: Joi.string()
                     .min(6)
                     .max(20)
+                    .required()
+            }),
+
+            extendTokenValidity: Joi.object({
+                portalOwnerId: Joi.number()
+                    .integer()
                     .required()
             })
         }

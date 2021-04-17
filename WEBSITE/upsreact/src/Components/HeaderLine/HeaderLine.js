@@ -2,7 +2,6 @@ import "./HeaderLine.scss"
 import { Link } from "react-router-dom";
 import * as Gl from "../../_SelComponents/_SelWebComponents/js/Gl"
 import * as LangJSON from "./HeaderLine-lang"
-import TokenExpirationMessage from "../../_SelComponents/_SelWebComponents/TokenExpirationMessage/TokenExpirationMessage"
 
 export default function HeaderLine(props) {
     const LangElements = LangJSON.langJSON();
@@ -43,11 +42,6 @@ export default function HeaderLine(props) {
             <h1 className="HEADER_LINE">
                 {lng(`header-title-${selectedPage}`)}
             </h1>
-            <TokenExpirationMessage
-                lang={lang}
-                loginData={props.loginData}
-                onLogout={props.onLogout}
-            />
         </div>
     )
 }

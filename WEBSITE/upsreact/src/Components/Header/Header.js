@@ -2,6 +2,8 @@ import './Header.scss';
 import headerLogo from "./headerLogo.png";
 import LanguageSelector from "../../_SelComponents/_SelWebComponents/LanguageSelector/LanguageSelector"
 import LoggedUser from "../../_SelComponents/_SelWebComponents/LoggedUser/LoggedUser"
+import TokenExpirationMessage from "../../_SelComponents/_SelWebComponents/TokenExpirationMessage/TokenExpirationMessage"
+
 export default function Header(props) {
     function onLanguageChanged(lang) {
         props.onLanguageChanged(lang);
@@ -38,6 +40,11 @@ export default function Header(props) {
                     />
                 </div>
             </div>
+            <TokenExpirationMessage
+                lang={props.lang}
+                loginData={props.loginData}
+                onLogout={props.onLogout}
+            />
         </header>
 
     )

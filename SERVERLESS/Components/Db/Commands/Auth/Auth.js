@@ -20,7 +20,7 @@ class Auth {
 
     async registerUser() {
         let crypto = new Crypto.Crypto();
-        let passwordHash = await crypto.getHashedPassword( this.comm.req.req.body.body.password );
+        let passwordHash = await crypto.getHashedPassword(this.comm.req.req.body.body.password);
 
         let result = await this.sp.WAT_INTERFACE_RegisterUser({
             portalOwnersId: 1038470,
@@ -38,7 +38,7 @@ class Auth {
         return result;
     }
 
-    async login()     {
+    async login() {
         let outParams = await this.sp.WAT_INTERFACE_getUser({
             portalOwnersId: this.comm.req.req.body.body.portalOwnerId,
             email: this.comm.req.req.body.body.email,
@@ -60,6 +60,45 @@ class Auth {
         } else {
             this.comm.res.setResultErr("LOGIN_FAILED");
         }
+    }
+
+    async decodeToken(portalOwnersId, token) {
+        let out = { result: false }
+let tokenKey;
+
+        if (!token) {
+            return out;
+        }
+
+        tokenKey = await this.sp.WAT_INTERFACE_getJwtTokenkey({
+            portalOwnersId: portalOwnersId
+        })
+
+        if (!tokenKey) {
+            return out;
+        }
+
+        try {
+            const tokenData = jwt.verify(token, tokenKey);
+            const tokenValidUntil = new Date(tokenData._validUntil)
+            const currentDate = new Date()
+            if ( tokenValidUntil < currentDate) {
+                return out;
+            }
+            return {
+                result: true,
+                tokenData: tokenData
+            }
+        } catch (error) {
+            return out;
+        }
+    }
+
+    async extendTokenValidity() {
+        let decodedToken = await this.decodeToken(this.comm.req.req.body.body.portalOwnerId, this.comm.req.req.body.header.token);
+        this.comm.res.setResultOk({
+            token: "minden nagyon király!"
+        });
     }
 }
 

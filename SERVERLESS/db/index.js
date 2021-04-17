@@ -43,6 +43,10 @@ module.exports = async function (context, req) {
             await auth.login();
             break;
 
+        case "extendTokenValidity":
+            await auth.extendTokenValidity();
+            break;
+
         default:
             comm.res.setResultErr(`Unknown function ${funcCode}`);
             break;
