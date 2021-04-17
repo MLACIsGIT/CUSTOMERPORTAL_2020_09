@@ -49,11 +49,14 @@ class Auth {
         if (outParams.result === true) {
             let token = jwt.sign({
                 _id: outParams.userId,
-                _validUntil: outParams.validUntil
+                _validUntil: outParams.validUntil,
+                _hashShorthand: (this.comm.req.req.body.body.passwordHash).substring(0, 6),
+                _salt: this.comm.req.req.body.body.salt
             }, (outParams.tokenKey).toString());
 
             this.comm.res.setResultOk({
                 token: token,
+                userLevel: outParams.userLevel,
                 currentUTC: outParams.currentUTC,
                 validUntil: outParams.validUntil
             });
@@ -62,27 +65,18 @@ class Auth {
         }
     }
 
-    async decodeToken(portalOwnersId, token) {
+    async decodeToken(portalOwnersId, token, tokenkey) {
         let out = { result: false }
-let tokenKey;
 
         if (!token) {
             return out;
         }
 
-        tokenKey = await this.sp.WAT_INTERFACE_getJwtTokenkey({
-            portalOwnersId: portalOwnersId
-        })
-
-        if (!tokenKey) {
-            return out;
-        }
-
         try {
-            const tokenData = jwt.verify(token, tokenKey);
+            const tokenData = jwt.verify(token, tokenkey);
             const tokenValidUntil = new Date(tokenData._validUntil)
             const currentDate = new Date()
-            if ( tokenValidUntil < currentDate) {
+            if (tokenValidUntil < currentDate) {
                 return out;
             }
             return {
@@ -94,11 +88,51 @@ let tokenKey;
         }
     }
 
+    async getJwtTokenkey() {
+        let portalOwnersId = this.comm.req.req.body.body.portalOwnerId;
+        return await this.sp.WAT_INTERFACE_getJwtTokenkey({
+            portalOwnersId: portalOwnersId
+        })
+
+    }
+
     async extendTokenValidity() {
-        let decodedToken = await this.decodeToken(this.comm.req.req.body.body.portalOwnerId, this.comm.req.req.body.header.token);
-        this.comm.res.setResultOk({
-            token: "minden nagyon király!"
-        });
+        let tokenkey = await this.getJwtTokenkey();
+        if (!tokenkey) {
+            this.comm.res.setResultErr()
+        }
+
+        let portalOwnerId = this.comm.req.req.body.body.portalOwnerId;
+
+        let decodedToken = await this.decodeToken(portalOwnerId, this.comm.req.req.body.header.token, tokenkey);
+        if (!decodedToken.result) {
+            this.comm.res.setResultErr('nok');
+            return;
+        }
+
+        let outParams = await this.sp.WAT_INTERFACE_extendTokenValidity({
+            portalOwnersId: this.comm.req.req.body.body.portalOwnerId,
+            userId: decodedToken.tokenData._id,
+            hashShorthand: decodedToken.tokenData._hashShorthand,
+            salt: decodedToken.tokenData._salt
+        })
+
+        if (outParams.result === true) {
+            let token = jwt.sign({
+                _id: decodedToken.tokenData._id,
+                _validUntil: outParams.validUntil,
+                _hashShorthand: decodedToken.tokenData._hashShorthand,
+                _salt: decodedToken.tokenData._salt
+            }, tokenkey);
+
+            this.comm.res.setResultOk({
+                token: token,
+                currentUTC: outParams.currentUTC,
+                validUntil: outParams.validUntil
+            });
+        } else {
+            this.comm.res.setResultErr("nok");
+        }
     }
 }
 

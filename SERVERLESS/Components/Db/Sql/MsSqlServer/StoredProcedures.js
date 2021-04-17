@@ -60,6 +60,37 @@ class StoredProcedures {
         return outParams;
     }
 
+    async WAT_INTERFACE_extendTokenValidity(params) {
+        let dbRequest = this.db.getNewRequest();
+        let outParams = {
+            result: false
+        };
+
+        dbRequest.input("WAT_Portal_Owners_ID", npm_mssql.Int, params.portalOwnersId);
+        dbRequest.input("userId", npm_mssql.Int, params.userId);
+        dbRequest.input("hashShorthand", npm_mssql.NVarChar(1024), params.hashShorthand);
+        dbRequest.input("salt", npm_mssql.NVarChar(50), params.salt);
+        dbRequest.output("OUT_Result", npm_mssql.Bit);
+        dbRequest.output("OUT_CurrentUTC", npm_mssql.DateTime);
+        dbRequest.output("OUT_ValidUntil", npm_mssql.DateTime);
+
+        try {
+            let dbResults;
+            dbResults = await this.db.spExecute(dbRequest, "WAT_INTERFACE_extendTokenValdity")
+            if (dbResults.output.OUT_Result) {
+                outParams = {
+                    result: true,
+                    currentUTC: dbResults.output.OUT_CurrentUTC,
+                    validUntil: dbResults.output.OUT_ValidUntil
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+
+        return outParams;
+    }
+
     async WAT_INTERFACE_getJwtTokenkey(params) {
         let dbRequest = this.db.getNewRequest();
 
