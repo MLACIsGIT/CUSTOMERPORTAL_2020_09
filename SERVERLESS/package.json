@@ -7,6 +7,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
+    "@azure/storage-blob": "^12.5.0",
     "@tomtom-international/web-sdk-maps": "^6.7.0",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
