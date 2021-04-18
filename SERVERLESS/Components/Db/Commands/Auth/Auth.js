@@ -134,6 +134,37 @@ class Auth {
             this.comm.res.setResultErr("nok");
         }
     }
+
+    async changePassword() {
+        let tokenkey = await this.getJwtTokenkey();
+        if (!tokenkey) {
+            this.comm.res.setResultErr()
+        }
+
+        let portalOwnerId = this.comm.req.req.body.body.portalOwnerId;
+
+        let decodedToken = await this.decodeToken(portalOwnerId, this.comm.req.req.body.header.token, tokenkey);
+        if (!decodedToken.result) {
+            this.comm.res.setResultErr('nok');
+            return;
+        }
+
+        let outParams = await this.sp.WAT_INTERFACE_changePassword({
+            portalOwnersId: this.comm.req.req.body.body.portalOwnerId,
+            userId: decodedToken.tokenData._id,
+            currentToken_hashShorthand: decodedToken.tokenData._hashShorthand,
+            currentToken_salt: decodedToken.tokenData._salt,
+            newPassword_hash: this.comm.req.req.body.body.newPassword_hash,
+            newPassword_updateRequired: this.comm.req.req.body.body.newPassword_updateRequired
+
+        })
+        if (outParams.result === true) {
+            this.comm.res.setResultOk({})
+            return;
+        }
+
+        this.comm.res.setResultErr("nok")
+    }
 }
 
 module.exports.Auth = Auth;

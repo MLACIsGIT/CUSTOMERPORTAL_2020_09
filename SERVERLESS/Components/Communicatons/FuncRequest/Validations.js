@@ -26,6 +26,20 @@ class Validations {
                     .required()
             }),
 
+            changePassword: Joi.object({
+                portalOwnerId: Joi.number()
+                    .integer()
+                    .required(),
+
+                newPassword_hash: Joi.string()
+                    .min(128)
+                    .max(128)
+                    .required(),
+
+                    newPassword_updateRequired: Joi.boolean()
+                    .required()
+            }),
+
             registerUser: Joi.object({
                 userLevel: Joi.number()
                     .integer()

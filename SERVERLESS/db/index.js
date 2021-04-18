@@ -47,6 +47,10 @@ module.exports = async function (context, req) {
             await auth.extendTokenValidity();
             break;
 
+        case "changePassword":
+            await auth.changePassword();
+            break;
+
         default:
             comm.res.setResultErr(`Unknown function ${funcCode}`);
             break;
