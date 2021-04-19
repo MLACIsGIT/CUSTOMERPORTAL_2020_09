@@ -36,7 +36,7 @@ class Validations {
                     .max(128)
                     .required(),
 
-                    newPassword_updateRequired: Joi.boolean()
+                newPassword_updateRequired: Joi.boolean()
                     .required()
             }),
 

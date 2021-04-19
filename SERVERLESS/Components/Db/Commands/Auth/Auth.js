@@ -58,7 +58,8 @@ class Auth {
                 token: token,
                 userLevel: outParams.userLevel,
                 currentUTC: outParams.currentUTC,
-                validUntil: outParams.validUntil
+                validUntil: outParams.validUntil,
+                passwordUpdateRequired: outParams.passwordUpdateRequired
             });
         } else {
             this.comm.res.setResultErr("LOGIN_FAILED");

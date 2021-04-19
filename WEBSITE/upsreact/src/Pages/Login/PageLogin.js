@@ -30,6 +30,7 @@ export default function PageLogin(props) {
                         lang={props.lang}
                         db={props.db}
                         settings={props.settings}
+                        loginData={props.loginData}
                         onLogin={newLoginData => onLogin(newLoginData)}
                     />
                 </div>

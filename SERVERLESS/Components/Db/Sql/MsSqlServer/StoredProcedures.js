@@ -38,6 +38,7 @@ class StoredProcedures {
         dbRequest.output("OUT_UserLevel", npm_mssql.Int);
         dbRequest.output("OUT_CurrentUTC", npm_mssql.DateTime);
         dbRequest.output("OUT_ValidUntil", npm_mssql.DateTime);
+        dbRequest.output("OUT_PasswordUpdateRequired", npm_mssql.Bit);
         dbRequest.output("OUT_TokenKey", npm_mssql.NVarChar(20));
 
         try {
@@ -50,6 +51,7 @@ class StoredProcedures {
                     userLevel: dbResults.output.OUT_UserLevel,
                     currentUTC: dbResults.output.OUT_CurrentUTC,
                     validUntil: dbResults.output.OUT_ValidUntil,
+                    passwordUpdateRequired: dbResults.output.OUT_PasswordUpdateRequired,
                     tokenKey: dbResults.output.OUT_TokenKey
                 }
             }
