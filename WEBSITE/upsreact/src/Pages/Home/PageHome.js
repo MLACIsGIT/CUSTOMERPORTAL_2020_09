@@ -22,24 +22,10 @@ export default function PageHome(props) {
                 <div className="messages-column-1">
                     <div className="message-items">
                         <div className="message-item">
-                            <h4>{"10.01.2020"}</h4>
-                            <h3>{"Lorem ipsum dolor sit amet."}</h3>
-                            <h4>{"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut optio commodi."}</h4>
-                            <a href="">{"Details..."}</a>
-                        </div>
-
-                        <div className="message-item">
-                            <h4>{"10.01.2020"}</h4>
-                            <h3>{"Lorem ipsum dolor sit amet."}</h3>
-                            <h4>{"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut optio commodi."}</h4>
-                            <a href="">{"Details..."}</a>
-                        </div>
-
-                        <div className="message-item">
-                            <h4>{"10.01.2020"}</h4>
-                            <h3>{"Lorem ipsum dolor sit amet."}</h3>
-                            <h4>{"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt recusandae vel voluptatibus repudiandae nesciunt in doloremque id sint fugit. Saepe et culpa ut optio commodi."}</h4>
-                            <a href="">{"Details..."}</a>
+                            <h4>{"01.05.2021"}</h4>
+                            <h3>{"Megkezdte működését a UPS Healthcare Customer Portal"}</h3>
+                            <h4>{"Örömmel tájékoztatunk mindenkit, hogy információs weboldalunk a mai napon megkezdte működését."}</h4>
+                            <a href="">{"Részletek..."}</a>
                         </div>
                     </div>
                 </div>
