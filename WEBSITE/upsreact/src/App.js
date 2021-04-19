@@ -66,6 +66,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <PageLogin
+            settings={settings}
             lang={lang}
             db={db}
             loginData={loginData}

@@ -29,6 +29,7 @@ export default function PageLogin(props) {
                     <SelLogin
                         lang={props.lang}
                         db={props.db}
+                        settings={props.settings}
                         onLogin={newLoginData => onLogin(newLoginData)}
                     />
                 </div>
