@@ -6,7 +6,7 @@ const npm_multipart = require('multipart-formdata');
 const version = 'v001.01.01';
 
 const dh = require('../mobile/components/databaseHandler')
-const tkn = require('../mobile/components/token')
+const crypto = require("../mobile/components/crypto")
 
 const storageConfig = {
     storageConnectionString: process.env.BLOB_connectionString,
@@ -14,8 +14,6 @@ const storageConfig = {
         encrypt: true
     }
 }
-
-let token = "";
 
 async function streamToBuffer(readableStream) {
     return new Promise((resolve, reject) => {
@@ -36,7 +34,6 @@ sResultErr = (errcode, err) => {
         body: {
             'header': {
                 'version': version,
-                "token": token,
                 'result': errcode
             },
             'body': {
@@ -52,7 +49,6 @@ sResultOk = (result) => {
         body: {
             'header': {
                 'version': version,
-                "token": token,
                 'result': 'OK'
             },
             'body': result
@@ -140,9 +136,8 @@ module.exports = async function (context, req) {
             }
         }
 
-        let tokenParams = "";
-        let tokenizer;
-        let tokenResults;
+        let c;
+        let cResults;
 
         switch (watFunction) {
             //-------------------------------------------------------------------------------------------------------------------------------
@@ -159,18 +154,13 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                tokenParams = {
-                    "token": watRequest.header.token
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                tokenResults = await tokenizer.validateToken();
+                c = new crypto.Crypto(watRequest.header.portalOwnerId, watRequest.body.watUser, watRequest.header.apiKey);
+                cResults = await c.validateKey();
 
-                if (tokenResults.token == ""){
-                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                if(cResults.isValidate == 0) {
+                    context.res = mResultErr("GATEWAY_ERROR_validation_error", 0)
                     return;
                 }
-
-                token = tokenizer.token.token;
 
                 let filePath = (new Date()).toISOString().slice(0,10).replace(/-/g,'')
                 let fileName = '';
@@ -244,18 +234,13 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                tokenParams = {
-                    "token": watRequest.header.token
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                tokenResults = await tokenizer.validateToken();
+                c = new crypto.Crypto(watRequest.header.portalOwnerId, watRequest.body.watUser, watRequest.header.apiKey);
+                cResults = await c.validateKey();
 
-                if (tokenResults.token == ""){
-                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                if(cResults.isValidate == 0) {
+                    context.res = mResultErr("GATEWAY_ERROR_validation_error", 0)
                     return;
                 }
-
-                token = tokenizer.token.token;
 
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));

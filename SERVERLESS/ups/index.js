@@ -2,53 +2,17 @@ const npm_mssql = require('mssql');
 
 const version = 'v001.01.01';
 
-const dbConfig = {
-    server: process.env.DB_server,
-    user: process.env.DB_user,
-    password: process.env.DB_password,
-    database: process.env.DB_database,
-    port: parseInt(process.env.DB_port),
-    options: {
-        encrypt: true
-    },
-    parseJSON: true
-};
+const dh = require('../mobile/components/databaseHandler')
+const crypto = require("../mobile/components/crypto")
 
-let requestId = "#";
 let portalOwnerId = 0;
 
-function watConnect() {
-    return new Promise((resolve, reject) => {
-        let Pool = new npm_mssql.ConnectionPool(dbConfig);
-        Pool.connect(function (err) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(Pool);
-            }
-        })
-    })
-}
-
-function watSpExecute(dbRequest, procedureName) {
-    return new Promise((resolve, reject) => {
-        dbRequest.execute(procedureName, function (err, results) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(results);
-            }
-        })
-    })
-}
-
-resultErr = (errcode, err) => {
+uResultErr = (errcode, err) => {
     return {
         status: 400,
         body: {
             'header': {
                 'version': version,
-                'request_id': requestId,
                 'result': errcode
             },
             'body': {
@@ -58,13 +22,12 @@ resultErr = (errcode, err) => {
     }
 }
 
-resultOk = (result) => {
+uResultOk = (result) => {
     return {
         status: 200,
         body: {
             'header': {
                 'version': version,
-                'request_id': requestId,
                 'result': 'OK'
             },
             'body': result
@@ -107,44 +70,53 @@ module.exports = async function (context, req) {
         // nothing to do    
     }
 
-    portalOwnerId = watRequest.header.Portal_owner_id
+    portalOwnerId = watRequest.header.portalOwnerId
     if (typeof portalOwnerId == 'undefined'){
-        context.res = resultErr('GATEWAY_ERROR_unknown_owner_id', 0)
+        context.res = uResultErr('GATEWAY_ERROR_unknown_owner_id', 0)
         return;
          }
     
     try {
         //Step 1: connection
         onErrorErrCode = 'GATEWAY_ERROR_DB-Connect' // Procedure returns this errorcode if the next statement fails. 
-        dbConn = await watConnect();
+        dbConn = await dh.databaseHandler.watConnect();
         connected = true;
 
         //Step 2: Execute WAT Function
         onErrorErrCode = 'GATEWAY_ERROR_SQL-Statement failure'
 
+        let c;
+        let cResults;
         let watUser;
         switch (watFunction) {
             //-------------------------------------------------------------------------------------------------------------------------------
             // UPLOAD_ORDERS_DATA
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'UPLOAD_ORDERS_DATA':
-                watUser = watRequest.body.WAT_User;
+                watUser = watRequest.body.watUser;
                 if (typeof watUser == 'undefined'){
-                    context.res = resultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    context.res = uResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
                     }
 
+                c = new crypto.Crypto(watRequest.header.portalOwnerId, watRequest.body.watUser, watRequest.header.apiKey);
+                cResults = await c.validateKey();
+    
+                if(cResults.isValidate == 0) {
+                    context.res = mResultErr("GATEWAY_ERROR_validation_error", 0)
+                    return;
+                }
+    
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, portalOwnerId)
-                dbRequest.input('WAT_Session_ID', npm_mssql.NVarChar(255), watRequest.header.Session_ID);
                 dbRequest.input('WAT_User', npm_mssql.NVarChar(50), watUser)
                 dbRequest.output('OUT_WAT_Message', npm_mssql.NVarChar('max'))
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
-                dbResults = await watSpExecute(dbRequest, 'U_UPS_WAT_INTERFACE_RECEIVE_ORDERS')
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'U_UPS_WAT_INTERFACE_RECEIVE_ORDERS')
     
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = uResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -152,7 +124,7 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = Result_OK({
+                    context.res = uResultOk({
                         "Results": dbResults.output.OUT_WAT_Message
                     });
                 }
@@ -163,23 +135,30 @@ module.exports = async function (context, req) {
             // UPLOAD_TEVA_TIG_DATA
             //-------------------------------------------------------------------------------------------------------------------------------
             case 'UPLOAD_TEVA_TIG_DATA':
-                watUser = watRequest.body.WAT_User;
+                watUser = watRequest.body.watUser;
                 if (typeof watUser == 'undefined'){
-                    context.res = resultErr('GATEWAY_ERROR_missing_parameters', 0)
+                    context.res = uResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
                     }
 
+                c = new crypto.Crypto(watRequest.header.portalOwnerId, watRequest.body.watUser, watRequest.header.apiKey);
+                cResults = await c.validateKey();
+        
+                if(cResults.isValidate == 0) {
+                    context.res = mResultErr("GATEWAY_ERROR_validation_error", 0)
+                    return;
+                }
+    
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, portalOwnerId)
-                dbRequest.input('WAT_Session_ID', npm_mssql.NVarChar(255), watRequest.header.Session_ID);
                 dbRequest.input('WAT_User', npm_mssql.NVarChar(50), watUser)
                 dbRequest.output('OUT_WAT_Message', npm_mssql.NVarChar('max'))
                 dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255))
                 dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'))
-                dbResults = await watSpExecute(dbRequest, 'U_UPS_WAT_INTERFACE_RECEIVE_TEVA_TIG')
+                dbResults = await dh.databaseHandler.watSpExecute(dbRequest, 'U_UPS_WAT_INTERFACE_RECEIVE_TEVA_TIG')
     
                 if (dbResults.output.OUT_ErrCode != "") {
-                    context.res = resultErr(dbResults.output.OUT_ErrCode, {
+                    context.res = uResultErr(dbResults.output.OUT_ErrCode, {
                         "ReturnValues": {
                             "ReturnValue": dbResults.returnValue,
                             "ErrCode": dbResults.output.OUT_ErrCode,
@@ -187,7 +166,7 @@ module.exports = async function (context, req) {
                         }
                     })
                 } else {
-                    context.res = Result_OK({
+                    context.res = uResultOk({
                         "Results": dbResults.output.OUT_WAT_Message
                     });
                 }
@@ -195,12 +174,12 @@ module.exports = async function (context, req) {
                 break;
 
                 default:
-                    context.res = resultErr('GATEWAY_ERROR_unknown_function_call', { unknown_function: watFunction })
+                    context.res = uResultErr('GATEWAY_ERROR_unknown_function_call', { unknown_function: watFunction })
                     break;
             }
     
         } catch (err) {
-            context.res = resultErr(onErrorErrCode, err)
+            context.res = uResultErr(onErrorErrCode, err)
         }
     
     // Disconnect

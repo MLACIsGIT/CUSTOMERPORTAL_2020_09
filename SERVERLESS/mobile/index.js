@@ -4,13 +4,12 @@ const npm_seeme = require('seeme-js');
 const version = 'v001.01.01';
 
 const dh = require('./components/databaseHandler')
-const tkn = require('./components/token');
+const crypto = require("./components/crypto")
 
 const SEEME_config = {
     apiKey: process.env.SEEME_apiKey
 };
 
-let token = "";
 let seeme;
 
 mResultErr = (errcode, err) => {
@@ -19,7 +18,6 @@ mResultErr = (errcode, err) => {
         body: {
             "header": {
                 "version": version,
-                "token": "",
                 "result": errcode
             },
             'body': {
@@ -35,7 +33,6 @@ mResultOk = (result) => {
         body: {
             "header": {
                 "version": version,
-                "token": token,
                 "result": "OK"
             },
             'body': result
@@ -130,48 +127,10 @@ module.exports = async function (context, req) {
         //Step 2: Execute WAT Function
         onErrorErrCode = 'GATEWAY_ERROR_SQL-Statement failure'
 
-        let tokenParams = "";
-        let tokenizer;
-        let tokenResults;
+        let c;
+        let cResults;
 
         switch (watFunction) {
-            //-------------------------------------------------------------------------------------------------------------------------------
-            // WAT_INTERFACE_NEW_TOKEN
-            //-------------------------------------------------------------------------------------------------------------------------------
-            case 'WAT_INTERFACE_NEW_TOKEN':
-                if (typeof watRequest.header.portalOwnerId == 'undefined'){
-                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
-                    return;
-                }
-
-                if (typeof watRequest.body.phoneNumber == 'undefined'){
-                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
-                    return;
-                }
-
-                if (typeof watRequest.body.registrationKey == 'undefined'){
-                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
-                    return;
-                }
-
-                if (typeof watRequest.body.password == 'undefined'){
-                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
-                    return;
-                }
-
-                tokenParams = {
-                    "portalOwnerId" : watRequest.header.portalOwnerId,
-                    "userName": watRequest.body.phoneNumber,
-                    "registrationKey": watRequest.body.registrationKey,
-                    "password": watRequest.body.password
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                await tokenizer.newToken();
-                
-                token = (tokenizer.token.token == undefined ? "" : tokenizer.token.token);
-
-                context.res = this.mResultOk("");
-            break;
 
             //-------------------------------------------------------------------------------------------------------------------------------
             // WAT_INTERFACE_SEND_MESSAGE
@@ -182,7 +141,7 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                if (typeof watRequest.header.token == 'undefined'){
+                if (typeof watRequest.header.apiKey == 'undefined'){
                     context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
                 }
@@ -207,18 +166,13 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                tokenParams = {
-                    "token": watRequest.header.token
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                tokenResults = await tokenizer.validateToken();
+                c = new crypto.Crypto(watRequest.header.portalOwnerId, watRequest.body.messageFrom, watRequest.header.apiKey);
+                cResults = await c.validateKey();
 
-                if (tokenResults.token == ""){
-                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                if(cResults.isValidate == 0) {
+                    context.res = mResultErr("GATEWAY_ERROR_validation_error", 0)
                     return;
                 }
-
-                token = tokenizer.token.token;
 
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
@@ -254,7 +208,7 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                if (typeof watRequest.header.token == 'undefined'){
+                if (typeof watRequest.header.apiKey == 'undefined'){
                     context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
                 }
@@ -269,18 +223,13 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                tokenParams = {
-                    "token": watRequest.header.token
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                tokenResults = await tokenizer.validateToken();
+                c = new crypto.Crypto(watRequest.header.portalOwnerId, watRequest.body.watUser, watRequest.header.apiKey);
+                cResults = await c.validateKey();
 
-                if (tokenResults.token == ""){
-                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                if(cResults.isValidate == 0) {
+                    context.res = mResultErr("GATEWAY_ERROR_validation_error", 0)
                     return;
                 }
-
-                token = tokenizer.token.token;
 
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
@@ -314,7 +263,7 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                if (typeof watRequest.header.token == 'undefined'){
+                if (typeof watRequest.header.apiKey == 'undefined'){
                     context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
                 }
@@ -329,18 +278,13 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                tokenParams = {
-                    "token": watRequest.header.token
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                tokenResults = await tokenizer.validateToken();
+                c = new crypto.Crypto(watRequest.header.portalOwnerId, watRequest.body.watUser, watRequest.header.apiKey);
+                cResults = await c.validateKey();
 
-                if (tokenResults.token == ""){
-                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
+                if(cResults.isValidate == 0) {
+                    context.res = mResultErr("GATEWAY_ERROR_validation_error", 0)
                     return;
                 }
-
-                token = tokenizer.token.token;
 
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
@@ -373,28 +317,10 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                if (typeof watRequest.header.token == 'undefined'){
-                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
-                    return;
-                }
-
                 if (typeof watRequest.body.phoneNumber == 'undefined'){
                     context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
                 }
-
-                tokenParams = {
-                    "token": watRequest.header.token
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                tokenResults = await tokenizer.validateToken();
-
-                if (tokenResults.token == ""){
-                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
-                    return;
-                }
-
-                token = tokenizer.token.token;
 
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
@@ -453,11 +379,6 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                if (typeof watRequest.header.token == 'undefined'){
-                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
-                    return;
-                }
-
                 if (typeof watRequest.body.phoneNumber == 'undefined'){
                     context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
@@ -467,19 +388,6 @@ module.exports = async function (context, req) {
                     context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
                 }
-
-                tokenParams = {
-                    "token": watRequest.header.token
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                tokenResults = await tokenizer.validateToken();
-
-                if (tokenResults.token == ""){
-                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
-                    return;
-                }
-
-                token = tokenizer.token.token;
 
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
@@ -513,11 +421,6 @@ module.exports = async function (context, req) {
                     return;
                 }
 
-                if (typeof watRequest.header.token == 'undefined'){
-                    context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
-                    return;
-                }
-
                 if (typeof watRequest.body.phoneNumber == 'undefined'){
                     context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
@@ -532,19 +435,6 @@ module.exports = async function (context, req) {
                     context.res = mResultErr('GATEWAY_ERROR_missing_parameters', 0)
                     return;
                 }
-
-                tokenParams = {
-                    "token": watRequest.header.token
-                }
-                tokenizer = new tkn.Token(tokenParams);
-                tokenResults = await tokenizer.validateToken();
-
-                if (tokenResults.token == ""){
-                    context.res = mResultErr('GATEWAY_ERROR_invalid_token', 0)
-                    return;
-                }
-
-                token = tokenizer.token.token;
 
                 dbRequest = new npm_mssql.Request(dbConn)
                 dbRequest.input('WAT_Portal_Owners_ID', npm_mssql.Int, parseInt(watRequest.header.portalOwnerId));
