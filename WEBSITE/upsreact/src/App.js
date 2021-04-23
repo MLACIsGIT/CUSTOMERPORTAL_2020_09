@@ -27,7 +27,6 @@ function App() {
   }
 
   function onLogout() {
-
     setLoginData({
       user: null,
       token: null

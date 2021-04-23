@@ -1,0 +1,43 @@
+// Add your variables BEFORE importing bootstrap, so that they will override bootstrap variables.
+//Bootstrap colors
+$primary: #06183d;
+$secondary: #99e7ff;
+$success: #ff6d10;
+$info: #333333;
+$warning: #ffa166;
+$danger: #c08080;
+$light: #e6e6e6;
+$dark: #333333;
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+/* YUSEN colors */
+$YUSEN_ORANGE: #ff6d10;
+$YUSEN_DARK_BLUE: #06183d;
+$YUSEN_LIGHT_BLUE: #00b9f2;
+$YUSEN_LIGHT_BLUE_40: #33cfff;
+$YUSEN_LIGHT_BLUE_20: #99e7ff;
+$YUSEN_BLACK_100: #000;
+$YUSEN_BLACK_80: #333333;
+$YUSEN_BLACK_40: #999999;
+$YUSEN_BLACK_20: #cccccc;
+$YUSEN_BLACK_10: #e6e6e6;
+$YUSEN_WHITE: #fff;
+$YUSEN_SECONDARY_GREEN: #45bd8c;
+$YUSEN_SECONDARY_PURPLE: #615eaf;
+$YUSEN_SECONDARY_YELLOW: #ffc933;
+
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#LoggedUser-user-icon {
+    border: none;
+    color: $YUSEN_BLACK_80;
+    width: 32px;
+    height: 32px;
+    background-image: url("./PicturesForSelComponents/LoggedUser-user-icon.svg");
+}

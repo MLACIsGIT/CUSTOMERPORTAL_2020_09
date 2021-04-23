@@ -2,6 +2,7 @@ import { Redirect } from "react-router-dom"
 import HeaderLine from "../../Components/HeaderLine/HeaderLine"
 import GridReport from "../../_SelComponents/_SelWebComponents/GridReport/GridReport"
 import * as reportTevaTigLang from "./TEVA-TIG-REPORT-lang"
+import TevaTigReportFilter from "./TevaTigReportFilter"
 
 export default function PageReports(props) {
     if (props.loginData.user === null) {
@@ -21,6 +22,7 @@ export default function PageReports(props) {
             <GridReport
                 id="REPORT_TEVA_TIG"
                 lang={props.lang}
+                Filters={<TevaTigReportFilter />}
                 report={{
                     "reportId": "REPORT_TEVA_TIG",
                     "languageElements": reportTevaTigLang.langJSON(),
