@@ -1,5 +1,4 @@
 import "./PageLogin.scss";
-import backgroundImage from "./login_world.png";
 import { Redirect } from 'react-router-dom';
 import HeaderLine from "../../Components/HeaderLine/HeaderLine"
 import PageLoginGreetings from './subComponents/PageLoginGreetings/PageLoginGreetings'

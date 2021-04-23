@@ -1,0 +1,52 @@
+@import "../../App.scss";
+
+.page-home {
+    .messages-column-1 {
+        background-color: $YUSEN_WHITE;
+
+        .message-item {
+            margin: 40px;
+            padding: 20px 40px;
+            background-color: $YUSEN_BLACK_20;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+            h3 {
+                font-size: 1.2rem;
+                color: $YUSEN_DARK_BLUE;
+            }
+
+            h4 {
+                font-size: 0.8rem;
+                color: $YUSEN_DARK_BLUE;
+            }
+
+            a {
+                font-size: 0.8rem;
+                margin: 25px 0px 0px 0px;
+                color: $YUSEN_DARK_BLUE;
+            }
+        }
+    }
+
+    .messages-column-2 {
+        display: none;
+    }
+
+    @media (min-width: 1024px) {
+        .messages {
+            display: flex;
+            max-width: 1750px;
+            margin: auto;
+        }
+
+        .messages-column-2 {
+            display: block;
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+}

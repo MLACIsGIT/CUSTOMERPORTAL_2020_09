@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Settings from './Settings.js';
 import Db from './_SelComponents/_SelWebComponents/js/Db'
 import PageLogin from './Pages/Login/PageLogin'
+import PageReports from './Pages/Reports/PageReports'
+import PageHome from './Pages/Home/PageHome'
 import Header from './Components/Header/Header'
 
 function App() {
@@ -30,6 +32,10 @@ function App() {
   }
 
   function onExtendToken(newToken) {
+    if (!newToken) {
+      onLogout()
+      return;
+    }
     setExtendedToken(newToken);
   }
 
@@ -69,6 +75,26 @@ function App() {
               onLogin={newLoginData => onLogin(newLoginData)}
             />
           </Route>
+
+
+          <Route exact path="/home">
+            <PageHome
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
+
+          <Route exact path="/reports">
+          <PageReports
+            lang={lang}
+            loginData={loginData}
+            db={db}
+            onLogout={onLogout}
+          />
+        </Route>
+
         </Switch>
       </Router>
     </div>
