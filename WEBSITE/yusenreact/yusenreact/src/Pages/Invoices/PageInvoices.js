@@ -13,7 +13,7 @@ export default function PageReports(props) {
         <div className="page-reports">
             <HeaderLine
                 lang={props.lang}
-                selectedPage={"reports"}
+                selectedPage={"invoices"}
                 loginData={props.loginData}
             />
 

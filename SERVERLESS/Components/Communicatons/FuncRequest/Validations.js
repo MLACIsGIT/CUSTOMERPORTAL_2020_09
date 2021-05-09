@@ -64,6 +64,35 @@ class Validations {
                 portalOwnerId: Joi.number()
                     .integer()
                     .required()
+            }),
+
+            getRecordsetParams: Joi.object({
+                portalOwnerId: Joi.number()
+                    .integer()
+                    .required(),
+
+                reportId: Joi.string()
+                    .min(3)
+                    .required(),
+
+                where: Joi.string(),
+
+                groupBy: Joi.string()
+            }),
+
+            getData: Joi.object({
+                portalOwnerId: Joi.number()
+                    .integer()
+                    .required(),
+
+                reportId: Joi.string()
+                    .min(3)
+                    .required(),
+
+                where: Joi.string(),
+
+                groupBy: Joi.string()
+
             })
         }
     }

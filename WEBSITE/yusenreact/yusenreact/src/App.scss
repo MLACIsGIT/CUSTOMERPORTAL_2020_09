@@ -4,9 +4,9 @@ $primary: #06183d;
 $secondary: #99e7ff;
 $success: #ff6d10;
 $info: #333333;
-$warning: #ffa166;
+$warning: #ffc933;
 $danger: #c08080;
-$light: #e6e6e6;
+$light: #cccccc;
 $dark: #333333;
 
 @import "~bootstrap/scss/bootstrap.scss";
@@ -32,6 +32,7 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-width: 320px;
 }
 
 #LoggedUser-user-icon {

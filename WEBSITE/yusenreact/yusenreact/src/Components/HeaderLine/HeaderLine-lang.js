@@ -18,16 +18,28 @@ export function langJSON() {
                 "en": "News and Messages"
             },
 
-            "header-title-track": {
-                "hu": "Szállítmány nyomkövetése",
+            "header-title-invoices": {
+                "hu": "Számláim",
+                "de": "Abrechnungen",
+                "en": "Invoices"
+            },
+
+            "header-title-stocks": {
+                "hu": "Raktárkészletem",
+                "de": "Warenbestände",
+                "en": "Stocks of goods"
+            },
+
+            "header-title-tracking": {
+                "hu": "Fuvarjaim",
                 "de": "Track & Trace",
                 "en": "Track & Trace"
             },
 
-            "header-title-reports": {
-                "hu": "Riportok",
-                "de": "Auswertungen",
-                "en": "Reports"
+            "header-title-settings": {
+                "hu": "Beállítások",
+                "de": "Einstellungen",
+                "en": "Settings"
             },
 
             "header-title-contact": {

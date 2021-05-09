@@ -1,7 +1,8 @@
-import "./HeaderLine.scss"
+import "./HeaderLine.scss";
 import { Link } from "react-router-dom";
-import * as Gl from "../../_SelComponents/_SelWebComponents/js/Gl"
-import * as LangJSON from "./HeaderLine-lang"
+import * as Gl from "../../_SelComponents/_SelWebComponents/js/Gl";
+import * as LangJSON from "./HeaderLine-lang";
+import PictHandler from "./pictures/PictHandler";
 
 export default function HeaderLine(props) {
     const LangElements = LangJSON.langJSON();
@@ -9,7 +10,7 @@ export default function HeaderLine(props) {
     const selectedPage = props.selectedPage;
     let navbar;
 
-    let navItems = ["home", "track", "reports", "contact"]
+    let navItems = ["home", "invoices", "stocks", "tracking", "settings", "contact"]
 
     function lng(key) {
         return Gl.LANG_GET_FormItem(LangElements, key, lang)
@@ -22,15 +23,23 @@ export default function HeaderLine(props) {
             navItems.map(item => {
                 if (item === selectedPage) {
                     return (
-                        <Link key={item} to={`/${item}`} className="main-navbar-item btn btn-info" style={linkStyle}>
-                            <span>{lng(`header-title-${item}`)}</span>
-                        </Link>)
+                        <div style={linkStyle}>
+                            <Link key={item} to={`/${item}`} className="main-navbar-item btn btn-primary">
+                                <PictHandler pictureCode={`${item}_selected`} />
+                                <span>{lng(`header-title-${item}`)}</span>
+                            </Link>
+                        </div>
+                    )
                 }
 
                 return (
-                    <Link key={item} to={`/${item}`} className="main-navbar-item btn btn-light" style={linkStyle}>
-                        <span>{lng(`header-title-${item}`)}</span>
-                    </Link>)
+                    <div style={linkStyle}>
+                        <Link key={item} to={`/${item}`} className="main-navbar-item btn btn-light">
+                            <PictHandler pictureCode={item} />
+                            <span>{lng(`header-title-${item}`)}</span>
+                        </Link>
+                    </div>
+                )
             })
     }
 

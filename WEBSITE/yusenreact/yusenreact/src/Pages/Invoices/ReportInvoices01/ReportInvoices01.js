@@ -18,8 +18,9 @@ export default function ReportInvoices01(props) {
                     "reportId": "ReportInvoices01",
                     "languageElements": LangJSON(),
                     "recordset": {
+                        "columns": ["PositionNumber", "SuppliersPosition", "ArrivalDate", "OrderNumber", "Recevier", "RecevierZIP", "RecevierCity", "RecevierAddress", "ShipmentType", "Packaging", "Qty", "UnitPrice", "TransportationFee", "Weight", "Temperature", "RouteID", "ExtraWaitingHours", "ExtraWaitingReason", "ExtraWaitingHoursUnitPrice", "ExtraWaitingHoursFee", "EM", "ReturnGoodsFee", "Total", "COMMENT"],
                         "defaultSqlSelect": "ID, TIG_PositionNumber",
-                        "defaultSqlTop": 10,
+                        "defaultSqlTop": 100,
                         "sqlFrom": "WAT_INV",
                         "defaultSqlOrderBy": "Inv_Num"
                     }

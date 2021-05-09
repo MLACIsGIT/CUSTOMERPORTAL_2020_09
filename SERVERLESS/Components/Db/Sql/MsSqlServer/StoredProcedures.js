@@ -35,11 +35,12 @@ class StoredProcedures {
         dbRequest.input("Salt", npm_mssql.NVarChar(50), params.salt);
         dbRequest.output("OUT_Result", npm_mssql.Bit);
         dbRequest.output("OUT_UserId", npm_mssql.Int);
-        dbRequest.output("OUT_UserLevel", npm_mssql.Int);
+        dbRequest.output("OUT_UserLevel", npm_mssql.NVarChar(20));
         dbRequest.output("OUT_CurrentUTC", npm_mssql.DateTime);
         dbRequest.output("OUT_ValidUntil", npm_mssql.DateTime);
         dbRequest.output("OUT_PasswordUpdateRequired", npm_mssql.Bit);
         dbRequest.output("OUT_TokenKey", npm_mssql.NVarChar(20));
+        dbRequest.output("OUT_Params", npm_mssql.NVarChar('max'))
 
         try {
             let dbResults;
@@ -52,7 +53,8 @@ class StoredProcedures {
                     currentUTC: dbResults.output.OUT_CurrentUTC,
                     validUntil: dbResults.output.OUT_ValidUntil,
                     passwordUpdateRequired: dbResults.output.OUT_PasswordUpdateRequired,
-                    tokenKey: dbResults.output.OUT_TokenKey
+                    tokenKey: dbResults.output.OUT_TokenKey,
+                    params: dbResults.output.OUT_Params
                 }
             }
         } catch (error) {
@@ -141,59 +143,117 @@ class StoredProcedures {
         }
     }
 
+    async WAT_INTERFACE_getUserParams(params) {
+        let dbRequest = this.db.getNewRequest();
+        let outParams = {
+            result: false
+        };
 
-    /*
-        async WAT_INTERFACE_getData(params, outParams) {
-            let dbRequest = this.db.getNewRequest();
-            let outParams = {
-                result: false
-            };
-    
-            let sqlTop = dbRequest.body.TOP ?? 0
-    
-            dbRequest.input("WAT_Portal_Owners_ID", npm_mssql.Int, params.portalOwnersId);
-            dbRequest.input('Lang', npm_mssql.NVarChar('max'), params.lang);
-            dbRequest.input('SELECT', npm_mssql.NVarChar('max'), params.SELECT);
-            dbRequest.input('TOP', npm_mssql.Int, sqlTop);
-            dbRequest.input('FROM', npm_mssql.NVarChar('max'), params.FROM);
-            dbRequest.input('WHERE', npm_mssql.NVarChar('max'), params.WHERE);
-            dbRequest.input('GROUP_BY', npm_mssql.NVarChar('max'), params.GROUP_BY);
-            dbRequest.input('ORDER_BY', npm_mssql.NVarChar('max'), params.ORDER_BY);
-            dbRequest.input('PAGE_NO', npm_mssql.Int, params.PAGE_NO);
-            dbRequest.input('ROWS_PER_PAGE', npm_mssql.Int, params.ROWS_PER_PAGE);
-    
-            dbRequest.output('OUT_ErrCode', npm_mssql.NVarChar(255));
-            dbRequest.output('OUT_ErrParams', npm_mssql.NVarChar('max'));
-    
-            //Uj token kiadasat meg kell meg csinalni!!!
-            //dbRequest.output("OUT_CurrentUTC", npm_mssql.DateTime);
-            //dbRequest.output("OUT_ValidUntil", npm_mssql.DateTime);
-            //dbRequest.output("OUT_TokenKey", npm_mssql.NVarChar(20));
-    
-            try {
-                let dbResults = await this.db.spExecute(dbRequest, "WAT_INTERFACE_GET_DATA")
-    
-                if (dbResults.output.OUT_ErrCode === "") {
-                    outParams = {
-                        result: true,
-                        countOfRecords: dbResults.recordset['length'],
-                        columns: dbResults.recordset['columns'],
-                        data: dbResults.recordset
-                    }
-                } else {
-                    outParams = {
-                        result: false
-                    }
+        dbRequest.input("WAT_Portal_Owners_ID", npm_mssql.Int, params.portalOwnersId);
+        dbRequest.input("userId", npm_mssql.Int, params.userId);
+        dbRequest.output("OUT_Users_Params", npm_mssql.NVarChar('max'));
+        dbRequest.output("OUT_UserLevel_Params", npm_mssql.NVarChar('max'));
+        dbRequest.output("OUT_Portal_Owners_Params", npm_mssql.NVarChar('max'));
+        dbRequest.output("OUT_Results", npm_mssql.NVarChar(255));
+
+        try {
+            let dbResults = await this.db.spExecute(dbRequest, "WAT_Portal_Owners_ID")
+            if (dbResults.output.OUT_Result === "ok") {
+                outParams = {
+                    result: true,
+                    userParams: dbRequest.output.OUT_User_Params,
+                    userLevelParams: dbRequest.output.OUT_UserLevelParams,
+                    portalOwnerParams: dbRequest.output.OUT_Portal_Owners_Params
                 }
-            } catch (error) {
+            }
+        } catch (error) {
+            console.error(error);
+        }
+
+        return outParams;
+    }
+
+    async WAT_INTERFACE_getRecordsetParams(params) {
+        let dbRequest = this.db.getNewRequest();
+        let outParams = {
+            result: false
+        };
+
+        let sqlTop = params.TOP ?? 0
+
+        dbRequest.input("WAT_Portal_Owners_ID", npm_mssql.Int, params.portalOwnersId);
+        dbRequest.input("UsersID", npm_mssql.Int, params.usersId);
+        dbRequest.input('TableCode', npm_mssql.NVarChar(10), params.tableCode);
+        dbRequest.input('TOP', npm_mssql.Int, sqlTop);
+        dbRequest.input('FROM', npm_mssql.NVarChar('max'), params.FROM);
+        dbRequest.input('WHERE', npm_mssql.NVarChar('max'), params.WHERE);
+        dbRequest.input('GROUP_BY', npm_mssql.NVarChar('max'), params.GROUP_BY);
+        dbRequest.output("OUT_countOfRows", npm_mssql.Int);
+        dbRequest.output("OUT_Result", npm_mssql.NVarChar(255));
+
+        try {
+            let dbResults = await this.db.spExecute(dbRequest, "WAT_INTERFACE_GET_RECORDSET_PARAMS")
+
+            if (dbResults.output.OUT_Result === "ok") {
+                outParams = {
+                    result: true,
+                    countOfRecords: dbResults.output.countOfRows
+                }
+            }
+
+        } catch (error) {
+            console.error(error);
+        }
+
+        return outParams
+    }
+
+    async WAT_INTERFACE_getData(params, outParams) {
+        let dbRequest = this.db.getNewRequest();
+        outParams = {
+            result: false
+        };
+
+        let sqlTop = dbRequest.body.TOP ?? 0
+
+        dbRequest.input("WAT_Portal_Owners_ID", npm_mssql.Int, params.portalOwnersId);
+        dbRequest.input("UsersID", npm_mssql.Int, params.usersId);
+        dbRequest.input('Lang', npm_mssql.NVarChar('max'), params.lang);
+        dbRequest.input('TableCode', npm_mssql.NVarChar(10), params.tableCode);
+        dbRequest.input('SELECT', npm_mssql.NVarChar('max'), params.SELECT);
+        dbRequest.input('TOP', npm_mssql.Int, sqlTop);
+        dbRequest.input('FROM', npm_mssql.NVarChar('max'), params.FROM);
+        dbRequest.input('WHERE', npm_mssql.NVarChar('max'), params.WHERE);
+        dbRequest.input('GROUP_BY', npm_mssql.NVarChar('max'), params.GROUP_BY);
+        dbRequest.input('ORDER_BY', npm_mssql.NVarChar('max'), params.ORDER_BY);
+        dbRequest.input('Lang', npm_mssql.NVarChar(10), params.lang);
+
+        dbRequest.input('PAGE_NO', npm_mssql.Int, params.pageNo);
+        dbRequest.input('ROWS_PER_PAGE', npm_mssql.Int, params.rowsPerPage);
+
+        try {
+            let dbResults = await this.db.spExecute(dbRequest, "WAT_INTERFACE_GET_DATA")
+
+            if (dbResults.output.OUT_ErrCode === "") {
+                outParams = {
+                    result: true,
+                    countOfRecords: dbResults.recordset['length'],
+                    columns: dbResults.recordset['columns'],
+                    data: dbResults.recordset
+                }
+            } else {
                 outParams = {
                     result: false
                 }
             }
-    
-            return outParams
+        } catch (error) {
+            outParams = {
+                result: false
+            }
         }
-    */
+
+        return outParams
+    }
 }
 
 module.exports.StoredProcedures = StoredProcedures;

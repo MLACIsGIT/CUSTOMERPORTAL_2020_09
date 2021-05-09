@@ -22,7 +22,7 @@ module.exports = async function (context, req) {
 
     const db = new Db.Db();
     const sp = new StoredProcedures.StoredProcedures(db);
-    const auth = new Auth.Auth(db, sp, comm);
+    const auth = new Auth.Auth(sp, comm);
 
     await db.connect()
     if (db.isConnected() === false) {

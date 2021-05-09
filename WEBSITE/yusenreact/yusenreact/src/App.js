@@ -2,11 +2,15 @@ import './App.scss';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Settings from './Settings.js';
-import Db from './_SelComponents/_SelWebComponents/js/Db'
-import PageLogin from './Pages/Login/PageLogin'
-import PageReports from './Pages/Reports/PageReports'
-import PageHome from './Pages/Home/PageHome'
-import Header from './Components/Header/Header'
+import Db from './_SelComponents/_SelWebComponents/js/Db';
+import PageLogin from './Pages/Login/PageLogin';
+import PageInvoices from './Pages/Invoices/PageInvoices';
+import PageStocks from './Pages/Stocks/PageStocks';
+import PageTracking from './Pages/Tracking/PageTracking';
+import PageSettings from './Pages/Settings/PageSettings';
+import PageContact from './Pages/Contact/PageContact';
+import PageHome from './Pages/Home/PageHome';
+import Header from './Components/Header/Header';
 
 function App() {
   const settings = Settings();
@@ -86,15 +90,50 @@ function App() {
             />
           </Route>
 
-          <Route exact path="/reports">
-          <PageReports
-            lang={lang}
-            loginData={loginData}
-            db={db}
-            onLogout={onLogout}
-          />
-        </Route>
+          <Route exact path="/invoices">
+            <PageInvoices
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
 
+          <Route exact path="/stocks">
+            <PageStocks
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
+
+          <Route exact path="/tracking">
+            <PageTracking
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
+
+          <Route exact path="/settings">
+            <PageSettings
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
+
+          <Route exact path="/contact">
+            <PageContact
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
         </Switch>
       </Router>
     </div>

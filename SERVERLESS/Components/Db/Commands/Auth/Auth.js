@@ -2,8 +2,7 @@ const Crypto = require('../../../Crypto/Crypto.js');
 const jwt = require('jsonwebtoken');
 
 class Auth {
-    constructor(db, sp, comm) {
-        this.db = db;
+    constructor(sp, comm) {
         this.sp = sp;
         this.comm = comm;
     }
@@ -59,11 +58,16 @@ class Auth {
                 userLevel: outParams.userLevel,
                 currentUTC: outParams.currentUTC,
                 validUntil: outParams.validUntil,
-                passwordUpdateRequired: outParams.passwordUpdateRequired
+                passwordUpdateRequired: outParams.passwordUpdateRequired,
+                params: outParams.params
             });
         } else {
             this.comm.res.setResultErr("LOGIN_FAILED");
         }
+    }
+
+    async getUserParams(portalOwnersId, userId) {
+        return await this.sp.WAT_INTERFACE_getUserParams({portalOwnersId, userId})
     }
 
     async decodeToken(portalOwnersId, token, tokenkey) {
