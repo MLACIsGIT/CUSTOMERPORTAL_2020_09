@@ -7,6 +7,7 @@ import PageLogin from './Pages/Login/PageLogin';
 import PageInvoices from './Pages/Invoices/PageInvoices';
 import PageStocks from './Pages/Stocks/PageStocks';
 import PageTracking from './Pages/Tracking/PageTracking';
+import PageTrackingSystem from './Pages/Tracking/TrackingSystem/PageTrackingSystem';
 import PageSettings from './Pages/Settings/PageSettings';
 import PageContact from './Pages/Contact/PageContact';
 import PageHome from './Pages/Home/PageHome';
@@ -110,6 +111,15 @@ function App() {
 
           <Route exact path="/tracking">
             <PageTracking
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
+
+          <Route exact path="/tracking/trackingsystem">
+            <PageTrackingSystem
               lang={lang}
               loginData={loginData}
               db={db}

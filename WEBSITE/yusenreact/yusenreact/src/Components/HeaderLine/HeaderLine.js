@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as Gl from "../../_SelComponents/_SelWebComponents/js/Gl";
 import * as LangJSON from "./HeaderLine-lang";
 import PictHandler from "./pictures/PictHandler";
+import MenuOutlinedIcon from '@material-ui/icons/MenuOutlined';
 
 export default function HeaderLine(props) {
     const LangElements = LangJSON.langJSON();
@@ -23,8 +24,8 @@ export default function HeaderLine(props) {
             navItems.map(item => {
                 if (item === selectedPage) {
                     return (
-                        <div style={linkStyle}>
-                            <Link key={item} to={`/${item}`} className="main-navbar-item btn btn-primary">
+                        <div key={item} style={linkStyle}>
+                            <Link to={`/${item}`} className="main-navbar-item btn btn-primary">
                                 <PictHandler pictureCode={`${item}_selected`} />
                                 <span>{lng(`header-title-${item}`)}</span>
                             </Link>
@@ -33,8 +34,8 @@ export default function HeaderLine(props) {
                 }
 
                 return (
-                    <div style={linkStyle}>
-                        <Link key={item} to={`/${item}`} className="main-navbar-item btn btn-light">
+                    <div key={item} style={linkStyle}>
+                        <Link to={`/${item}`} className="main-navbar-item btn btn-light">
                             <PictHandler pictureCode={item} />
                             <span>{lng(`header-title-${item}`)}</span>
                         </Link>
@@ -48,8 +49,17 @@ export default function HeaderLine(props) {
             <div className="main-navbar">
                 {navbar}
             </div>
-            <h1 className="HEADER_LINE">
-                {lng(`header-title-${selectedPage}`)}
+            <h1 className="header-title-bar">
+                <div className="header-title-bar-column-1" onClick={props.onHamClicked}>
+                    {
+                        (props.onHamClicked) ? <MenuOutlinedIcon fontSize="large" /> : null
+                    }
+                </div>
+                <div className="header-title-bar-column-2">
+                    {lng(`header-title-${selectedPage}`)}
+                </div>
+                <div className="header-title-bar-column-1">
+                </div>
             </h1>
         </div>
     )

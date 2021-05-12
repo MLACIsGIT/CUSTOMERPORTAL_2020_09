@@ -32,8 +32,14 @@ export function langJSON() {
 
             "header-title-tracking": {
                 "hu": "Fuvarjaim",
-                "de": "Track & Trace",
-                "en": "Track & Trace"
+                "de": "Frächte",
+                "en": "Freight"
+            },
+
+            "header-title-tracking-system": {
+                "hu": "Áru nyomkövetés",
+                "de": "Tracking system",
+                "en": "Tracking system"
             },
 
             "header-title-settings": {

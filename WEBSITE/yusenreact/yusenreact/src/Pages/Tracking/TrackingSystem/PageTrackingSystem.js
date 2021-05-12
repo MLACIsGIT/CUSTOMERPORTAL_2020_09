@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Redirect } from "react-router-dom";
-import HeaderLine from "../../Components/HeaderLine/HeaderLine";
-import TrackingHamMenu from "./TrackingHamMenu/TrackingHamMenu";
+import { Redirect } from "react-router-dom"
+import HeaderLine from "../../../Components/HeaderLine/HeaderLine"
+import TrackingHamMenu from "../TrackingHamMenu/TrackingHamMenu"
 
-export default function PageTrackingSubMenu(props) {
-    const [hamShowed, showHam] = useState(true)
+export default function PageTrackingSystem(props) {
+    const [hamShowed, showHam] = useState(false)
 
     function onHamClicked() {
         showHam(!hamShowed);
@@ -17,10 +17,10 @@ export default function PageTrackingSubMenu(props) {
     }
 
     return (
-        <div className="page-tracking">
+        <div className="page-tracking-system">
             <HeaderLine
                 lang={props.lang}
-                selectedPage={"tracking"}
+                selectedPage={"tracking-system"}
                 loginData={props.loginData}
                 onHamClicked={onHamClicked}
             />
@@ -32,7 +32,9 @@ export default function PageTrackingSubMenu(props) {
                         lang={props.lang}
                     />
                 </aside>
+                <div>{"TRACKING SYSTEM"}</div>
             </main>
+
         </div>
     )
 }

@@ -1,0 +1,11 @@
+@import "../../App.scss";
+
+.hamMenu {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    z-index: 99;
+    background-color: $light;
+}
