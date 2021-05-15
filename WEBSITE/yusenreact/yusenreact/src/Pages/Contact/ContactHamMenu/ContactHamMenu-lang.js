@@ -13,9 +13,9 @@ export function langJSON() {
             },
 
             "BUDAPEST-descr": {
-                "hu": "### BUDAPEST-descr hu ###",
-                "de": "### BUDAPEST-descr de ###",
-                "en": "### BUDAPEST-descr en ###"
+                "hu": "Head Office",
+                "de": "Head Office",
+                "en": "Head Office"
             },
 
             "VIENNA-title": {
@@ -25,21 +25,21 @@ export function langJSON() {
             },
 
             "VIENNA-descr": {
-                "hu": "### VIENNA-descr hu ###",
-                "de": "### VIENNA-descr de ###",
-                "en": "### VIENNA-descr en ###"
+                "hu": "Branch Office Austria",
+                "de": "Branch Office Austria",
+                "en": "Branch Office Austria"
             },
 
             "KOPER-title": {
                 "hu": "Koper",
-                "de": "### KOPER-title de ###",
-                "en": "### KOPER-title en ###"
+                "de": "Koper",
+                "en": "Koper"
             },
 
             "KOPER-descr": {
-                "hu": "### KOPER-descr hu ###",
-                "de": "### KOPER-descr de ###",
-                "en": "### KOPER-descr en ###"
+                "hu": "Koper Branch Office",
+                "de": "Koper Branch Office",
+                "en": "Koper Branch Office"
             }
         },
 

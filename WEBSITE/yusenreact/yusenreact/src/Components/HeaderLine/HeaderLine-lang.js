@@ -6,6 +6,12 @@ export function langJSON() {
         },
 
         "form-items": {
+            "header-title-greeting": {
+                "hu": "ÜGYFÉLKAPU",
+                "de": "CUSTOMER PORTAL",
+                "en": "CUSTOMER PORTAL"
+            },
+
             "header-title-login": {
                 "hu": "ÜGYFÉLKAPU - Belépés",
                 "de": "CUSTOMER PORTAL - Login",

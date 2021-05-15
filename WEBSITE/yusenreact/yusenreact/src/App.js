@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Settings from './Settings.js';
 import Db from './_SelComponents/_SelWebComponents/js/Db';
+import PageGreeting from './Pages/Greeting/PageGreeting';
 import PageLogin from './Pages/Login/PageLogin';
 import PageInvoices from './Pages/Invoices/PageInvoices';
 import PageStocks from './Pages/Stocks/PageStocks';
@@ -10,6 +11,9 @@ import PageTracking from './Pages/Tracking/PageTracking';
 import PageTrackingSystem from './Pages/Tracking/TrackingSystem/PageTrackingSystem';
 import PageSettings from './Pages/Settings/PageSettings';
 import PageContact from './Pages/Contact/PageContact';
+import PageContactVienna from './Pages/Contact/ContactVienna/PageContactVienna';
+import PageContactBudapest from './Pages/Contact/ContactBudapest/PageContactBudapest';
+import PageContactKoper from './Pages/Contact/ContactKoper/PageContactKoper';
 import PageHome from './Pages/Home/PageHome';
 import Header from './Components/Header/Header';
 
@@ -71,7 +75,13 @@ function App() {
         />
 
         <Switch>
-          <Route exact path="/">
+        <Route exact path="/">
+            <PageGreeting
+              lang={lang}
+            />
+          </Route>
+
+          <Route exact path="/login">
             <PageLogin
               settings={settings}
               lang={lang}
@@ -80,7 +90,6 @@ function App() {
               onLogin={newLoginData => onLogin(newLoginData)}
             />
           </Route>
-
 
           <Route exact path="/home">
             <PageHome
@@ -138,6 +147,33 @@ function App() {
 
           <Route exact path="/contact">
             <PageContact
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
+
+          <Route exact path="/contact/vienna">
+            <PageContactVienna
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
+
+          <Route exact path="/contact/budapest">
+            <PageContactBudapest
+              lang={lang}
+              loginData={loginData}
+              db={db}
+              onLogout={onLogout}
+            />
+          </Route>
+
+          <Route exact path="/contact/koper">
+            <PageContactKoper
               lang={lang}
               loginData={loginData}
               db={db}

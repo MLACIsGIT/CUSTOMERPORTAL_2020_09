@@ -1,0 +1,42 @@
+@import "../../App.scss";
+
+.yusen-infobox {
+    $width: 530px;
+    $height: 450px;
+    $borderWidth: 8px;
+    $headerHeight: 30%;
+
+    position: absolute;
+    width: $width;
+    height: $height;
+    background-color: rgba($YUSEN_BLACK_10, 0.9);
+    border: 8px solid $YUSEN_ORANGE;
+
+    .yusen-infobox-article {
+        height: calc(100% - #{$headerHeight});
+
+        .yusen-infobox-header {
+            display: flex;
+            align-items: center;
+            height: $headerHeight;
+            background-color: $YUSEN_WHITE;
+
+            .header-logo {
+                margin-left: 20px;
+            }
+        }
+
+        .yusen-infobox-main {
+            color: $YUSEN_DARK_BLUE;
+            padding: 20px;
+
+            h1 {
+                font-weight: bold;
+            }
+
+            h4 {
+                font-weight: bold;
+            }
+        }
+    }
+}

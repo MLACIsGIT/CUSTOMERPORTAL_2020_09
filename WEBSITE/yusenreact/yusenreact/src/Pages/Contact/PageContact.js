@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Redirect } from "react-router-dom"
+import "./PageContact.scss"
 import HeaderLine from "../../Components/HeaderLine/HeaderLine"
-import ContactHamMenu from "./ContactHamMenu/ContactHamMenu";
+import ContactHamMenu from "./ContactHamMenu/ContactHamMenu"
 
 export default function PageTracking(props) {
     const [hamShowed, showHam] = useState(true)
@@ -22,17 +23,16 @@ export default function PageTracking(props) {
                 lang={props.lang}
                 selectedPage={"contact"}
                 loginData={props.loginData}
-                onHamClicked={onHamClicked}
             />
 
-
-            <main>
-                <aside>
-                    <ContactHamMenu
-                        show={hamShowed}
-                        lang={props.lang}
-                    />
-                </aside>
+            <aside>
+                <ContactHamMenu
+                    show={true}
+                    lang={props.lang}
+                />
+            </aside>
+            <main className="page-contact-main">
+valami
             </main>
         </div>
     )

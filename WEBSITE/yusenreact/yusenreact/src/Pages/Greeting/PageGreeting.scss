@@ -1,0 +1,27 @@
+@import "../../App.scss";
+
+.page-greeting {
+    main {
+        position: relative;
+        height: 80vh;
+        background-image: url(./BackgroundGreeting.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .yusen-infobox {
+            .header-area {
+                text-align: center;
+            }
+
+            .infoText-area {
+                text-align: center;
+            }
+
+            .input-field-area {
+                margin: 15px 0 40px 0;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+}

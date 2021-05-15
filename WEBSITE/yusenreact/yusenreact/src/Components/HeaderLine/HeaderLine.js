@@ -17,7 +17,7 @@ export default function HeaderLine(props) {
         return Gl.LANG_GET_FormItem(LangElements, key, lang)
     }
 
-    if (props.loginData?.user !== null && navItems.length > 0) {
+    if (props.loginData!==undefined && props.loginData?.user !== null && navItems.length > 0) {
         let linkStyle = { width: `calc( 100% / ${navItems.length} - 4px )` }
 
         navbar =
@@ -58,7 +58,7 @@ export default function HeaderLine(props) {
                 <div className="header-title-bar-column-2">
                     {lng(`header-title-${selectedPage}`)}
                 </div>
-                <div className="header-title-bar-column-1">
+                <div className="header-title-bar-column-3">
                 </div>
             </h1>
         </div>

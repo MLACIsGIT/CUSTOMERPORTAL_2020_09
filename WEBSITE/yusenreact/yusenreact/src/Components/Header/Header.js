@@ -1,5 +1,5 @@
 import './Header.scss';
-import headerLogo from "./headerLogo.png";
+import headerLogo from "../../PicturesForSelComponents/headerLogo.png";
 import LanguageSelector from "../../_SelComponents/_SelWebComponents/LanguageSelector/LanguageSelector"
 import LoggedUser from "../../_SelComponents/_SelWebComponents/LoggedUser/LoggedUser"
 import TokenExpirationMessage from "../../_SelComponents/_SelWebComponents/TokenExpirationMessage/TokenExpirationMessage"
