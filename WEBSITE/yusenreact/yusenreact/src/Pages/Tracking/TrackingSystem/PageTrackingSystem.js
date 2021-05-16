@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { Redirect } from "react-router-dom"
+import "./PageTrackingSystem.scss"
 import HeaderLine from "../../../Components/HeaderLine/HeaderLine"
 import TrackingHamMenu from "../TrackingHamMenu/TrackingHamMenu"
+import YusenInfobox from "../../../Components/YusenInfobox/YusenInfobox";
+import TrackingSystem from "./TrackingSystem/TrackingSystem"
 
 export default function PageTrackingSystem(props) {
     const [hamShowed, showHam] = useState(false)
@@ -16,6 +19,11 @@ export default function PageTrackingSystem(props) {
         )
     }
 
+    const infobox =
+        <TrackingSystem
+            lang={props.lang}
+        />
+
     return (
         <div className="page-tracking-system">
             <HeaderLine
@@ -25,15 +33,22 @@ export default function PageTrackingSystem(props) {
                 onHamClicked={onHamClicked}
             />
 
-            <main>
+            <article>
                 <aside>
                     <TrackingHamMenu
                         show={hamShowed}
                         lang={props.lang}
                     />
                 </aside>
-                <div>{"TRACKING SYSTEM"}</div>
-            </main>
+                <main>
+                    <YusenInfobox
+                        left={"150px"}
+                        top={"50px"}
+                        info={infobox}
+                    />
+                </main>
+
+            </article>
 
         </div>
     )

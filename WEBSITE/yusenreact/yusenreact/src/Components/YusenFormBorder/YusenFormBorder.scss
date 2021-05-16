@@ -1,0 +1,23 @@
+@import "../../App.scss";
+
+.yusen-form-border {
+    $borderWidth: 8px;
+    $headerHeight: 80px;
+
+    position: absolute;
+    margin: 5% 10% auto 10%;
+    width: 80%;
+    min-height: 100px;
+    background-color: rgba($YUSEN_BLACK_10, 0.9);
+    border: 8px solid $YUSEN_ORANGE;
+
+    .yusen-form-border-article {
+        .yusen-form-border-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: $headerHeight;
+            background-color: $YUSEN_WHITE;
+        }
+    }
+}

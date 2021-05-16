@@ -4,6 +4,7 @@
     main {
         position: relative;
         height: 80vh;
+        min-height: 768px;
         background-image: url(./BackgroundGreeting.png);
         background-repeat: no-repeat;
         background-size: cover;

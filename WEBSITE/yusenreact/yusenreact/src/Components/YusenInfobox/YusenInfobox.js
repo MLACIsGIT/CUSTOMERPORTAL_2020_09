@@ -17,6 +17,6 @@ export default function YusenInfobox(props) {
                     {props.info}
                 </div>
             </div>
-
-        </div>)
+        </div>
+        )
 }

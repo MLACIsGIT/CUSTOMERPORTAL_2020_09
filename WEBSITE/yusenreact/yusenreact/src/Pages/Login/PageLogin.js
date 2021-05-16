@@ -1,7 +1,7 @@
 import "./PageLogin.scss";
 import { Redirect } from 'react-router-dom';
 import HeaderLine from "../../Components/HeaderLine/HeaderLine"
-import PageLoginGreetings from './subComponents/PageLoginGreetings/PageLoginGreetings'
+import YusenInfobox from "../../Components/YusenInfobox/YusenInfobox"
 import SelLogin from '../../_SelComponents/_SelWebComponents/SelLogin/SelLogin'
 
 export default function PageLogin(props) {
@@ -13,27 +13,30 @@ export default function PageLogin(props) {
         return <Redirect to='/home' />
     }
 
+    const infobox =
+        <SelLogin
+            lang={props.lang}
+            db={props.db}
+            settings={props.settings}
+            loginData={props.loginData}
+            onLogin={newLoginData => onLogin(newLoginData)}
+        />
+
     return (
-        <div id="page-login">
+        <div className="page-login">
             <HeaderLine
                 lang={props.lang}
                 selectedPage={"login"}
                 loginData={props.loginData}
             />
 
-            <div className="SEL-LAYOUT-CONTAINER SEL-LAYOUT-BLOCK-600px">
-                <PageLoginGreetings lang={props.lang} />
-
-                <div className="SEL-LAYOUT-2-COLUMNS">
-                    <SelLogin
-                        lang={props.lang}
-                        db={props.db}
-                        settings={props.settings}
-                        loginData={props.loginData}
-                        onLogin={newLoginData => onLogin(newLoginData)}
-                    />
-                </div>
-            </div>
+            <main>
+                <YusenInfobox
+                    left={"150px"}
+                    top={"50px"}
+                    info={infobox}
+                />
+            </main>
         </div>
     )
 }

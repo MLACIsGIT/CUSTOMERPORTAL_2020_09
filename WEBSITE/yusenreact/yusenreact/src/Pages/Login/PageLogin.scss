@@ -1,4 +1,12 @@
 @import "../../App.scss";
 
-#page-login {
+.page-login {
+    main {
+        position: relative;
+        height: 80vh;
+        min-height: 768px;
+        background-image: url(./BackgroundLogin.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 }

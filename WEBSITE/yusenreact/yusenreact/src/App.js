@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Settings from './Settings.js';
 import Db from './_SelComponents/_SelWebComponents/js/Db';
 import PageGreeting from './Pages/Greeting/PageGreeting';
+import PageRegister from './Pages/Register/PageRegister';
 import PageLogin from './Pages/Login/PageLogin';
 import PageInvoices from './Pages/Invoices/PageInvoices';
 import PageStocks from './Pages/Stocks/PageStocks';
@@ -78,6 +79,15 @@ function App() {
         <Route exact path="/">
             <PageGreeting
               lang={lang}
+            />
+          </Route>
+
+          <Route exact path="/register">
+            <PageRegister
+              settings={settings}
+              lang={lang}
+              db={db}
+              loginData={loginData}
             />
           </Route>
 

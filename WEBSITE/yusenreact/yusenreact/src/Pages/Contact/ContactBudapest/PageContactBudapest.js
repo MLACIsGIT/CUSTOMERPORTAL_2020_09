@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Redirect } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { Redirect, Link } from "react-router-dom"
 import './PageContactBudapest.scss';
 import HeaderLine from "../../../Components/HeaderLine/HeaderLine"
 import ContactHamMenu from "../ContactHamMenu/ContactHamMenu";
@@ -28,13 +27,14 @@ export default function ContactBudapest(props) {
         )
     }
 
-    let mailTo = <Link to='#' onClick={(e) => {
-        e.preventDefault();
-        window.location = `mailto: ${lng("email")}`;
-    }}
-    >
-        {lng("email")}
-    </Link>
+    let mailTo =
+        <Link to='#' onClick={(e) => {
+            e.preventDefault();
+            window.location = `mailto: ${lng("email")}`;
+        }}
+        >
+            {lng("email")}
+        </Link>
 
     const infobox = <>
         <h4>{lng("title1")}</h4>
