@@ -72,10 +72,10 @@ export default function langJSON() {
                 "en": "Cancelled"
             },
 
-            "NOT PAYED": {
+            "NOT PAID": {
                 "hu": "Rendezetlen",
                 "de": "Nicht bezahlt",
-                "en": "Not payed"
+                "en": "Not paid"
             },
 
             "PAID": {

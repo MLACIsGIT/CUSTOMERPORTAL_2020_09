@@ -90,7 +90,7 @@ export default function ReportInvoices01Filter(props) {
                 <div className="col-3">
                     <select className="form-select reportFilter" aria-label="Default select example" data-sql="PayStatus='?'">
                         <option value=""></option>
-                        <option value="NOT PAYED">{lng("NOT PAYED")}</option>
+                        <option value="NOT PAID">{lng("NOT PAID")}</option>
                         <option value="PAID">{lng("PAID")}</option>
                         <option value="CANCELLED">{lng("CANCELLED")}</option>
                     </select>
