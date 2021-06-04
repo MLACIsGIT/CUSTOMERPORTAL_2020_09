@@ -497,9 +497,9 @@ module.exports = async function (context, req) {
                 break;
 
             //-------------------------------------------------------------------------------------------------------------------------------
-            // WAT_INTERFACE_MOBILE_VERSION_CHECK
+            // WAT_INTERFACE_MOBILE_CHECK_VERSION
             //-------------------------------------------------------------------------------------------------------------------------------
-            case "WAT_INTERFACE_MOBILE_VERSION_CHECK":
+            case "WAT_INTERFACE_MOBILE_CHECK_VERSION":
                 if (typeof watRequest.header.portalOwnerId == "undefined"){
                     context.res = mResultErr("GATEWAY_ERROR_missing_parameters", 0)
                     return;
