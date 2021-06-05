@@ -483,6 +483,12 @@ module.exports = async function (context, req) {
                                 "weight": totalWeight,
                                 "points": points
                             })
+                        } else {
+                            summary.push({
+                                "id": mapParams[iSet - 1].id,
+                                "lengthInMeters": 0,
+                                "travelTimeInSeconds": 0
+                            })
                         }
                     }
                 }
