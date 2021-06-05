@@ -157,7 +157,7 @@ class StoredProcedures {
         dbRequest.output("OUT_Results", npm_mssql.NVarChar(255));
 
         try {
-            let dbResults = await this.db.spExecute(dbRequest, "WAT_Portal_Owners_ID")
+            let dbResults = await this.db.spExecute(dbRequest, "WAT_INTERFACE_GET_USER_PARAMS")
             if (dbResults.output.OUT_Result === "ok") {
                 outParams = {
                     result: true,
