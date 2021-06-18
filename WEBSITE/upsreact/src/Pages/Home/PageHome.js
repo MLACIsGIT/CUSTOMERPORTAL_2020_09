@@ -18,22 +18,24 @@ export default function PageHome(props) {
                 loginData={props.loginData}
             />
 
-            <article className="messages">
-                <div className="messages-column-1">
-                    <div className="message-items">
-                        <div className="message-item">
-                            <h4>{"01.05.2021"}</h4>
-                            <h3>{"Megkezdte működését a UPS Healthcare Customer Portal"}</h3>
-                            <h4>{"Örömmel tájékoztatunk mindenkit, hogy információs weboldalunk a mai napon megkezdte működését."}</h4>
-                            <a href="">{"Részletek..."}</a>
+            <main>
+                <article className="messages">
+                    <div className="messages-column-1">
+                        <div className="message-items">
+                            <div className="message-item">
+                                <h4>{"01.05.2021"}</h4>
+                                <h3>{"Megkezdte működését a UPS Healthcare Customer Portal"}</h3>
+                                <h4>{"Örömmel tájékoztatunk mindenkit, hogy információs weboldalunk a mai napon megkezdte működését."}</h4>
+                                <a href="#">{"Részletek..."}</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="messages-column-2">
-                    <img src={PageHome_background_1} alt="background_1.png" />
-                </div>
-            </article>
+                    <div className="messages-column-2">
+                        <img src={PageHome_background_1} alt="background_1.png" />
+                    </div>
+                </article>
+            </main>
         </div>
     )
 }

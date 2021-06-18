@@ -33,19 +33,22 @@
     }
 
     @media (min-width: 1024px) {
-        .messages {
+        main {
             display: flex;
-            max-width: 1750px;
-            margin: auto;
-        }
+            .messages {
+                display: flex;
+                max-width: 1750px;
+                margin: auto;
+            }
 
-        .messages-column-2 {
-            display: block;
-            img {
+            .messages-column-2 {
                 display: block;
-                width: 100%;
-                height: auto;
-                background-repeat: no-repeat;
+                img {
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    background-repeat: no-repeat;
+                }
             }
         }
     }

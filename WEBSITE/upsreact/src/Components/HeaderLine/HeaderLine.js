@@ -9,7 +9,8 @@ export default function HeaderLine(props) {
     const selectedPage = props.selectedPage;
     let navbar;
 
-    let navItems = ["home", "track", "reports", "contact"]
+    //let navItems = ["home", "track", "reports", "contact"]
+    let navItems = ["home", "track", "contact"]
 
     function lng(key) {
         return Gl.LANG_GET_FormItem(LangElements, key, lang)

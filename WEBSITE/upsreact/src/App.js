@@ -1,12 +1,11 @@
 import './App.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Settings from './Settings.js';
 import Db from './_SelComponents/_SelWebComponents/js/Db'
 import PageHome from './Pages/Home/PageHome'
 import PageLogin from './Pages/Login/PageLogin'
 import PageTrack from './Pages/Track/PageTrack'
-import PageReports from './Pages/Reports/PageReports'
 import PageContact from './Pages/Contact/PageContact'
 import Header from './Components/Header/Header'
 
@@ -20,8 +19,6 @@ function App() {
     token: null
   });
 
-  const [extendedToken, setExtendedToken] = useState(null)
-
   function onLanguageChanged(lang) {
     setLang(lang);
   }
@@ -34,18 +31,12 @@ function App() {
   }
 
   function onExtendToken(newToken) {
-    setExtendedToken(newToken);
-  }
-
-  useEffect(() => {
-    if (extendedToken === null) {
-      if (loginData.user !== null) {
-        onLogout();
-      }
+    if (newToken === null) {
+      onLogout();
     } else {
-      setLoginData({ ...loginData, token: extendedToken })
+      setLoginData({ ...loginData, token: newToken })
     }
-  }, [extendedToken])
+  }
 
   function onLogin(newLoginData) {
     setLoginData(newLoginData);
@@ -84,15 +75,6 @@ function App() {
 
         <Route exact path="/track">
           <PageTrack
-            lang={lang}
-            loginData={loginData}
-            db={db}
-            onLogout={onLogout}
-          />
-        </Route>
-
-        <Route exact path="/reports">
-          <PageReports
             lang={lang}
             loginData={loginData}
             db={db}
