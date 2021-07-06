@@ -22,6 +22,9 @@ export default function PageReports(props) {
             <GridReport
                 id="REPORT_TEVA_TIG"
                 lang={props.lang}
+                db={props.db}
+                settings={props.settings}
+                loginData={props.loginData}
                 Filters={<TevaTigReportFilter />}
                 report={{
                     "reportId": "REPORT_TEVA_TIG",

@@ -2,9 +2,9 @@ import "./PageTrack.scss";
 import { Redirect } from "react-router-dom";
 import HeaderLine from "../../Components/HeaderLine/HeaderLine";
 import * as Gl from "../../_SelComponents/_SelWebComponents/js/Gl";
-import TevaTrckAndTraceFilter from "./subComponents/TevaTrackAndTraceFilter/TevaTrackAndTraceFilter";
+import TevaTrackAndTraceFilter from "./subComponents/TevaTrackAndTraceReport/TevaTrackAndTraceFilter";
 import langJSON from "./PageTrack-lang";
-import backgroundImage from "./PageTrack-background.png";
+import * as TevaTrackAndTraceReportLang from "./subComponents/TevaTrackAndTraceReport/TevaTrackAndTrace-lang";
 import GridReport from "../../_SelComponents/_SelWebComponents/GridReport/GridReport";
 
 export default function PageTrack(props) {
@@ -31,16 +31,26 @@ export default function PageTrack(props) {
         <GridReport
           id="REPORT_TrackAndTrace"
           lang={props.lang}
-          Filters={<TevaTrckAndTraceFilter />}
+          loginData={props.loginData}
+          db={props.db}
+          Filters={<TevaTrackAndTraceFilter lang={props.lang} />}
           report={{
-            reportId: "REPORT_TEVA_TIG",
-            languageElements: langJSON(),
-            recordset: {
-              defaultSqlSelect: "ID, TIG_PositionNumber",
-              defaultSqlTop: 10,
-              sqlFrom: "U_UPS_TEVA_TIG_DATA_VW",
-              defaultSqlOrderBy: "TIG_PositionNumber",
-            },
+            reportId: "ReportUpsTrackTrace",
+            languageElements: TevaTrackAndTraceReportLang.langJSON(),
+            columns: [
+              {
+                headerName: "column-positionNumber",
+                field: "PositionNumber",
+              },
+              { field: 'itemNo'},
+              { field: 'CustomerNo'},
+              { field: 'DispositionNo'},
+              { field: 'LoadingDate', type: 'date'},
+              { field: 'LoadingPlace'},
+              { field: 'UnloadingDate', type: 'date'},
+              { field: 'UnloadingPlace'},
+              { field: 'TransportStatus'},
+            ],
           }}
         />
       </div>
