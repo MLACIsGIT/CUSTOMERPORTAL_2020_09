@@ -9,6 +9,8 @@ export default function PageReports(props) {
         )
     }
 
+    //const ReportInvoices01LangElements = ReportInvoices01Lang.langJSON();
+
     return (
         <div className="page-reports">
             <HeaderLine
@@ -19,6 +21,8 @@ export default function PageReports(props) {
 
             <ReportInvoices01
                 lang={props.lang}
+                loginData={props.loginData}
+                db={props.db}
             />
         </div>
     )

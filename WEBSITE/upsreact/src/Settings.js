@@ -3,7 +3,7 @@ export default function Settings() {
         "portalOwnerId": 1038470,
 
         "server": {
-            "db": "http://localhost:7071/api/db",
+            "db": "https://selester-trial-ml-002.azurewebsites.net/api/db",
         },
 
         "password-regex": "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$){8,}"

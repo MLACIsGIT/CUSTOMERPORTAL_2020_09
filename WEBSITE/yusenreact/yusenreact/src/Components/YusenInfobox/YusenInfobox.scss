@@ -1,42 +1,75 @@
 @import "../../App.scss";
 
-.yusen-infobox {
-    $width: 530px;
-    $height: 450px;
-    $borderWidth: 8px;
+.yusen-infobox-container {
+  $height: 450px;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: $height;
+  top: 50px;
+
+  .yusen-infobox {
     $headerHeight: 30%;
 
-    position: absolute;
-    width: $width;
+    margin-left: 150px;
+    width: 530px;
     height: $height;
     background-color: rgba($YUSEN_BLACK_10, 0.9);
     border: 8px solid $YUSEN_ORANGE;
 
     .yusen-infobox-article {
-        height: calc(100% - #{$headerHeight});
+      height: calc(100% - #{$headerHeight});
 
-        .yusen-infobox-header {
-            display: flex;
-            align-items: center;
-            height: $headerHeight;
-            background-color: $YUSEN_WHITE;
+      .yusen-infobox-header {
+        display: flex;
+        align-items: center;
+        height: $headerHeight;
+        background-color: $YUSEN_WHITE;
 
-            .header-logo {
-                margin-left: 20px;
-            }
+        .header-logo {
+          margin-left: 20px;
+        }
+      }
+
+      .yusen-infobox-main {
+        color: $YUSEN_DARK_BLUE;
+        padding: 20px;
+
+        h1 {
+          font-weight: bold;
         }
 
-        .yusen-infobox-main {
-            color: $YUSEN_DARK_BLUE;
-            padding: 20px;
-
-            h1 {
-                font-weight: bold;
-            }
-
-            h4 {
-                font-weight: bold;
-            }
+        h4 {
+          font-weight: bold;
         }
+      }
     }
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .yusen-infobox-container {
+    justify-content: center;
+    .yusen-infobox {
+      margin-left: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  .yusen-infobox-container {
+    top: 0;
+    height: 280px;
+
+    .yusen-infobox {
+      width: 100%;
+      background-color: rgba($YUSEN_BLACK_10, 1);
+      border: none;
+      .yusen-infobox-article {
+        .yusen-infobox-header {
+          display: none;
+        }
+      }
+    }
+  }
 }

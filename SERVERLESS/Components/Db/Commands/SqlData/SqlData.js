@@ -7,45 +7,53 @@ class SqlData {
     this.comm = comm;
   }
 
-  async getRecordsetParams() {
-    let tokenkey = await this.auth.getJwtTokenkey();
-    if (!tokenkey) {
-      this.comm.res.setResultErr();
-    }
+  async getReportParams(portalOwnersId, userId, reportId, lang, where) {
+    let userParams = await this.auth.getUserParams(portalOwnersId, userId);
+    let reportParamsOwnerLevel = userParams?.portalOwnerParams?.gridReports;
+    let reportParamsUserLevel = userParams?.userLevelParams?.gridReports;
+    let reportParamsUser = userParams?.userParams?.gridReports;
 
-    let portalOwnersId = this.comm.req.req.body.body.portalOwnerId;
+    reportParamsOwnerLevel = reportParamsOwnerLevel
+      ? reportParamsOwnerLevel[reportId] || {}
+      : {};
+    reportParamsUserLevel = reportParamsUserLevel
+      ? reportParamsUserLevel[reportId] || {}
+      : {};
+    reportParamsUser = userParams ? userParams[reportId] || {} : {};
 
-    let decodedToken = await this.auth.decodeToken(
-      portalOwnerId,
-      this.comm.req.req.body.header.token,
-      tokenkey
-    );
-    if (!decodedToken.result) {
-      this.comm.res.setResultErr("nok");
-      return;
-    }
-
-    let userParams = auth.getUserParams(portalOwnersId, decodedToken.usersId);
-    let requestBody = this.comm.req.req.body.body;
-    let reportParams =
-      userParams?.portalOwnerParams?.gridReport[requestBody.reportId];
-
-    if (!userParams || !reportParams) {
-      this.comm.res.setResultErr("nok");
-      return;
-    }
-
-    let baseDef = reportParams["base-definitions"]["recordset"];
-
-    const outParams = await this.sp.WAT_INTERFACE_getRecordsetParams({
-      portalOwnersId: portalOwnerId,
-      usersId: decodedToken?.usersId,
-      tableCode: baseDef.tableCode,
-      TOP: reportParams["base-definitions"]?.recordset?.TOP,
-      FROM: reportParams["base-definitions"]?.recordset?.FROM,
-      WHERE: requestBody.where,
-      GROUP_BY: baseDef.sqlGroupBy,
-    });
+    return {
+      lang: (lang) ? lang : 'en',
+      columns: reportParamsUserLevel.columns || reportParamsOwnerLevel.columns,
+      sqlSelect: (
+        reportParamsUser.selectedColumns ||
+        reportParamsUserLevel.selectedColumns ||
+        reportParamsOwnerLevel.selectedColumns
+      ).join(),
+      sqlTop:
+        reportParamsUser.sqlTop ||
+        reportParamsUserLevel.sqlTop ||
+        reportParamsOwnerLevel.sqlTop,
+      sqlFrom: reportParamsOwnerLevel.sqlFrom,
+      sqlWhere: where,
+      tableCode: reportParamsOwnerLevel.tableCode,
+      filters: reportParamsUserLevel.filters || reportParamsOwnerLevel.filters,
+      sqlOrderBy:
+        reportParamsUser.orderBy ||
+        reportParamsUserLevel.orderBy ||
+        reportParamsOwnerLevel.orderBy,
+      rowCountPerPage:
+        reportParamsUser.rowCountPerPage ||
+        reportParamsUserLevel.rowCountPerPage ||
+        reportParamsOwnerLevel.rowCountPerPage,
+      selectedFilters:
+        reportParamsUser.selectedFilters ||
+        reportParamsUserLevel.selectedFilters ||
+        reportParamsOwnerLevel.selectedFilters,
+      selectedColumns:
+        reportParamsUser.selectedColumns ||
+        reportParamsUserLevel.selectedColumns ||
+        reportParamsOwnerLevel.selectedColumns,
+    };
   }
 
   async getData() {
@@ -65,31 +73,34 @@ class SqlData {
       this.comm.res.setResultErr("nok");
       return;
     }
+    const reqBody = this.comm.req.req.body.body;
+    const lang = this.comm.req.req.body.header.lang;
+    const userId = decodedToken.tokenData._id;
+    const reportParams = await this.getReportParams(
+      portalOwnerId,
+      userId,
+      reqBody.reportId,
+      lang,
+      reqBody.where
+    );
 
-    const reportId = this.comm.req.req.body.body.reportId;
-    let params = {};
+    const validSelectedColumns = reportParams.selectedColumns.filter(c => { return reportParams.columns.some(validColumn => { return (c === validColumn.field) }) })
 
-    if (reportId === "ReportUpsTrackTrace") {
-      params.portalOwnersId = 1038470;
-      params.usersId = decodedToken.tokenData._id;
-      params.tableCode = "UPS_TrackTrace";
-      params.whereQuery = "";
-      params.select =
-        "PositionNumber, ItemNo, CustomerNo, DispositionNo, LoadingDate, Loadingplace, UnloadingDate, UnloadingPlace, TransportStatus";
-      params.top = 50;
-      params.from = "U_UPS_TrackTrace_TEVA";
-      params.where = this.comm.req.req.body.body.where;
-      params.groupBy = "";
-      params.orderBy = "PositionNumber";
-      params.lang = "hu";
-      params.pageNo = 0;
-      params.rowsPerPage = 50;
-    }
-
-    const outParams = await this.sp.WAT_INTERFACE_getData(params);
+    const outParams = await this.sp.WAT_INTERFACE_getData(
+      portalOwnerId,
+      userId,
+      reportParams
+    );
     this.comm.res.setResultOk({
       data: outParams.data,
-      columns: outParams.columns,
+      columns: reportParams.columns,
+      selectedColumns: validSelectedColumns.map(columnName => {
+        const columnParams = reportParams.columns.find( c => (c.field === columnName) )
+        return {
+          field: columnName,
+          type: columnParams.type
+        }
+      })
     });
     return;
   }

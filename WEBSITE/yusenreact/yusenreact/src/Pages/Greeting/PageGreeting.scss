@@ -1,28 +1,38 @@
 @import "../../App.scss";
 
 .page-greeting {
-    main {
-        position: relative;
-        height: 100vh;
-        min-height: 768px;
-        background-image: url(./BackgroundGreeting.png);
-        background-repeat: no-repeat;
-        background-size: cover;
+  main {
+    position: relative;
+    height: 100vh;
+    min-height: 768px;
+    background-image: url(./BackgroundGreeting.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 
-        .yusen-infobox {
-            .header-area {
-                text-align: center;
-            }
+    .yusen-infobox {
+      .header-area {
+        text-align: center;
+      }
 
-            .infoText-area {
-                text-align: center;
-            }
+      .infoText-area {
+        text-align: center;
+      }
 
-            .input-field-area {
-                margin: 15px 0 40px 0;
-                display: flex;
-                justify-content: center;
-            }
-        }
+      .input-field-area {
+        margin: 15px 0 40px 0;
+        display: flex;
+        justify-content: center;
+      }
     }
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  .page-greeting {
+    main {
+      height: 0;
+      background-image: none;
+      background-color: $YUSEN_BLACK_10;
+    }
+  }
 }

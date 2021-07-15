@@ -10,3 +10,15 @@
         background-size: cover;
     }
 }
+
+
+@media only screen and (max-width: 530px) {
+    .page-contact-vienna {
+      main {
+        height: 0;
+        background-image: none;
+        background-color: $YUSEN_BLACK_10;
+      }
+    }
+  }
+  

@@ -211,8 +211,8 @@ class StoredProcedures {
       npm_mssql.Int,
       params.portalOwnersId
     );
-    dbRequest.input("userId", npm_mssql.Int, params.userId);
-    dbRequest.output("OUT_Users_Params", npm_mssql.NVarChar("max"));
+    dbRequest.input("UsersID", npm_mssql.Int, params.userId);
+    dbRequest.output("OUT_User_Params", npm_mssql.NVarChar("max"));
     dbRequest.output("OUT_UserLevel_Params", npm_mssql.NVarChar("max"));
     dbRequest.output("OUT_Portal_Owners_Params", npm_mssql.NVarChar("max"));
     dbRequest.output("OUT_Results", npm_mssql.NVarChar(255));
@@ -222,12 +222,12 @@ class StoredProcedures {
         dbRequest,
         "WAT_INTERFACE_GET_USER_PARAMS"
       );
-      if (dbResults.output.OUT_Result === "ok") {
+      if (dbResults.output.OUT_Results === "ok") {
         outParams = {
           result: true,
-          userParams: dbRequest.output.OUT_User_Params,
-          userLevelParams: dbRequest.output.OUT_UserLevelParams,
-          portalOwnerParams: dbRequest.output.OUT_Portal_Owners_Params,
+          userParams: JSON.parse(dbResults.output.OUT_User_Params),
+          userLevelParams: JSON.parse(dbResults.output.OUT_UserLevel_Params),
+          portalOwnerParams: JSON.parse(dbResults.output.OUT_Portal_Owners_Params),
         };
       }
     } catch (error) {
@@ -278,32 +278,32 @@ class StoredProcedures {
     return outParams;
   }
 
-  async WAT_INTERFACE_getData(params) {
+  async WAT_INTERFACE_getData(portalOwnerId, userId, reportParams) {
     let dbRequest = this.db.getNewRequest();
     let outParams = {
       result: false,
     };
 
-    let sqlTop = params.top ?? 0;
+    let sqlTop = reportParams.sqlTop ?? 0;
 
     dbRequest.input(
       "WAT_Portal_Owners_ID",
       npm_mssql.Int,
-      params.portalOwnersId
+      portalOwnerId
     );
-    dbRequest.input("UsersID", npm_mssql.Int, params.usersId);
-    dbRequest.input("TableCode", npm_mssql.NVarChar(50), params.tableCode);
-    dbRequest.input("WhereQuery", npm_mssql.NVarChar("max"), params.whereQuery);
-    dbRequest.input("SELECT", npm_mssql.NVarChar("max"), params.select);
+    dbRequest.input("UsersID", npm_mssql.Int, userId);
+    dbRequest.input("TableCode", npm_mssql.NVarChar(50), reportParams.tableCode);
+    dbRequest.input("WhereQuery", npm_mssql.NVarChar("max"), reportParams.sqlWhereQuery);
+    dbRequest.input("SELECT", npm_mssql.NVarChar("max"), reportParams.sqlSelect);
     dbRequest.input("TOP", npm_mssql.Int, sqlTop);
-    dbRequest.input("FROM", npm_mssql.NVarChar("max"), params.from);
-    dbRequest.input("WHERE", npm_mssql.NVarChar("max"), params.where);
-    dbRequest.input("GROUP_BY", npm_mssql.NVarChar("max"), params.groupBy);
-    dbRequest.input("ORDER_BY", npm_mssql.NVarChar("max"), params.orderBy);
-    dbRequest.input("Lang", npm_mssql.NVarChar(10), params.lang);
+    dbRequest.input("FROM", npm_mssql.NVarChar("max"), reportParams.sqlFrom);
+    dbRequest.input("WHERE", npm_mssql.NVarChar("max"), reportParams.sqlWhere);
+    dbRequest.input("GROUP_BY", npm_mssql.NVarChar("max"), reportParams.sqlGroupBy);
+    dbRequest.input("ORDER_BY", npm_mssql.NVarChar("max"), reportParams.sqlOrderBy);
+    dbRequest.input("Lang", npm_mssql.NVarChar(10), reportParams.lang);
 
-    dbRequest.input("PAGE_NO", npm_mssql.Int, params.pageNo);
-    dbRequest.input("ROWS_PER_PAGE", npm_mssql.Int, params.rowsPerPage);
+    dbRequest.input("PAGE_NO", npm_mssql.Int, reportParams.pageNo);
+    dbRequest.input("ROWS_PER_PAGE", npm_mssql.Int, reportParams.rowsPerPage);
     dbRequest.output("OUT_ErrCode", npm_mssql.NVarChar(255));
     dbRequest.output("OUT_ErrParams", npm_mssql.NVarChar("max"));
 
