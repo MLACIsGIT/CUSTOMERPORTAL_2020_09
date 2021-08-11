@@ -4,7 +4,7 @@ import "./PageContact.scss"
 import HeaderLine from "../../Components/HeaderLine/HeaderLine"
 import ContactHamMenu from "./ContactHamMenu/ContactHamMenu"
 
-export default function PageTracking(props) {
+export default function PageContact(props) {
     const [hamShowed, showHam] = useState(true)
 
     function onHamClicked() {
@@ -32,7 +32,7 @@ export default function PageTracking(props) {
                 />
             </aside>
             <main className="page-contact-main">
-valami
+
             </main>
         </div>
     )

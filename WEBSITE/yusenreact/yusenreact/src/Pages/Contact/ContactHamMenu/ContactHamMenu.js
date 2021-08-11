@@ -1,7 +1,7 @@
 import HamMenu from "../../../Components/HamMenu/HamMenu";
 import * as LangJSON from "./ContactHamMenu-lang";
 
-export default function TrackingHamMenu(props) {
+export default function ContactHamMenu(props) {
     const LangElements = LangJSON.langJSON();
 
     return (

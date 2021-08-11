@@ -12,7 +12,7 @@ export default function TrackingHamMenu(props) {
             menuItems={
                 [
                     { itemId: "tracking-system", link: "/tracking/trackingsystem" },
-                    { itemId: "yusen-vantage" }
+                    { itemId: "yusen-vantage", link: "/tracking/yusenvantage" }
                 ]
             } />
     )

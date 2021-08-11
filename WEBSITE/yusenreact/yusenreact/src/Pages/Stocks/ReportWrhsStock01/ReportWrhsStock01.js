@@ -1,16 +1,16 @@
 import GridReport from "../../../_SelComponents/_SelWebComponents/GridReport/GridReport";
-import LangJSON from "./ReportInvoices01-lang";
+import LangJSON from "./ReportWrhsStock01-lang";
 
 export default function ReportInvoices01(props) {
   return (
-    <div className="ReportInvoices01">
+    <div className="ReportWrhsStock01">
       <GridReport
-        id="ReportInvoices01"
+        id="ReportWrhsStock01"
         lang={props.lang}
         loginData={props.loginData}
         db={props.db}
         report={{
-          reportId: "ReportInvoices01",
+          reportId: "ReportWrhsStock01",
           languageElements: LangJSON()
         }}
       />

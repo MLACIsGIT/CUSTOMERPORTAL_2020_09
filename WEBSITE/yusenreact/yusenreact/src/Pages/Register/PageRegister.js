@@ -29,7 +29,7 @@ export default function PageRegister(props) {
         <div className="page-register">
             <HeaderLine
                 lang={props.lang}
-                selectedPage={"greeting"}
+                selectedPage={"register"}
                 loginData={props.loginData}
             />
             <main className="page-register-main">

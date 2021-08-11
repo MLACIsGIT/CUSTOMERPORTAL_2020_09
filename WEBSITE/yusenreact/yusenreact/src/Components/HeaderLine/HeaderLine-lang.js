@@ -12,6 +12,12 @@ export function langJSON() {
                 "en": "CUSTOMER PORTAL"
             },
 
+            "header-title-register": {
+                "hu": "REGISZTRÁCIÓ",
+                "de": "REGISTRIERUNG",
+                "en": "REGISTRATION"
+            },
+
             "header-title-login": {
                 "hu": "ÜGYFÉLKAPU - Belépés",
                 "de": "CUSTOMER PORTAL - Login",

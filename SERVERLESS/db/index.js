@@ -57,6 +57,10 @@ module.exports = async function (context, req) {
       await sqlData.getData();
       break;
 
+    case "getReportParams":
+      await sqlData.getReportParams();
+      break;
+
     default:
       comm.res.setResultErr(`Unknown function ${funcCode}`);
       break;

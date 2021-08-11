@@ -72,3 +72,11 @@ body {
     height: 32px;
     background-image: url("./PicturesForSelComponents/LoggedUser-user-icon.svg");
 }
+
+#InvoiceDownloader-fileDownload-icon {
+    border: none;
+    color: $YUSEN_BLACK_80;
+    width: 32px;
+    height: 32px;
+    background-image: url("./PicturesForSelComponents/fileDownload-icon.svg");
+}

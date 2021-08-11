@@ -1,20 +1,25 @@
-import { Redirect } from "react-router-dom"
-import HeaderLine from "../../Components/HeaderLine/HeaderLine"
+import { Redirect } from "react-router-dom";
+import HeaderLine from "../../Components/HeaderLine/HeaderLine";
+import ReportWrhsStock01 from "./ReportWrhsStock01/ReportWrhsStock01";
 
 export default function PageTracking(props) {
-    if (props.loginData.user === null) {
-        return (
-            <Redirect to="/" />
-        )
-    }
+  if (props.loginData.user === null) {
+    return <Redirect to="/" />;
+  }
 
-    return (
-        <div className="page-stocks">
-            <HeaderLine
-                lang={props.lang}
-                selectedPage={"stocks"}
-                loginData={props.loginData}
-            />
-        </div>
-    )
+  return (
+    <div className="page-stocks">
+      <HeaderLine
+        lang={props.lang}
+        selectedPage={"stocks"}
+        loginData={props.loginData}
+      />
+
+      <ReportWrhsStock01
+        lang={props.lang}
+        loginData={props.loginData}
+        db={props.db}
+      />
+    </div>
+  );
 }

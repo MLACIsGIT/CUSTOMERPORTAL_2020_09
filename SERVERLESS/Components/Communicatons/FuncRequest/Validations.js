@@ -49,6 +49,12 @@ class Validations {
         groupBy: Joi.string(),
       }),
 
+      getReportParams: Joi.object({
+        portalOwnerId: Joi.number().integer().required(),
+
+        reportId: Joi.string().min(3).required(),
+      }),
+
       getData: Joi.object({
         portalOwnerId: Joi.number().integer().required(),
 
