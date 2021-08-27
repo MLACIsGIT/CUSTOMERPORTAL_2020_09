@@ -1,7 +1,6 @@
 import './App.scss';
 import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import Settings from './Settings.js';
 import Db from './_SelComponents/_SelWebComponents/js/Db'
 import PageHome from './Pages/Home/PageHome'
 import PageLogin from './Pages/Login/PageLogin'
@@ -10,8 +9,7 @@ import PageContact from './Pages/Contact/PageContact'
 import Header from './Components/Header/Header'
 
 function App() {
-  const settings = Settings();
-  const db = new Db(settings);
+  const db = new Db();
 
   const [lang, setLang] = useState("en");
   const [loginData, setLoginData] = useState({
@@ -56,7 +54,6 @@ function App() {
       <Switch>
         <Route exact path="/">
           <PageLogin
-            settings={settings}
             lang={lang}
             db={db}
             loginData={loginData}
@@ -64,7 +61,7 @@ function App() {
           />
         </Route>
 
-        <Route exact path="/home">
+        <Route exact path="/news">
           <PageHome
             lang={lang}
             loginData={loginData}
@@ -73,7 +70,7 @@ function App() {
           />
         </Route>
 
-        <Route exact path="/track">
+        <Route exact path="/home">
           <PageTrack
             lang={lang}
             loginData={loginData}

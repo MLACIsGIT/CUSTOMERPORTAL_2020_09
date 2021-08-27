@@ -41,6 +41,10 @@ module.exports = async function (context, req) {
       await auth.registerUser();
       break;
 
+    case "registerWithEmail":
+      await auth.registerWithEmail();
+      break;
+
     case "login":
       await auth.login();
       break;

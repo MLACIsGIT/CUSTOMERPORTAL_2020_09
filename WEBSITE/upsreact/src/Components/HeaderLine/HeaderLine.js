@@ -7,14 +7,16 @@ export default function HeaderLine(props) {
     const LangElements = LangJSON.langJSON();
     const lang = props.lang;
     const selectedPage = props.selectedPage;
-    let navbar;
-
-    //let navItems = ["home", "track", "reports", "contact"]
-    let navItems = ["home", "track", "contact"]
 
     function lng(key) {
         return Gl.LANG_GET_FormItem(LangElements, key, lang)
     }
+
+    let navbar;
+/*
+
+    //let navItems = ["home", "track", "reports", "contact"]
+    let navItems = ["home", "track", "contact"]
 
     if (props.loginData?.user !== null && navItems.length > 0) {
         let linkStyle = { width: `calc( 100% / ${navItems.length} - 4px )` }
@@ -34,7 +36,7 @@ export default function HeaderLine(props) {
                     </Link>)
             })
     }
-
+*/
     return (
         <div className="header-line">
             <div className="main-navbar">

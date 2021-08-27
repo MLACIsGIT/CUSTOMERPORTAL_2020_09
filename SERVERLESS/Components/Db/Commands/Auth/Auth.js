@@ -39,7 +39,7 @@ class Auth {
     return result;
   }
 
-  async login() {
+    async login() {
     let outParams = await this.sp.WAT_INTERFACE_getUser({
       portalOwnersId: this.comm.req.req.body.body.portalOwnerId,
       email: this.comm.req.req.body.body.email,

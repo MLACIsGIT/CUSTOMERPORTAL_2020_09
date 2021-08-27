@@ -16,7 +16,7 @@ export default function TevaTrackAndTraceFilter(props) {
                     <label className="col-form-label">{lng('dispositionNumber')}</label>
                 </div>
                 <div className="col-3">
-                    <input type="text" className="form-control reportFilter" data-sql="PositionNumber like'?%'" />
+                    <input type="text" className="form-control reportFilter" data-sql="PositionNo like'?%'" />
                 </div>
             </div>
             <br />
