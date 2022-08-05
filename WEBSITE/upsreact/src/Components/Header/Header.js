@@ -32,7 +32,6 @@ export default function Header(props) {
 
                     <LanguageSelector languages={[
                         { value: "en", text: "en" },
-                        { value: "de", text: "de" },
                         { value: "hu", text: "hu" }
                     ]}
                         defaultLanguage={props.lang}

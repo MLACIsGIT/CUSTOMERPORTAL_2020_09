@@ -7,19 +7,19 @@ export default function langJSON() {
     
         "form-items": {
             "dispositionNumber": {
-                "hu": "Disposition number:",
+                "hu": "Diszpó szám:",
                 "de": "Disposition number:",
                 "en": "Disposition number:",
             },
     
             "itemId": {
-                "hu": "Item no.:",
+                "hu": "Tételszám:",
                 "de": "Item no.:",
                 "en": "Item no.:"
             },
 
             "date": {
-                "hu": "Date:",
+                "hu": "Dátum:",
                 "de": "Date:",
                 "en": "Date:"
             },

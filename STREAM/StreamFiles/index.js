@@ -272,7 +272,7 @@ module.exports = async function (context, req) {
                         let result = (
                           await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
                         );
-    
+                    
                         context.res = {
                             status: 200,
                             headers : {

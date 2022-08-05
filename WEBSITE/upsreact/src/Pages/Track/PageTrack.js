@@ -6,7 +6,7 @@ import * as TevaTrackAndTraceReportLang from "./subComponents/TevaTrackAndTraceR
 import GridReport from "../../_SelComponents/_SelWebComponents/GridReport/GridReport";
 
 export default function PageTrack(props) {
-  if (props.loginData.user === null) {
+  if (!props.loginData.user) {
     return <Redirect to="/" />;
   }
 

@@ -279,6 +279,7 @@ module.exports = async function (context, req) {
                             status: 200,
                             headers : {
                                 'Cache-Control': 'no-cache',
+                                'Access-Control-Expose-Headers': 'Content-Disposition',
                                 'Content-Type': fileMetaData[0].contentType,
                                 'Content-Length': fileMetaData[0].fileLength,
                                 'Content-Disposition': 'attachment; filename=' + encodeURI(fileMetaData[0].origFileName),
