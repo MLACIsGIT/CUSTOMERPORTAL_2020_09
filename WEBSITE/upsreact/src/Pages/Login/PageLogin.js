@@ -32,6 +32,7 @@ export default function PageLogin(props) {
                         settings={props.settings}
                         loginData={props.loginData}
                         onLogin={newLoginData => onLogin(newLoginData)}
+                        onLogout={props.onLogout}
                     />
                 </div>
             </div>

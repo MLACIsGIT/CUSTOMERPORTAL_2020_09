@@ -1,5 +1,5 @@
 import './App.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Db from './_SelComponents/_SelWebComponents/js/Db'
 import PageHome from './Pages/Home/PageHome'
@@ -58,6 +58,7 @@ function App() {
             db={db}
             loginData={loginData}
             onLogin={newLoginData => onLogin(newLoginData)}
+            onLogout={onLogout}
           />
         </Route>
 
