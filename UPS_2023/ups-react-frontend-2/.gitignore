@@ -1,0 +1,31 @@
+# VS Code config
+#.vscode/
+
+# Package dependencies
+node_modules/
+
+# Production
+build/
+dist/
+
+# env variables
+.env*
+# include examples
+!.env.example*
+
+# Docker
+Dockerfile*
+docker-compose*
+# include examples
+!Dockerfile.example*
+!docker-compose.example*
+
+# logs
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Filesystem files
+desktop.ini
+.DS_Store

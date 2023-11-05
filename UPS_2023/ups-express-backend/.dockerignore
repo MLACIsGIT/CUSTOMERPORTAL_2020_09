@@ -1,0 +1,13 @@
+# packages
+node_modules
+yarn.lock
+
+# env
+.env
+
+# docker
+.dockerignore
+Dockerfile
+
+# etc
+logs

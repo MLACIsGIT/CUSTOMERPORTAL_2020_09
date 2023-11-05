@@ -1,0 +1,35 @@
+// Add your variables BEFORE importing bootstrap, so that they will override bootstrap variables.
+//Bootstrap colors
+$primary: #0e2554;
+$secondary: #426da9;
+$success: #00857c;
+$info: #595555;
+$warning: #fa983a;
+$danger: #c08080;
+$light: #dfdbd7;
+$dark: #353b48;
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+/* UPS colors */
+$UPS_DARK_BLUE: #0e2554;
+$UPS_BLUE: #426da9;
+$UPS_TEAL: #00857c;
+$UPS_BROWN_DARK_TONE: #595555;
+$UPS_BROWN_LIGHT_TONE_50: #dfdbd7;
+$UPS_WHITE: #fff;
+
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#LoggedUser-user-icon {
+    border: none;
+    color: $UPS_BROWN_LIGHT_TONE_50;
+    width: 32px;
+    height: 32px;
+    background-image: url("./PicturesForSelComponents/LoggedUser-user-icon.svg");
+}
