@@ -1,3 +1,5 @@
+import ping from '../40_db/storedProcedures/ping';
+
 export default class SystemService {
   static async generateHelloWorld() {
     return {
@@ -6,8 +8,8 @@ export default class SystemService {
   }
 
   static async generateHeartbeat() {
-    return {
-      db: true,
-    };
+    const response = await ping();
+
+    return response;
   }
 }

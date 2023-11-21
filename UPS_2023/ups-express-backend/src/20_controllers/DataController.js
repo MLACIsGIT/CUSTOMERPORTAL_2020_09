@@ -6,9 +6,10 @@ export default class DataController {
     try {
       const { where } = req.body;
       // console.log(req.body);
+      // console.log(req.authInfo);
       checkParamsExist({ where });
 
-      const data = await watInterfaceGetData(where);
+      const { data, code, message } = await watInterfaceGetData(where);
       const response = {
         selectedColumns: [
           // { field: 'ExternalSystem_ID' },
@@ -26,9 +27,9 @@ export default class DataController {
           { field: 'TransportStatus' },
         ],
         data,
+        code,
+        message,
       };
-      //
-      // console.log(req.authInfo);
       res.status(200).json(response);
     } catch (e) {
       next(e);

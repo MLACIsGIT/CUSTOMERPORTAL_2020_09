@@ -118,6 +118,7 @@ export default function useFetchWithMsal(msalRequest) {
         options
       );
       response = await resJSON.json();
+      // console.log(response);
       setData(response);
 
       setIsLoading(false);

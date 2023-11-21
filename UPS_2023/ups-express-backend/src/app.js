@@ -5,7 +5,7 @@ import passport from 'passport';
 
 import errorHandler from './utils/errorHandler';
 import bearerStrategy from './auth/bearerStrategy';
-import authenticate from './auth/authenticate';
+// import authenticate from './auth/authenticate';
 import { apiRouter, systemRouter } from './10_routes';
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(logger.middleware());
 app.use(passport.initialize());
 passport.use(bearerStrategy);
 
-app.use('/api', authenticate, apiRouter);
+app.use('/api', apiRouter);
 app.use('/system', systemRouter);
 
 app.use(errorHandler);
