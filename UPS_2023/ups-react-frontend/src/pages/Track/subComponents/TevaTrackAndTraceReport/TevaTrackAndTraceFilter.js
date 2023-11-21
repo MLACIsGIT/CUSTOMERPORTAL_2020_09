@@ -1,4 +1,3 @@
-// import * as Gl from "../../../../_SelComponents/_SelWebComponents/js/Gl";
 import * as Gl from "../../../../common/Gl";
 import useSettings from "../../../../common/SettingsContext";
 import LangJSON from "./TevaTrackAndTraceFilter-lang";
@@ -8,7 +7,6 @@ export default function TevaTrackAndTraceFilter() {
   const { lang } = useSettings();
 
   function lng(key) {
-    console.log("key", key);
     return Gl.LANG_GET_FormItem(LangElements, key, lang);
   }
 

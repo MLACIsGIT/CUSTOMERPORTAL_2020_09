@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { PublicClientApplication, EventType } from "@azure/msal-browser";
-import { msalConfig, protectedResources } from "./authConfig.js";
+import { msalConfig } from "./authConfig.js";
 import { SettingsProvider } from "./common/SettingsContext";
 /**
  * MSAL should be instantiated outside of the component tree to prevent it from being re-instantiated on re-renders.
@@ -32,7 +32,7 @@ msalInstance.addEventCallback(
   (event) => {
     if (event.eventType === EventType.LOGIN_SUCCESS && event.payload.account) {
       const account = event.payload.account;
-        msalInstance.setActiveAccount(account);
+      msalInstance.setActiveAccount(account);
     }
   },
   (err) => {

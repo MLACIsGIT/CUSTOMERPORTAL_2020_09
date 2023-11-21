@@ -9,13 +9,7 @@ import { useState, useCallback } from "react";
 import { InteractionType } from "@azure/msal-browser";
 import { useMsal, useMsalAuthentication } from "@azure/msal-react";
 import { msalConfig, protectedResources } from "../authConfig";
-// import { protectedResources } from "../authConfig";
 
-/**
- * Custom hook to call a web API using bearer token obtained from MSAL
- * @param {PopupRequest} msalRequest
- * @returns
- */
 export default function useFetchWithMsal(msalRequest) {
   const { instance } = useMsal();
   const [isLoading, setIsLoading] = useState(false);
@@ -24,29 +18,16 @@ export default function useFetchWithMsal(msalRequest) {
 
   const activeAccount = instance.getActiveAccount();
 
-  // console.log("activeAccount-before useMsalAuthentication", activeAccount);
   const {
     acquireToken,
     result,
     error: msalError,
   } = useMsalAuthentication(InteractionType.Redirect, {
     ...msalRequest,
-    // scopes: protectedResources.apiSelData.scopes.read,
     account: activeAccount,
-    // account: null,
-    // redirectUri: "/redirect",
     redirectUri: process.env.REACT_APP_MSAL_REDIRECT_URI,
   });
-  // console.log("useMsalAuthentication result", result);
-  // console.log("useMsalAuthentication ERROR", msalError);
 
-  /**
-   * Execute a fetch request with the given options
-   * @param {string} method: GET, POST, PUT, DELETE
-   * @param {String} endpoint: The endpoint to call
-   * @param {Object} data: The data to send to the endpoint, if any
-   * @returns JSON response
-   */
   const execute = async (method, endpoint, data = null) => {
     if (msalError) {
       setError(msalError);
@@ -69,7 +50,6 @@ export default function useFetchWithMsal(msalRequest) {
       let response = null;
 
       const headers = new Headers();
-      // const bearer = `Bearer ${result.accessToken}`;
       const bearer = `Bearer ${accessToken}`;
       headers.append("Authorization", bearer);
 
@@ -77,7 +57,6 @@ export default function useFetchWithMsal(msalRequest) {
 
       let options = {
         method: method,
-        // mode: "cors",
         headers: headers,
         body: data ? JSON.stringify(data) : null,
       };
@@ -85,9 +64,7 @@ export default function useFetchWithMsal(msalRequest) {
       setIsLoading(true);
 
       const resJSON = await fetch(endpoint, options);
-      // console.log(resJSON);
       response = await resJSON.json();
-      // console.log(response);
       setData(response);
 
       setIsLoading(false);
@@ -107,7 +84,6 @@ export default function useFetchWithMsal(msalRequest) {
       return;
     }
 
-    // console.log("result", result);
     try {
       let accessToken;
 
@@ -124,7 +100,6 @@ export default function useFetchWithMsal(msalRequest) {
       let response = null;
 
       const headers = new Headers();
-      // const bearer = `Bearer ${result.accessToken}`;
       const bearer = `Bearer ${accessToken}`;
       headers.append("Authorization", bearer);
 
@@ -158,13 +133,14 @@ export default function useFetchWithMsal(msalRequest) {
     isLoading,
     error,
     data,
+    // useCallback -- to avoid infinite calls when inside a `useEffect`
     execute: useCallback(execute, [
       msalError,
       result,
       acquireToken,
       msalRequest,
       activeAccount,
-    ]), // to avoid infinite calls when inside a `useEffect`
+    ]),
     fetchSelexpedData: useCallback(fetchSelexpedData, [
       msalError,
       result,

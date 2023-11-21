@@ -6,7 +6,7 @@ export default class DataController {
     try {
       const { where } = req.body;
       // console.log(req.body);
-      // checkParamsExist({ where });
+      checkParamsExist({ where });
 
       const data = await watInterfaceGetData(where);
       const response = {
