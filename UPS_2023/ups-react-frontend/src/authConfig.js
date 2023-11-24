@@ -52,12 +52,12 @@ export const msalConfig = {
  */
 export const protectedResources = {
   apiSelData: {
-    endpoint: `${process.env.REACT_APP_WEB_API_BASE_URL}/api/seldata`,
+    endpoint: `${process.env.REACT_APP_BACKEND_BASE_URL}/api/seldata`,
     scopes: {
       // read: [ "api://Enter_the_Web_Api_Application_Id_Here/Todolist.Read" ],
       // write: [ "api://Enter_the_Web_Api_Application_Id_Here/Todolist.ReadWrite" ]
       read: [
-        `api://${process.env.REACT_APP_MSAL_WEB_API_APPLICATION_ID}/SelData.Read`,
+        `api://${process.env.REACT_APP_MSAL_BACKEND_APPLICATION_ID}/SelData.Read`,
       ],
     },
   },

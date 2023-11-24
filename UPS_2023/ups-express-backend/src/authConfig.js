@@ -1,7 +1,7 @@
 const authConfig = {
   credentials: {
     tenantID: process.env.MSAL_TENANT_ID,
-    clientID: process.env.MSAL_WEB_API_APPLICATION_ID,
+    clientID: process.env.MSAL_BACKEND_APPLICATION_ID,
   },
   metadata: {
     authority: 'login.microsoftonline.com',
