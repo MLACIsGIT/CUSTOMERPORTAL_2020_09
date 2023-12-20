@@ -18,6 +18,7 @@ export default function TevaTrackAndTraceFilter() {
         </div>
         <div className="col-3">
           <input
+            id="PositionNo"
             type="text"
             className="form-control reportFilter"
             data-sql="PositionNo like'?%'"
@@ -31,6 +32,7 @@ export default function TevaTrackAndTraceFilter() {
         </div>
         <div className="col-3">
           <input
+            id="ItemNo"
             type="text"
             className="form-control reportFilter"
             data-sql="ItemNo like'?%'"
@@ -44,6 +46,7 @@ export default function TevaTrackAndTraceFilter() {
         </div>
         <div className="col-3">
           <input
+            id="LoadingDateStart"
             type="date"
             className="form-control reportFilter"
             data-sql="LoadingDate >=?"
@@ -51,6 +54,7 @@ export default function TevaTrackAndTraceFilter() {
         </div>
         <div className="col-3">
           <input
+            id="LoadingDateEnd"
             type="date"
             className="form-control reportFilter"
             data-sql="LoadingDate <=?(2359)"

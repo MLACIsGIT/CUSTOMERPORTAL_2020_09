@@ -66,6 +66,18 @@ export default function GridReport({ id, Filters, report }) {
     return sqlFilters.join(" AND ");
   }
 
+  function getFilters() {
+    const filtersArray = document.querySelectorAll(".reportFilter");
+    const filters = {};
+    let isFilterEmpty = true;
+    filtersArray.forEach((e) => {
+      filters[e.id] = e.value;
+      if (e.value) isFilterEmpty = false;
+    });
+    console.log("filters", filters);
+    return { isFilterEmpty, filters };
+  }
+
   async function showDataIfNotCollapsed(e) {
     // console.log("STARTING showDataIfNotCollapsed");
     if (!e.target.classList.contains("collapsed")) {
@@ -124,6 +136,11 @@ export default function GridReport({ id, Filters, report }) {
     //   });
 
     try {
+      const { isFilterEmpty, filters } = getFilters();
+      if (isFilterEmpty) {
+        setDataLoadingState("MISSING-FILTER");
+        return;
+      }
       const body = {
         lang: lang,
         // header: {
@@ -133,16 +150,13 @@ export default function GridReport({ id, Filters, report }) {
         // body: {
         // portalOwnerId: process.env.REACT_APP_PORTAL_OWNER_ID,
         // reportId: "ReportUpsTrackTrace",
-        where: getSQL(),
+        // where: getSQL(),
+        filters: filters,
         // pageNo: 0,
         // rowsPerPage: 50,
         // },
       };
       // console.log(body);
-      if (!body.where) {
-        setDataLoadingState("MISSING-FILTER");
-        return;
-      }
 
       // const jsonData = await fetchSelexpedData(body);
       const jsonData = await execute(

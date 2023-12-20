@@ -4,12 +4,12 @@ import checkParamsExist from '../utils/checkParamsExist';
 export default class DataController {
   static async getData(req, res, next) {
     try {
-      const { where } = req.body;
+      const { filters } = req.body;
       // console.log(req.body);
       // console.log(req.authInfo);
-      checkParamsExist({ where });
+      checkParamsExist({ filters });
 
-      const { data, code, message } = await watInterfaceGetData(where);
+      const { data, code, message } = await watInterfaceGetData(filters);
       const response = {
         selectedColumns: [
           // { field: 'ExternalSystem_ID' },
