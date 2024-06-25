@@ -27,3 +27,11 @@ function App({ msalInstance }) {
 }
 
 export default App;
+
+/*
+To get interactive access token from Microsoft Entra:
+ - set redirect to localhost (REACT_APP_MSAL_REDIRECT_URI in .env)
+ - run app (port 3200)
+ - uncomment console.log in useFetchWithMsal
+ - log in through the interactive screen, check console (F12) to retrieve token
+*/

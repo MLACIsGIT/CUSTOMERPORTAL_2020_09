@@ -7,10 +7,6 @@ export default function MainPage() {
   const authRequest = {
     ...loginRequest,
   };
-  // console.log("authRequest", authRequest);
-  // function Aaa() {
-  //   return <div>Main page</div>;
-  // }
 
   return (
     <MsalAuthenticationTemplate

@@ -1,7 +1,6 @@
 import { Redirect } from "react-router-dom";
-import HeaderLine from "../../Components/HeaderLine/HeaderLine";
-// import GridReport from "../../_SelComponents/_SelWebComponents/GridReport/GridReport"
-import GridReport from "../../Components/GridReport/GridReport";
+import HeaderLine from "../../components/HeaderLine/HeaderLine";
+import GridReport from "../../components/GridReport/GridReport";
 
 import * as reportTevaTigLang from "./TEVA-TIG-REPORT-lang";
 import TevaTigReportFilter from "./TevaTigReportFilter";
@@ -16,15 +15,12 @@ export default function PageReports(props) {
       <HeaderLine
         lang={props.lang}
         selectedPage={"reports"}
-        // loginData={props.loginData}
       />
 
       <GridReport
         id="REPORT_TEVA_TIG"
         lang={props.lang}
-        // db={props.db}
         settings={props.settings}
-        // loginData={props.loginData}
         Filters={<TevaTigReportFilter />}
         report={{
           reportId: "REPORT_TEVA_TIG",

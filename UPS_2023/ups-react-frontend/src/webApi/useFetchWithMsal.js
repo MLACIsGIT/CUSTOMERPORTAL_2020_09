@@ -52,6 +52,10 @@ export default function useFetchWithMsal(msalRequest) {
       const headers = new Headers();
       const bearer = `Bearer ${accessToken}`;
       headers.append("Authorization", bearer);
+      /*
+      Uncomment below line to get the token from here
+      */
+      // console.log(bearer);
 
       if (data) headers.append("Content-Type", "application/json");
 
@@ -118,7 +122,6 @@ export default function useFetchWithMsal(msalRequest) {
         options
       );
       response = await resJSON.json();
-      // console.log(response);
       setData(response);
 
       setIsLoading(false);
@@ -152,5 +155,3 @@ export default function useFetchWithMsal(msalRequest) {
     ]),
   };
 }
-
-// export default useFetchWithMsal;

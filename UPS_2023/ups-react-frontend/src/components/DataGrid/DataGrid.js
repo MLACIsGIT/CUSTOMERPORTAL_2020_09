@@ -1,10 +1,7 @@
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
 import FieldFormatters from "./FieldFormatters";
-// import * as Gl from "../js/Gl"
 import * as Gl from "../../common/Gl";
-// import "ag-grid-community/dist/styles/ag-grid.css";
-// import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
@@ -29,9 +26,6 @@ export default function DataGrid(props) {
       headerName: lng(`field-${col.field}`),
     };
   });
-
-  // console.log(props.columns);
-  // console.log(columnDefs);
 
   return (
     <div
