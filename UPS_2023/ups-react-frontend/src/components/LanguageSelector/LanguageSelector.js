@@ -16,7 +16,8 @@ export default function LanguageSelector({ languages }) {
       setFieldValues({
         LanguageSelector: newLanguage,
       });
-      Gl.COOKIES_SET("lang", newLanguage);
+      // Gl.COOKIES_SET("lang", newLanguage);
+      Gl.setStorage('lang', newLanguage)
       setLang(newLanguage);
     }
   }
@@ -26,9 +27,16 @@ export default function LanguageSelector({ languages }) {
   }
 
   useEffect(() => {
-    let cookies = Gl.COOKIES_GET();
-    if (cookies.lang !== undefined) {
-      setNewLanguage(cookies.lang);
+    // let cookies = Gl.COOKIES_GET();
+    // if (cookies.lang !== undefined) {
+    //   setNewLanguage(cookies.lang);
+    // }
+    const state = Gl.getStorage();
+    if (state.lang) {
+      setFieldValues({
+        LanguageSelector: state.lang,
+      });
+      setLang(state.lang);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -1,3 +1,5 @@
+import LocalStorage from "./LocalStorage";
+
 export function IsNull(MyText, ValueWhenNull = "") {
   if (MyText === null || MyText === undefined) {
     return ValueWhenNull;
@@ -10,48 +12,65 @@ export function REPLACE_ALL(str, toFind, ReplaceWith) {
   return str.split(toFind).join(ReplaceWith);
 }
 
-export function COOKIES_GET() {
-  let OUT = IsNull(document.cookie, "");
-
-  if (OUT === "") {
-    return JSON.parse("{}");
-  }
-
-  OUT = document.cookie.split(";").map((c) => c.split("="));
-  OUT = JSON.stringify(OUT);
-  OUT = REPLACE_ALL(OUT, '[" ', '["');
-  OUT = REPLACE_ALL(OUT, '","', '": "');
-  OUT = REPLACE_ALL(OUT, "],[", ", ");
-  OUT = REPLACE_ALL(OUT, "[[", "{");
-  OUT = REPLACE_ALL(OUT, "]]", "}");
-  OUT = JSON.parse(OUT);
-
-  return OUT;
+export function setStorage(key, value) {
+  const oldState = LocalStorage.loadState();
+  const newState = {...oldState, [key]: value}
+  LocalStorage.saveState(newState);
 }
 
-export function COOKIES_SET(key, value) {
-  key = IsNull(key, "").trim();
-  value = IsNull(value, "").trim();
-
-  if (key === "") {
-    return;
-  }
-
-  document.cookie = `${key}=${value}; expires=${new Date(
-    2050,
-    0,
-    1
-  ).toUTCString()};path=/`;
+export function getStorage() {
+  const out = LocalStorage.loadState()
+  return out;
 }
 
-export function COOKIES_REMOVE(key) {
-  key = IsNull(key, "").trim;
-
-  if (key > "") {
-    document.cookie =
-      `${key}=''; expires=` + new Date(2001, 0, 1).toUTCString();
-  }
+export function clearStorage(key) {
+  const oldState = LocalStorage.loadState();
+  const newState = {...oldState, [key]: ''}
+  LocalStorage.saveState(newState);
 }
+
+// export function COOKIES_GET() {
+//   let OUT = IsNull(document.cookie, "");
+
+//   if (OUT === "") {
+//     return JSON.parse("{}");
+//   }
+
+//   OUT = document.cookie.split(";").map((c) => c.split("="));
+//   OUT = JSON.stringify(OUT);
+//   OUT = REPLACE_ALL(OUT, '[" ', '["');
+//   OUT = REPLACE_ALL(OUT, '","', '": "');
+//   OUT = REPLACE_ALL(OUT, "],[", ", ");
+//   OUT = REPLACE_ALL(OUT, "[[", "{");
+//   OUT = REPLACE_ALL(OUT, "]]", "}");
+//   OUT = JSON.parse(OUT);
+
+//   return OUT;
+// }
+
+// export function COOKIES_SET(key, value) {
+//   key = IsNull(key, "").trim();
+//   value = IsNull(value, "").trim();
+
+//   if (key === "") {
+//     return;
+//   }
+
+//   document.cookie = `${key}=${value}; expires=${new Date(
+//     2050,
+//     0,
+//     1
+//   ).toUTCString()};path=/`;
+// }
+
+// export function COOKIES_REMOVE(key) {
+//   key = IsNull(key, "").trim;
+
+//   if (key > "") {
+//     document.cookie =
+//       `${key}=''; expires=` + new Date(2001, 0, 1).toUTCString();
+//   }
+// }
 
 export function CRYPTO_SHA512(Str) {
   return crypto.subtle
