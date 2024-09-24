@@ -20,6 +20,7 @@ export function setStorage(key, value) {
 
 export function getStorage() {
   const out = LocalStorage.loadState()
+  // console.log('Storage: ', out)
   return out;
 }
 

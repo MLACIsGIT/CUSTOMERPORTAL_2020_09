@@ -32,7 +32,7 @@ export default function LanguageSelector({ languages }) {
     //   setNewLanguage(cookies.lang);
     // }
     const state = Gl.getStorage();
-    if (state.lang) {
+    if (state?.lang) {
       setFieldValues({
         LanguageSelector: state.lang,
       });
